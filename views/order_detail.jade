@@ -1,0 +1,102 @@
+extends layout
+block content
+    div.content
+        div.row-fluid.force-margin
+            div.span12
+                div.alert.alert-info
+                    strong Information:
+                    | This order can be printed!
+        div.row-fluid.printable.no-margin
+            div.span12
+                div.box
+                    div.box-head
+                        h3='Printable invoice'
+                        div.actions
+                            ul
+                                li
+                                    a.btn.btn-mini.tip(href='#',title='Print this invoice')
+                                        img(src='images/icons/fugue/printer.png',alt='' )
+                    div.box-content
+                        div.invoice
+                            div.invoice-name Order
+                            div.invoice-company
+                                h2='YOUR COMPANY NAME'
+                            div.invoice-from
+                                strong Company Name
+                                address Street Address
+                                    br
+                                    |City, ST ZIP Code
+                                    br
+                                    abbr(title='Phone') Phone:
+                                    |(125) 358123-581
+                                    br
+                                    abbr(title='Fax') Fax:
+                                    |(125) 251656-222
+                            div.invoice-to
+                                strong To:
+                                address Street Address
+                                    br
+                                    |City, ST ZIP Code
+                                    br
+                                    abbr(title='Phone') Phone:
+                                    |(125) 358123-581
+                                    br
+                                    abbr(title='Fax') Fax:
+                                    |(125) 251656-222
+                            div.invoice-infos
+                                table
+                                    tr
+                                        th Date:
+                                        td Aug 06, 2012
+                                    tr
+                                        th No #:
+                                        td 0001752188s
+                            table.table.table-striped.table-invoice.table-bordered
+                                thead
+                                    tr
+                                        th Description
+                                        th Price
+                                        th Qty
+                                        th Total
+                                tbody
+                                    tr
+                                        td.name Lorem ipsum in eu quis
+                                        td.price $30.00
+                                        td.qty 3
+                                        td.total $90.00
+                                    tr
+                                        td.name Lorem ipsum in eu quis
+                                        td.price $30.00
+                                        td.qty 3
+                                        td.total $90.00
+                                    tr
+                                        td.name Lorem ipsum in eu quis
+                                        td.price $30.00
+                                        td.qty 3
+                                        td.total $90.00
+                                    tr
+                                        td.name Lorem ipsum in eu quis
+                                        td.price $30.00
+                                        td.qty 3
+                                        td.total $90.00
+                                    tr
+                                        td.name Lorem ipsum in eu quis
+                                        td.price $30.00
+                                        td.qty 3
+                                        td.total $90.00
+                                    tr
+                                        td
+                                        td
+                                        td.last Total:
+                                        td.total $450.00
+                            div.invoice-footer
+                                h4='COMPANY NAME'
+                                address Street Address
+                                    br
+                                    |City, ST ZIP Code
+                                    br
+                                    abbr(title='Phone') Phone:
+                                    |(125) 358123-581
+                                    br
+                                    abbr(title='Fax') Fax:
+                                    |(125) 251656-222
