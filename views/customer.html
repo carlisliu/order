@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><title></title><meta charset="utf-8"><meta name="name" content="width=device-width"><link rel="stylesheet" href="/stylesheets/bootstrap.css"><link rel="stylesheet" href="/stylesheets/bootstrap-responsive.css"><link rel="stylesheet" href="/stylesheets/jquery.fancybox.css"><link rel="stylesheet" href="/stylesheets/style.css" media="all"></head><body><div class="topbar"><div class="container-fluid"><a href="dashboard.html" class="company">Order Delivery</a><form action="#"><input type="text" value="Order No or date..."></form><ul class="mini"><li><a href="#"><img src="/images/icons/fugue/gear.png" alt="">Settings</a></li><li><a href="#"><img src="/images/icons/fugue/control-power.png" alt="">Logout</a></li></ul></div></div><div class="breadcrumbs"><div class="container-fluid"><ul class="bread pull-left"><li><a href="dashboard.html"><i class="icon-home icon-white"></i></a></li><li><a href="dashboard.html">Dashboard</a></li></ul></div></div><div class="main"></div><div class="container-fluid"><div class="navi"><ul class="main-nav"><li><a href="#" class="light"><div class="ico"><i class="icon-home icon-white"></i></div>Order</a></li><li><a href="/customer/index.html" class="light"><div class="ico"><i class="icon-resize-full icon-white"></i></div>Customer</a></li><li><a href="#" class="light toggle-collapsed"><div class="ico"><i class="icon-th-large icon-white"></i></div>Category</a><ul class="collapsed-nav closed"><li><a href="datatables.html">Data Tables</a></li><li><a href="plaintables.html">Plain Tables</a></li><li><a href="mediatables.htmll">Media Tables</a></li></ul></li><li><a href="#" class="light"><div class="ico"><i class="icon-tasks icon-white"></i></div>Product</a></li></ul></div><div class="content"><div class="row-fluid"><div class="span12"><div class="box"><div class="box-head"><h3>Add Customer</h3></div><div class="box-content"><form action="#" id="customer-form" class="validate form-horizontal"><div class="control-group"><label for="customer-name" class="control-label">Name</label><div class="controls"><input type="text" name="customer-name" id="customer-name" class="required"></div></div><div class="control-group"><label for="customer-tel" class="control-label">Tel</label><div class="controls"><input type="text" name="customer-tel" id="customer-tel" class="required"></div></div><div class="control-group"><label for="customer-addr-street" class="control-label">Address-Street</label><div class="controls"><input type="text" name="customer-addr-street" id="customer-addr-street" class="required span6"></div></div><div class="control-group"><label for="customer-addr-city" class="control-label">Address-City</label><div class="controls"><input type="text" name="customer-addr-city" id="customer-addr-city" class="required"></div></div><div class="control-group"><label for="customer-addr-country" class="control-label">Address-Country</label><div class="controls"><input type="text" name="customer-addr-country" id="customer-addr-country"></div></div><!--div.control-group--><!--    label.control-label(for='sela') Select--><!--    div.controls--><!--        select(class='{required:true}', id='sela', name='sela')--><!--            option(value='Choose one') Choose one--><!--            option(value='1') Option 1--><!--            option(value='2') Option 2--><!--            option(value='3') Option 3--><!--            option(value='4') Option 4--><div class="form-actions"><input type="submit" value="Save" id="save-customer" class="btn btn-primary"><input type="reset" style="margin-left:3px;" class="btn btn-danger"></div></form></div></div></div></div></div></div><script src="/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js"></script><script>(function(){
+    seajs.config({
+        base: '/javascripts/sea-modules/',
+        alias: {
+            'jquery': 'jquery/jquery/1.10.1/jquery.js',
+            'validate': 'jquery/validate/jquery.validate.min.js'
+        }
+    });
+    seajs.use('validate', function($){
+        $('.validate').validate({
+            errorPlacement: function(error, element){
+                element.parents('.controls').append(error);
+            },
+            highlight: function(label){
+                $(label).closest('.control-group').removeClass('error success').addClass('error');
+            },
+            success: function(label){
+                label.addClass('valid').closest('.control-group').removeClass('error success').addClass('success');
+            }
+        });
+    });
+    seajs.use('/javascripts/static/customer/event');
+})();</script></body></html>

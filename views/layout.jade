@@ -4,11 +4,12 @@ html(lang='en')
         title= title
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
-        link(rel='stylesheet', href='/stylesheets/bootstrap.css')
-        link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
-        link(rel='stylesheet', href='/stylesheets/jquery.fancybox.css')
-        link(rel='stylesheet', href='/stylesheets/style.css',media='all')
-        link(rel='stylesheet', href='/stylesheets/print.css',media='print')
+        block css
+            link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+            link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
+            link(rel='stylesheet', href='/stylesheets/jquery.fancybox.css')
+            link(rel='stylesheet', href='/stylesheets/style.css',media='all')
+
     body
         div.topbar
             div.container-fluid
@@ -18,11 +19,11 @@ html(lang='en')
                 ul.mini
                     li
                         a(href='#')
-                            img(src='images/icons/fugue/gear.png', alt='')
+                            img(src='/images/icons/fugue/gear.png', alt='')
                             |Settings
                     li
                         a(href='#')
-                            img(src='images/icons/fugue/control-power.png', alt='')
+                            img(src='/images/icons/fugue/control-power.png', alt='')
                             |Logout
         div.breadcrumbs
             div.container-fluid
@@ -42,7 +43,7 @@ html(lang='en')
                                 i.icon-home.icon-white
                             |Order
                     li
-                        a.light(href='#')
+                        a.light(href='/customer/index.html')
                             div.ico
                                 i.icon-resize-full.icon-white
                             |Customer
@@ -64,3 +65,5 @@ html(lang='en')
                                 i.icon-tasks.icon-white
                             |Product
             block content
+        script(src='/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js')
+        block scriptContent

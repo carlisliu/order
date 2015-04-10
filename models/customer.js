@@ -9,7 +9,11 @@ var CustomerSchema = new Schema({
     id: {type: String},
     name: {type: String},
     tel: {type: String},
-    address: {type: String}
+    address: {
+        street: String,
+        city: String,
+        country: String
+    }
 });
 
 mongoose.model('Customer', CustomerSchema);
