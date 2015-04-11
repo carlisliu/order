@@ -47,21 +47,8 @@ block scriptContent
                 base: '/javascripts/sea-modules/',
                 alias: {
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
-                    'validate': 'jquery/validate/jquery.validate.min.js'
+                    'validate': 'jquery/validate/1.13.1/jquery.validate.js'
                 }
             });
-            seajs.use('validate', function($){
-                $('.validate').validate({
-                    errorPlacement: function(error, element){
-                        element.parents('.controls').append(error);
-                    },
-                    highlight: function(label){
-                        $(label).closest('.control-group').removeClass('error success').addClass('error');
-                    },
-                    success: function(label){
-                        label.addClass('valid').closest('.control-group').removeClass('error success').addClass('success');
-                    }
-                });
-            });
-            seajs.use('/javascripts/static/customer/event');
+            seajs.use(['jquery', '/javascripts/static/customer/event']);
         })();

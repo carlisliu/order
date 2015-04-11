@@ -2,7 +2,7 @@
  * Created by Carlis on 4/10/15.
  */
 define(function (require, exports, module) {
-    var $ = require('validate');
+    var $ = require('jquery');
 
     function Customer(container) {
         container = typeof container === 'string' ? $(container) : container;
