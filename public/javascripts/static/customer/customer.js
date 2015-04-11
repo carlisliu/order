@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     var $ = require('jquery');
 
     function Customer(container) {
-        container = typeof container === 'string' ? $(container) : container;
+        this.container = container = typeof container === 'string' ? $(container) : container;
         this.name = container.find('#customer-name').val();
         this.tel = container.find('#customer-tel').val();
         this.address = {
@@ -27,6 +27,68 @@ define(function (require, exports, module) {
                     $.isFunction(callback) && callback(e);
                 });
             return this;
+        },
+        clear: function () {
+            if (this.container) {
+                this.container.find('input[type="text"]').val('');
+                this.container.find('.control-group').removeClass('error success');
+            }
+            return this;
+        }
+    };
+
+    function template(tmpl, data) {
+        return tmpl.replace(/\{(\w+)\}/g,function (m, i) {
+            return data[i] || '';
+        }).replace(/\{(\d+)\}/g, function (m, i) {
+                return data[i] || '';
+            });
+    }
+
+    Customer.Display = function (container) {
+        this.container = typeof container === 'string' ? $(container) : container;
+        this.template = $.trim($('#customer-row-template').html());
+    };
+    Customer.Display.fn = Customer.Display.prototype = {
+        add: function (data) {
+            this.render(data);
+            return this;
+        },
+        remove: function (id, callback) {
+            var that = this;
+            callback = $.isFunction(callback) ? callback : function () {
+            };
+            if (id) {
+                /*$.post('/customer/remove.html', {id: id}).done(function () {
+                 that.find('table tbody tr[data-customer-id="' + id + '"]').remove();
+                 callback();
+                 }).fail(callback);*/
+                that.container.find('table tbody tr[data-customer-id="' + id + '"]').remove();
+                callback();
+            } else {
+                callback(new Error("Customer's ID is empty, can not delete."));
+            }
+            return this;
+        },
+        render: function (data) {
+            var html = template(this.template, data);
+            this.container.find('table tbody').insertBefore(html);
+            return this;
+        },
+        collectData: function (row, id) {
+            var data = {}, trim = $.trim, tds;
+            if (id) {
+                data.id = trim(row.attr(id));
+            } else {
+                tds = row.find('td');
+                $.each(['name', 'tel', 'address'], function (index, content) {
+                    var result = $(tds[inex]).attr('data-customer-' + content);
+                    if (result) {
+                        data[content] = JSON.parse(result);
+                    }
+                });
+            }
+            return data;
         }
     };
     module.exports = Customer;

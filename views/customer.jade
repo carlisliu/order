@@ -1,4 +1,6 @@
 extends layout
+append css
+    link(rel='stylesheet', href='/stylesheets/jquery.jgrowl.css')
 block content
     div.content
         div.row-fluid
@@ -40,14 +42,73 @@ block content
                             div.form-actions
                                 input.btn.btn-primary(type='submit', value='Save', id='save-customer')
                                 input.btn.btn-danger(type='reset',style='margin-left:3px;')
+        div.row-fluid
+            div.span12
+                div.box
+                    div.box-head.tabs
+                        h3='All Customers'
+                    div.box-content.box-nomargin
+                        div.tab-content
+                            div.tab-pane.active(id='customers-holder')
+                                table.table.table-striped.dataTable.table-bordered
+                                    thead
+                                        tr
+                                            th Name
+                                            th Tel
+                                            th Address
+                                            th Action
+                                    tbody
+                                        tr(data-customer-id="gred")
+                                            td Carlis Liu
+                                            td 18201027282
+                                            td No2. DL Street, Haidian Distract, Beijing City, China
+                                            td.actions
+                                                div.btn-group
+                                                    a.btn.btn-mini.tip(href='#', data-original-title='Change Info', title='Change Info')
+                                                        img(src='/images/icons/fugue/gear.png', alt='')
+                                                    a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
+                                                        img(src='/images/icons/fugue/cross.png', alt='')
+                            div.dataTables_info Showing 1 to 10 of 58 entries
+                            div.dataTables_paginate.paging_bootstrap.pagination
+                                ul
+                                    li.prev.disabled
+                                        a(href='#') &lt;Previous
+                                    li.active
+                                        a(href='#') 1
+                                    li
+                                        a(href='#') 2
+                                    li
+                                        a(href='#') 3
+                                    li
+                                        a(href='#') 4
+                                    li.next
+                                        a(href='#') Next&gt;
+
 block scriptContent
+    script(type='x/template', id='customer-row-template').
+        <tr data-customer-id="{id}">
+            <td data-customer-name="{name}">{name}</td>
+            <td data-customer-tel="{tel}">{tel}</td>
+            <td data-customer-address="{address}">{Address}</td>
+            <td class="actions">
+                <div class="btn-group">
+                    <a href="javascript:void(0);" class="btn btn-mini tip">
+                        <img src="/images/icons/fugue/gear.png" alt=""/>
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-mini tip deleteRow">
+                        <img src="/images/icons/fugue/cross.png" alt=""/>
+                    </a>
+                </div>
+            </td>
+        </tr>
     script.
         (function(){
             seajs.config({
                 base: '/javascripts/sea-modules/',
                 alias: {
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
-                    'validate': 'jquery/validate/1.13.1/jquery.validate.js'
+                    'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js'
                 }
             });
             seajs.use(['jquery', '/javascripts/static/customer/event']);
