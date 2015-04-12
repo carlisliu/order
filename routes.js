@@ -7,6 +7,7 @@ var users = require('./routes/users');
 var customer = require('./routes/customer');
 var category = require('./routes/category');
 var product = require('./routes/product');
+var order = require('./routes/order');
 
 module.exports = function (app) {
     app.use('/', index);
@@ -14,4 +15,5 @@ module.exports = function (app) {
     app.use('/customer', customer);
     app.use('/category', category);
     app.use('/product', product);
+    app.use('/order', order);
 };

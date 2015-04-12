@@ -1,0 +1,107 @@
+extends layout
+append css
+    link(rel='stylesheet', href='/stylesheets/jquery.jgrowl.css')
+block content
+    div.content
+        div.row-fluid
+            div.span12
+                div.box
+                    div.box-head
+                        h3='Choose Customer'
+                    div.box-content
+                        form.validate.form-horizontal(action='#', id='product-form')
+                            div.control-group
+                                label.control-label(for='product-category') Customer
+                                div.controls
+                                    select.required(id='product-category', name='product-category')
+                                        option(value='') Choose one
+                                        each customerItem, customerIndex in customer
+                                            option(value='#{customerItem.id}') #{customerItem.name}
+                            div(id='customer-container')
+                                div.control-group
+                                    label.control-label(for='customer-name') Name
+                                    div.controls
+                                        input.required(type='text',name='customer-name',id='customer-name')
+                                div.control-group
+                                    label.control-label(for='customer-tel') Tel
+                                    div.controls
+                                        input.required.number(type='text',name='customer-tel',id='customer-tel')
+                                div.control-group
+                                    label.control-label(for='customer-addr-street') Address-Street
+                                    div.controls
+                                        input.required.span6(type='text',name='customer-addr-street',id='customer-addr-street')
+                                div.control-group
+                                    label.control-label(for='customer-addr-city') Address-City
+                                    div.controls
+                                        input.required(type='text',name='customer-addr-city',id='customer-addr-city')
+                                div.control-group
+                                    label.control-label(for='customer-addr-country') Address-Country
+                                    div.controls
+                                        input(type='text',name='customer-addr-country',id='customer-addr-country')
+        div.row-fluid
+            div.span12
+                div.box
+                    div.box-head.tabs
+                        h3='All Products'
+                    div.box-content.box-nomargin
+                        div.tab-content
+                            div.tab-pane.active
+                                table.table.table-striped.dataTable.table-bordered(id='customers-holder')
+                                    thead
+                                        tr
+                                            th Name
+                                            th Price
+                                            th Memo
+                                            th Action
+                                        tr(data-product-id="")
+                                            td(data-product-name="") Name
+                                            td(data-product-price="") Price
+                                            td(data-product-memo="") Memo
+                                            td.actions
+                                                div.btn-group
+                                                    a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
+                                                        img(src='/images/icons/fugue/cross.png', alt='')
+                            div.dataTables_info Showing 1 to 10 of 58 entries
+                            div.dataTables_paginate.paging_bootstrap.pagination
+                                ul
+                                    li.prev.disabled
+                                        a(href='#') &lt;Previous
+                                    li.active
+                                        a(href='#') 1
+                                    li
+                                        a(href='#') 2
+                                    li
+                                        a(href='#') 3
+                                    li
+                                        a(href='#') 4
+                                    li.next
+                                        a(href='#') Next&gt;
+block scriptContent
+    script(type='x/template', id='customer-row-template').
+        <tr data-category-id="{id}">
+            <td data-category-name="{name}">{name}</td>
+            <td data-categoryr-memo="{memo}">{tel}</td>
+            <td class="actions">
+                <div class="btn-group">
+                    <a href="javascript:void(0);" class="btn btn-mini tip">
+                        <img src="/images/icons/fugue/gear.png" alt=""/>
+                    </a>
+                    <a href="javascript:void(0);" class="btn btn-mini tip deleteRow">
+                        <img src="/images/icons/fugue/cross.png" alt=""/>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    script.
+        (function(){
+            seajs.config({
+            base: '/javascripts/sea-modules/',
+            alias: {
+                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
+                    'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
+                    'utils': '/javascripts/static/utils/index.js'
+                }
+            });
+            seajs.use(['jquery', '/javascripts/static/category/event']);
+        })();
