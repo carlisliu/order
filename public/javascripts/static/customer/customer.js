@@ -2,7 +2,8 @@
  * Created by Carlis on 4/10/15.
  */
 define(function (require, exports, module) {
-    var $ = require('jquery');
+    var $ = require('jquery'),
+        utils = require('utils');
 
     function Customer(container) {
         this.container = container = typeof container === 'string' ? $(container) : container;
@@ -31,19 +32,15 @@ define(function (require, exports, module) {
         clear: function () {
             if (this.container) {
                 this.container.find('input[type="text"]').val('');
-                this.container.find('.control-group').removeClass('error success');
+                this.clearStyle();
             }
+            return this;
+        },
+        clearStyle: function () {
+            this.container && this.container.find('.control-group').removeClass('error success');
             return this;
         }
     };
-
-    function template(tmpl, data) {
-        return tmpl.replace(/\{(\w+)\}/g,function (m, i) {
-            return data[i] || '';
-        }).replace(/\{(\d+)\}/g, function (m, i) {
-                return data[i] || '';
-            });
-    }
 
     Customer.Display = function (container) {
         this.container = typeof container === 'string' ? $(container) : container;
@@ -59,19 +56,26 @@ define(function (require, exports, module) {
             callback = $.isFunction(callback) ? callback : function () {
             };
             if (id) {
-                /*$.post('/customer/remove.html', {id: id}).done(function () {
-                 that.find('table tbody tr[data-customer-id="' + id + '"]').remove();
-                 callback();
-                 }).fail(callback);*/
-                that.container.find('table tbody tr[data-customer-id="' + id + '"]').remove();
-                callback();
+                $.post('/customer/remove.html', {id: id}).done(function (data) {
+                    that.container.find('table tbody tr[data-customer-id="' + id + '"]').remove();
+                    callback(null, data);
+                }).fail(callback);
             } else {
                 callback(new Error("Customer's ID is empty, can not delete."));
             }
             return this;
         },
         render: function (data) {
-            var html = template(this.template, data);
+            data['fix - address'] = function (address, separator) {
+                var result;
+                separator = separator || ', '
+                result = address.street + separator + address.city;
+                if (address.country) {
+                    result += separator + address.country;
+                }
+                return result;
+            }(data.address);
+            var html = utils.template(this.template, data);
             this.container.find('table tbody').insertBefore(html);
             return this;
         },
@@ -91,5 +95,6 @@ define(function (require, exports, module) {
             return data;
         }
     };
+
     module.exports = Customer;
 });

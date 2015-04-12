@@ -7,13 +7,14 @@ var mongoose = require('mongoose'),
 
 var CustomerSchema = new Schema({
     id: {type: String},
-    name: {type: String},
+    name: {type: String, unique: true},
     tel: {type: String},
     address: {
         street: String,
         city: String,
         country: String
-    }
+    },
+    create_at: {type: Date, default: Date.now}
 });
 
 mongoose.model('Customer', CustomerSchema);

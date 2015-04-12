@@ -4,6 +4,7 @@
 
 define(function (require) {
     var $ = require('jquery');
+
     $(function () {
         var Customer, Display, customerDisplay;
         require('validate');
@@ -19,11 +20,13 @@ define(function (require) {
             e.preventDefault();
             var $this = $(this);
             if ($this.hasClass('deleteRow')) {
-                customerDisplay.remove($this.parents('tr').attr('data-customer-id'), function(){
-                    $.jGrowl('Removed');
+                customerDisplay.remove($this.parents('tr').attr('data-customer-id'), function (err, data) {
+                    $.jGrowl(err ? err.toString() : data.msg);
                 });
             } else {
-                customerDisplay.render();
+                customerDisplay.render(function () {
+                    //TODO
+                });
             }
         });
 
@@ -45,9 +48,11 @@ define(function (require) {
                 customer = new Customer('#customer-form');
                 customer.save(function (err, data) {
                     var msg = err ? 'Error occurs' : data.msg;
-                    if (!err) {
+                    if (!err && data.msg === 'success') {
                         customer.clear();
-                        console.log(data);
+                        customerDisplay.render(data.customer);
+                    } else {
+                        customer.clearStyle();
                     }
                     $.jGrowl(msg);
                 });

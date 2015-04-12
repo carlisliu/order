@@ -37,7 +37,16 @@ var utils = {
     },
     genId: function (prefix) {
         return (prefix || '' ) + moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '');
+    },
+    fixAddress: function (address, separator) {
+        var result = '';
+        separator = separator || ', ';
+        result = address.street + separator + address.city;
+        if (address.country) {
+            result += (separator + address.country);
+        }
+        return result;
     }
 };
 
-exports.utils = utils;
+module.exports = utils;

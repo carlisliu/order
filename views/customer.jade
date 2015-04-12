@@ -17,7 +17,7 @@ block content
                             div.control-group
                                 label.control-label(for='customer-tel') Tel
                                 div.controls
-                                    input.required(type='text',name='customer-tel',id='customer-tel')
+                                    input.required.number(type='text',name='customer-tel',id='customer-tel')
                             div.control-group
                                 label.control-label(for='customer-addr-street') Address-Street
                                 div.controls
@@ -58,10 +58,11 @@ block content
                                             th Address
                                             th Action
                                     tbody
-                                        tr(data-customer-id="gred")
-                                            td Carlis Liu
-                                            td 18201027282
-                                            td No2. DL Street, Haidian Distract, Beijing City, China
+                                    each customerItem, customerIndex in customers
+                                        tr(data-customer-id="#{customerItem.id}")
+                                            td(data-customer-name="#{customerItem.name}") #{customerItem.name}
+                                            td(data-customer-tel="#{customerItem.tel}") #{customerItem.tel}
+                                            td(data-customer-address="#{customerItem.address}") #{customerItem.fixAddress}
                                             td.actions
                                                 div.btn-group
                                                     a.btn.btn-mini.tip(href='#', data-original-title='Change Info', title='Change Info')
@@ -89,7 +90,7 @@ block scriptContent
         <tr data-customer-id="{id}">
             <td data-customer-name="{name}">{name}</td>
             <td data-customer-tel="{tel}">{tel}</td>
-            <td data-customer-address="{address}">{Address}</td>
+            <td data-customer-address="{address}">{fix-address}</td>
             <td class="actions">
                 <div class="btn-group">
                     <a href="javascript:void(0);" class="btn btn-mini tip">
@@ -108,7 +109,8 @@ block scriptContent
                 alias: {
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
                     'validate': 'jquery/validate/1.13.1/jquery.validate.js',
-                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js'
+                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
+                    'utils': '/javascripts/static/utils/index.js'
                 }
             });
             seajs.use(['jquery', '/javascripts/static/customer/event']);
