@@ -13,19 +13,39 @@ function getProductById(id, callback) {
     }
 }
 
-exports.saveProduct = function (product, callback) {
-    var product2Save;
-    if (product) {
-        product2Save = new Product();
-        product2Save.id = utils.genId('P');
-        utils.extend(product2Save, product);
-        product2Save.save(function (err) {
-            if (err) {
-                return callback(err, null);
-            }
-            callback(null, product2Save);
-        });
+function findUniqueProduct(categoryId, name, callback) {
+    if (!categoryId || !name) {
+        return callback(new Error('Search condition is not complete.'));
     }
+    Product.findOne({category_id: categoryId, name: name}, callback);
+}
+
+exports.findUniqueProduct = findUniqueProduct;
+
+exports.saveProduct = function (product, callback) {
+    if (product) {
+        findUniqueProduct(product.category_id, product.name, function (err, foundProduct) {
+            if (err) {
+                return callback(err);
+            }
+            if (foundProduct) {
+                return callback(new Error('Product already exited.'));
+            }
+            var product2Save = new Product();
+            product2Save.id = utils.genId('P');
+            utils.copyProperties(product2Save, product, ['category_id', 'name', 'price', 'picture_uri', 'memo']);
+            product2Save.save(function (err) {
+                product.id = product2Save.id;
+                callback(err, product);
+            });
+        });
+    } else {
+        callback(new Error('Product can not be empty.'));
+    }
+};
+
+exports.removeProductById = function (id, callback) {
+    Product.remove({id: id}, callback);
 };
 
 exports.getProductById = getProductById;

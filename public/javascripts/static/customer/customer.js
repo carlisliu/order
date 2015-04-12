@@ -57,7 +57,7 @@ define(function (require, exports, module) {
             };
             if (id) {
                 $.post('/customer/remove.html', {id: id}).done(function (data) {
-                    that.container.find('table tbody tr[data-customer-id="' + id + '"]').remove();
+                    that.container.find('tbody tr[data-customer-id="' + id + '"]').remove();
                     callback(null, data);
                 }).fail(callback);
             } else {
@@ -66,7 +66,7 @@ define(function (require, exports, module) {
             return this;
         },
         render: function (data) {
-            data['fix - address'] = function (address, separator) {
+            data['fix-address'] = function (address, separator) {
                 var result;
                 separator = separator || ', '
                 result = address.street + separator + address.city;
@@ -76,7 +76,7 @@ define(function (require, exports, module) {
                 return result;
             }(data.address);
             var html = utils.template(this.template, data);
-            this.container.find('table tbody').insertBefore(html);
+            this.container.find('tbody').prepend(html);
             return this;
         },
         collectData: function (row, id) {

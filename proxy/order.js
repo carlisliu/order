@@ -41,6 +41,13 @@ exports.updateOrder = function (order, callback) {
     }
 };
 
+exports.getOrderById = function (id, callback) {
+    if (!id) {
+        return callback(new Error("Order's id can not be empty"));
+    }
+    Order.findOne({id: id}, callback);
+}
+
 exports.getAllOrder = function (callback) {
     Order.find(callback);
 }

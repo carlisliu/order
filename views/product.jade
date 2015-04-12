@@ -7,46 +7,36 @@ block content
             div.span12
                 div.box
                     div.box-head
-                        h3='Add Customer'
+                        h3='Add Product'
                     div.box-content
-                        form.validate.form-horizontal(action='#', id='customer-form')
+                        form.validate.form-horizontal(action='#', id='product-form')
                             div.control-group
-                                label.control-label(for='customer-name') Name
+                                label.control-label(for='product-name') Name
                                 div.controls
-                                    input.required(type='text',name='customer-name',id='customer-name')
+                                    input.required(type='text',name='product-name',id='product-name')
                             div.control-group
-                                label.control-label(for='customer-tel') Tel
+                                label.control-label(for='product-category') Category
                                 div.controls
-                                    input.required.number(type='text',name='customer-tel',id='customer-tel')
+                                    select.required(id='product-category', name='product-category')
+                                        option(value='') Choose one
+                                        each categoryItem, index in category
+                                            option(value='#{categoryItem.id}') #{categoryItem.name}
                             div.control-group
-                                label.control-label(for='customer-addr-street') Address-Street
+                                label.control-label(for='product-price') Price
                                 div.controls
-                                    input.required.span6(type='text',name='customer-addr-street',id='customer-addr-street')
+                                    input.required(type='text',name='product-price',id='product-price')
                             div.control-group
-                                label.control-label(for='customer-addr-city') Address-City
+                                label.control-label(for='product-memo') Memo
                                 div.controls
-                                    input.required(type='text',name='customer-addr-city',id='customer-addr-city')
-                            div.control-group
-                                label.control-label(for='customer-addr-country') Address-Country
-                                div.controls
-                                    input(type='text',name='customer-addr-country',id='customer-addr-country')
-                            //div.control-group
-                            //    label.control-label(for='sela') Select
-                            //    div.controls
-                            //        select(class='{required:true}', id='sela', name='sela')
-                            //            option(value='Choose one') Choose one
-                            //            option(value='1') Option 1
-                            //            option(value='2') Option 2
-                            //            option(value='3') Option 3
-                            //            option(value='4') Option 4
+                                    input.required.span6(type='text',name='product-memo',id='product-memot')
                             div.form-actions
-                                input.btn.btn-primary(type='submit', value='Save', id='save-customer')
+                                input.btn.btn-primary(type='submit', value='Save', id='save-category')
                                 input.btn.btn-danger(type='reset',style='margin-left:3px;')
         div.row-fluid
             div.span12
                 div.box
                     div.box-head.tabs
-                        h3='All Customers'
+                        h3='All Products'
                     div.box-content.box-nomargin
                         div.tab-content
                             div.tab-pane.active
@@ -54,18 +44,15 @@ block content
                                     thead
                                         tr
                                             th Name
-                                            th Tel
-                                            th Address
+                                            th Price
+                                            th Memo
                                             th Action
-                                    each customerItem, customerIndex in customers
-                                        tr(data-customer-id="#{customerItem.id}")
-                                            td(data-customer-name="#{customerItem.name}") #{customerItem.name}
-                                            td(data-customer-tel="#{customerItem.tel}") #{customerItem.tel}
-                                            td(data-customer-address="#{customerItem.address}") #{customerItem.fixAddress}
+                                        tr(data-product-id="")
+                                            td(data-product-name="") Name
+                                            td(data-product-price="") Price
+                                            td(data-product-memo="") Memo
                                             td.actions
                                                 div.btn-group
-                                                    a.btn.btn-mini.tip(href='#', data-original-title='Change Info', title='Change Info')
-                                                        img(src='/images/icons/fugue/gear.png', alt='')
                                                     a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
                                                         img(src='/images/icons/fugue/cross.png', alt='')
                             div.dataTables_info Showing 1 to 10 of 58 entries
@@ -83,13 +70,11 @@ block content
                                         a(href='#') 4
                                     li.next
                                         a(href='#') Next&gt;
-
 block scriptContent
     script(type='x/template', id='customer-row-template').
-        <tr data-customer-id="{id}">
-            <td data-customer-name="{name}">{name}</td>
-            <td data-customer-tel="{tel}">{tel}</td>
-            <td data-customer-address="{address}">{fix-address}</td>
+        <tr data-category-id="{id}">
+            <td data-category-name="{name}">{name}</td>
+            <td data-categoryr-memo="{memo}">{tel}</td>
             <td class="actions">
                 <div class="btn-group">
                     <a href="javascript:void(0);" class="btn btn-mini tip">
@@ -103,6 +88,7 @@ block scriptContent
         </tr>
     script.
         (function(){
+            window.msg = '#{msg}';
             seajs.config({
                 base: '/javascripts/sea-modules/',
                 alias: {
@@ -112,5 +98,5 @@ block scriptContent
                     'utils': '/javascripts/static/utils/index.js'
                 }
             });
-            seajs.use(['jquery', '/javascripts/static/customer/event']);
+            seajs.use(['jquery', '/javascripts/static/category/event']);
         })();

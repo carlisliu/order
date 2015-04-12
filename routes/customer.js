@@ -1,10 +1,10 @@
 /**
  * Created by Carlis on 4/10/15.
- */
+*/
 var express = require('express');
 var router = express.Router();
 var Customer = require('../proxy').Customer;
-var utils = require('../utils/utils')
+var utils = require('../utils/utils');
 
 /* GET home page. */
 router.get('/index.html', function (req, res) {

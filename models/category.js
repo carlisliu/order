@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 
 var CategorySchema = new Schema({
     id: {type: String, unique: true},
-    name: {type: String},
+    name: {type: String, unique: true},
     memo: {type: String},
     create_at: {type: Date, default: Date.now}
 });

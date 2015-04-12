@@ -13,7 +13,7 @@ html(lang='en')
     body
         div.topbar
             div.container-fluid
-                a.company(href='dashboard.html') Order Delivery
+                a.company(href='/') Order Delivery
                 form(action='#')
                     input(type='text',value='Order No or date...')
                 ul.mini
@@ -29,10 +29,11 @@ html(lang='en')
             div.container-fluid
                 ul.bread.pull-left
                     li
-                        a(href='dashboard.html')
+                        a(href='/')
                             i.icon-home.icon-white
                     li
-                        a(href='dashboard.html') Dashboard
+                        -var link = '/' + (title || '').toLowerCase() + '/index.html';
+                        a(href='#{link}') #{title}
         div.main
         div.container-fluid
             div.navi
@@ -48,19 +49,12 @@ html(lang='en')
                                 i.icon-resize-full.icon-white
                             |Customer
                     li
-                        a.light.toggle-collapsed(href='#')
+                        a.light(href='/category/index.html')
                             div.ico
                                 i.icon-th-large.icon-white
                             |Category
-                        ul.collapsed-nav.closed
-                            li
-                                a(href='datatables.html') Data Tables
-                            li
-                                a(href='plaintables.html') Plain Tables
-                            li
-                                a(href='mediatables.htmll') Media Tables
                     li
-                        a.light(href='#')
+                        a.light(href='/product/index.html')
                             div.ico
                                 i.icon-tasks.icon-white
                             |Product

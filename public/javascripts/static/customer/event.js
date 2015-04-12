@@ -16,7 +16,7 @@ define(function (require) {
         });
 
         customerDisplay = new Display('#customers-holder');
-        customerDisplay.container.delegate('table tbody tr a', 'click', function (e) {
+        customerDisplay.container.delegate('tbody tr a', 'click', function (e) {
             e.preventDefault();
             var $this = $(this);
             if ($this.hasClass('deleteRow')) {
@@ -24,9 +24,10 @@ define(function (require) {
                     $.jGrowl(err ? err.toString() : data.msg);
                 });
             } else {
-                customerDisplay.render(function () {
+                $.jGrowl('not implemented yet.')
+                /*customerDisplay.render(function () {
                     //TODO
-                });
+                });*/
             }
         });
 
