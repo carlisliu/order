@@ -6,7 +6,11 @@ define(function (require, exports, module) {
         utils = require('utils');
 
     function Customer(container) {
+        var customerId;
         this.container = container = typeof container === 'string' ? $(container) : container;
+        if ((customerId = container.find('#customer-id')).length) {
+            this.id = customerId.val();
+        }
         this.name = container.find('#customer-name').val();
         this.tel = container.find('#customer-tel').val();
         this.address = {
@@ -38,6 +42,18 @@ define(function (require, exports, module) {
         },
         clearStyle: function () {
             this.container && this.container.find('.control-group').removeClass('error success');
+            return this;
+        },
+        getCustomerById: function (id, callback) {
+            if (!id) {
+                callback(null);
+            } else {
+                $.getJSON('/customer/details/' + id).done(function (data) {
+                    callback(data.customer);
+                }).fail(function (err) {
+                        callback(null);
+                    });
+            }
             return this;
         }
     };

@@ -6,8 +6,8 @@ define(function (require, exports, module) {
 
     function Category(container) {
         container = typeof container === 'string' ? $(container) : container;
-        this.name = container.find('#category-id');
-        this.memo = container.find('category-memo');
+        this.name = container.find('#category-name').val();
+        this.memo = container.find('#category-memo').val();
     }
 
     Category.prototype = {
@@ -16,7 +16,7 @@ define(function (require, exports, module) {
                 name: this.name,
                 memo: this.memo
             };
-            $.post('', {category: category}).done(function (data) {
+            $.post('/category/add.html', {category: category}).done(function (data) {
                 callback(null, data);
             }).fail(function (e) {
                     callback(e);
@@ -24,5 +24,6 @@ define(function (require, exports, module) {
             return this;
         }
     };
+
     module.exports = Category;
 });

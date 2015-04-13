@@ -1,6 +1,6 @@
 /**
  * Created by Carlis on 4/10/15.
-*/
+ */
 var express = require('express');
 var router = express.Router();
 var Customer = require('../proxy').Customer;
@@ -21,10 +21,24 @@ router.get('/index.html', function (req, res) {
     });
 });
 
+router.get('/details/:id', function (req, res) {
+    var id = req.param('id');
+    Customer.findCustomerById(id, function (err, customer) {
+        var responseData = {};
+        if (err) {
+            responseData.status = 'error';
+            responseData.msg = err.toString();
+        } else {
+            responseData.status = 'success';
+            responseData.customer = customer;
+        }
+        res.json(responseData);
+    });
+})
+
 router.post('/add.html', function (req, res) {
     var customer = req.param('customer');
     Customer.addCustomer(customer, function (err, customer) {
-        console.log(err, customer);
         if (err) {
             res.json({msg: err.toString()});
         } else {

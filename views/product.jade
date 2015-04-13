@@ -28,7 +28,7 @@ block content
                             div.control-group
                                 label.control-label(for='product-memo') Memo
                                 div.controls
-                                    input.required.span6(type='text',name='product-memo',id='product-memot')
+                                    input.span6(type='text',name='product-memo',id='product-memo')
                             div.form-actions
                                 input.btn.btn-primary(type='submit', value='Save', id='save-category')
                                 input.btn.btn-danger(type='reset',style='margin-left:3px;')
@@ -98,5 +98,5 @@ block scriptContent
                     'utils': '/javascripts/static/utils/index.js'
                 }
             });
-            seajs.use(['jquery', '/javascripts/static/category/event']);
+            seajs.use(['jquery', '/javascripts/static/product/event']);
         })();

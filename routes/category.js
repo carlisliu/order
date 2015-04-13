@@ -10,7 +10,7 @@ router.get('/index.html', function (req, res) {
     res.render('category', {title: 'Category'})
 });
 
-router.post('add.html', function (req, res) {
+router.post('/add.html', function (req, res) {
     var category = req.param('category');
     console.log(category);
     Category.addCategory(category, function (err, category) {

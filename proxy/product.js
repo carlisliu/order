@@ -29,11 +29,11 @@ exports.saveProduct = function (product, callback) {
                 return callback(err);
             }
             if (foundProduct) {
-                return callback(new Error('Product already exited.'));
+                return callback(new Error('Product already exited at the same category.'));
             }
             var product2Save = new Product();
             product2Save.id = utils.genId('P');
-            utils.copyProperties(product2Save, product, ['category_id', 'name', 'price', 'picture_uri', 'memo']);
+            utils.copyProperties(product2Save, product, ['category_id', 'name', 'price', 'memo']);
             product2Save.save(function (err) {
                 product.id = product2Save.id;
                 callback(err, product);
@@ -55,9 +55,13 @@ exports.updateProduct = function (updProduct, callback) {
         if (err) {
             return callback(err);
         }
-        utils.extend(product, updProduct, ['name', 'price', 'memo', 'category_id']);
+        utils.copyProperties(product, updProduct, ['name', 'price', 'memo', 'category_id']);
         product.update(function (err) {
             callback(err, product);
         });
     });
 }
+
+exports.getProductsByCategoryId = function (categoryId, callback) {
+    Product.find({category_id: categoryId}, callback);
+};

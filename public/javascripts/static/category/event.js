@@ -7,11 +7,6 @@ define(function (require, exports, module) {
     require('validate');
     require('jgrowl');
 
-    if (msg && 'null' !== msg) {
-        $.jGrowl(msg);
-        msg = null;
-    }
-
     $.validator.setDefaults({
         onsubmit: false
     });
@@ -35,11 +30,13 @@ define(function (require, exports, module) {
             if (form.valid()) {
                 var category = new Category('#category-form');
                 category.save(function (err, data) {
-                    var msg = err ? err.toString() : data.msg;
-                    $.jGrowl(msg);
+                    if (data) {
+                        $.jGrowl(data.msg || 'Saved.');
+                    } else {
+                        $.jGrowl('Error occurs.' + e ? e.toString() : '');
+                    }
                 });
             }
         });
-
     });
 });

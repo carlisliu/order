@@ -33,7 +33,7 @@ exports.addCategory = function (category, callback) {
             category2Save.save(function (err) {
                 category.id = category2Save.id;
                 callback(err, category);
-            })
+            });
         });
     } else {
         callback(new Error('Category item can not be empty.'));

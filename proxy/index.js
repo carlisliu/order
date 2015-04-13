@@ -5,3 +5,4 @@
 exports.Customer = require('./customer');
 exports.Category = require('./category');
 exports.Order = require('./order');
+exports.Product=require('./product');

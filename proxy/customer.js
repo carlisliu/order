@@ -45,5 +45,5 @@ exports.findAllCustomers = function (callback) {
 };
 
 exports.findCustomerById = function (id, callback) {
-    Customer.find({id: id }, callback);
+    Customer.findOne({id: id }, callback);
 };

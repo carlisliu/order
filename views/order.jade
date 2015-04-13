@@ -9,16 +9,16 @@ block content
                     div.box-head
                         h3='Choose Customer'
                     div.box-content
-                        form.validate.form-horizontal(action='#', id='product-form')
+                        form.validate.form-horizontal(action='#', id='customer-container')
                             div.control-group
-                                label.control-label(for='product-category') Customer
+                                label.control-label(for='customer-id') Customer
                                 div.controls
-                                    select.required(id='product-category', name='product-category')
+                                    select.required(id='customer-id', name='customer-id')
                                         option(value='') Choose one
                                         each customerItem, customerIndex in customer
                                             option(value='#{customerItem.id}') #{customerItem.name}
-                            div(id='customer-container')
-                                div.control-group
+                            div
+                                div.control-group(style='display:none;')
                                     label.control-label(for='customer-name') Name
                                     div.controls
                                         input.required(type='text',name='customer-name',id='customer-name')
@@ -41,6 +41,45 @@ block content
         div.row-fluid
             div.span12
                 div.box
+                    div.box-head
+                        h3='Choose Product'
+                    div.box-content
+                        form.form(action='#')
+                            div.row-fluid.force-margin
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='select2') Category
+                                        div.controls
+                                            select(name='category-id', id='category-id')
+                                                option Choose One
+                                                each categoryItem, categoryIndex in category
+                                                    option(value='#{categoryItem.id}') #{categoryItem.name}
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='product-id') Product
+                                        div.controls
+                                            select(name='product-id', id='product-id')
+                                                option Choose One
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='product-price') Price
+                                        div.controls
+                                            div.input-prepend
+                                                span.add-on $
+                                                input.required(type='text',name='product-price',id='product-price')
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='product-qty') Qty
+                                        div.controls
+                                            input.required(type='text',name='product-qty',id='product-qty')
+                            div.row-fluid
+                                div.span12
+                                    div.form-actions
+                                        button.btn.btn-primary Add to Order
+                                        input.btn.btn-danger(type='reset', value='Reset', style='margin-left:3px;')
+        div.row-fluid
+            div.span12
+                div.box
                     div.box-head.tabs
                         h3='All Products'
                     div.box-content.box-nomargin
@@ -49,33 +88,25 @@ block content
                                 table.table.table-striped.dataTable.table-bordered(id='customers-holder')
                                     thead
                                         tr
-                                            th Name
+                                            th Category
+                                            th Product
                                             th Price
-                                            th Memo
+                                            th Qty
                                             th Action
                                         tr(data-product-id="")
-                                            td(data-product-name="") Name
-                                            td(data-product-price="") Price
-                                            td(data-product-memo="") Memo
+                                            td(data-product-name="") Category
+                                            td(data-product-price="") Product
+                                            td(data-product-memo="") Price
+                                            td(data-product-memo="") Qty
                                             td.actions
                                                 div.btn-group
                                                     a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
                                                         img(src='/images/icons/fugue/cross.png', alt='')
-                            div.dataTables_info Showing 1 to 10 of 58 entries
-                            div.dataTables_paginate.paging_bootstrap.pagination
-                                ul
-                                    li.prev.disabled
-                                        a(href='#') &lt;Previous
-                                    li.active
-                                        a(href='#') 1
-                                    li
-                                        a(href='#') 2
-                                    li
-                                        a(href='#') 3
-                                    li
-                                        a(href='#') 4
-                                    li.next
-                                        a(href='#') Next&gt;
+                        div.row-fluid
+                            div.span12
+                                div.form-actions
+                                    button.btn.btn-primary Save Order
+                                    input.btn.btn-danger(type='reset', value='Reset', style='margin-left:3px;')
 block scriptContent
     script(type='x/template', id='customer-row-template').
         <tr data-category-id="{id}">
@@ -103,5 +134,5 @@ block scriptContent
                     'utils': '/javascripts/static/utils/index.js'
                 }
             });
-            seajs.use(['jquery', '/javascripts/static/category/event']);
+            seajs.use(['jquery', '/javascripts/static/order/event']);
         })();
