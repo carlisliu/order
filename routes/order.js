@@ -31,7 +31,7 @@ router.post('/add.html', function (req, res) {
     var order = req.param('order');
     Order.createOrder(order, function (err, order) {
         if (err) {
-            return res.json({status: 'error', msg: err.toString(), customer: customer});
+            return res.json({status: 'error', msg: err.toString()});
         }
         res.json({status: 'success', order: order});
     });

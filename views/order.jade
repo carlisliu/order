@@ -1,6 +1,10 @@
 extends layout
 append css
     link(rel='stylesheet', href='/stylesheets/jquery.jgrowl.css')
+    style.
+        #product-qty-actions a {
+            text-decoration: none;
+        }
 block content
     div.content
         div.row-fluid
@@ -71,11 +75,16 @@ block content
                                     div.control-group
                                         label.control-label(for='product-qty') Qty
                                         div.controls
-                                            input.required(type='text',name='product-qty',id='product-qty')
+                                            div.input-append.input-prepend(id='product-qty-actions')
+                                                span.add-on(data-action='minus')
+                                                    a(href='javascript:void(0);') -
+                                                input.span6.required(type='text',name='product-qty',id='product-qty', value='0')
+                                                span.add-on(data-action='add')
+                                                    a(href='javascript:void(0);') +
                             div.row-fluid
                                 div.span12
                                     div.form-actions
-                                        button.btn.btn-primary Add to Order
+                                        button.btn.btn-primary(id='add-to-order') Add to Order
                                         input.btn.btn-danger(type='reset', value='Reset', style='margin-left:3px;')
         div.row-fluid
             div.span12
@@ -85,7 +94,7 @@ block content
                     div.box-content.box-nomargin
                         div.tab-content
                             div.tab-pane.active
-                                table.table.table-striped.dataTable.table-bordered(id='customers-holder')
+                                table.table.table-striped.dataTable.table-bordered(id='order-detail-holder')
                                     thead
                                         tr
                                             th Category
@@ -93,31 +102,22 @@ block content
                                             th Price
                                             th Qty
                                             th Action
-                                        tr(data-product-id="")
-                                            td(data-product-name="") Category
-                                            td(data-product-price="") Product
-                                            td(data-product-memo="") Price
-                                            td(data-product-memo="") Qty
-                                            td.actions
-                                                div.btn-group
-                                                    a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
-                                                        img(src='/images/icons/fugue/cross.png', alt='')
+                                    tbody
                         div.row-fluid
                             div.span12
                                 div.form-actions
                                     button.btn.btn-primary Save Order
-                                    input.btn.btn-danger(type='reset', value='Reset', style='margin-left:3px;')
+                                    input.btn.btn-danger(type='reset',id='clear-order', value='Clear Order', style='margin-left:3px;')
 block scriptContent
-    script(type='x/template', id='customer-row-template').
-        <tr data-category-id="{id}">
-            <td data-category-name="{name}">{name}</td>
-            <td data-categoryr-memo="{memo}">{tel}</td>
+    script(type='x/template', id='product-detail-template').
+        <tr>
+            <td data-key="id,name" data-product-category-id="{category_id}" data-product-category-name="{category_name}">{category_name}</td>
+            <td data-key="id,name" data-product-id="{product_id}" data-product-name="{product_name}">{product_name}</td>
+            <td data-key="price" data-product-price="{product_price}">{product_price}</td>
+            <td data-key="qty" data-prouct-qty="{product_qty}">{product_qty}</td>
             <td class="actions">
                 <div class="btn-group">
-                    <a href="javascript:void(0);" class="btn btn-mini tip">
-                        <img src="/images/icons/fugue/gear.png" alt=""/>
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-mini tip deleteRow">
+                    <a href="javascript:void(0);" class="btn btn-mini tip deleteRow" title="Remove">
                         <img src="/images/icons/fugue/cross.png" alt=""/>
                     </a>
                 </div>

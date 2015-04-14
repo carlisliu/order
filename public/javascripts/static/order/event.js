@@ -13,7 +13,7 @@ define(function (require) {
     require('jgrowl');
 
     $(function () {
-        var categoryEl, productEl;
+        var categoryEl, productEl, productQtyActionEl, productPriceEl, productQtyEl;
         $('#customer-id').change(function () {
             var id = $(this).val();
             if (!id) {
@@ -33,6 +33,9 @@ define(function (require) {
 
         categoryEl = $('#category-id');
         productEl = $('#product-id');
+        productQtyActionEl = $('#product-qty-actions');
+        productPriceEl = $('#product-price');
+        productQtyEl = $('#product-qty');
 
         categoryEl.change(function () {
             var categoryId = categoryEl.val();
@@ -50,17 +53,57 @@ define(function (require) {
         });
 
         productEl.change(function () {
-            var productId = productEl.val(), products, priceEl = $('#product-price');
-            priceEl.val('');
+            var productId = productEl.val(), products;
+            productPriceEl.val('');
             if (productId) {
                 products = productEl.data('productsData');
                 $.each(products, function (index, content) {
                     if (productId === content.id) {
-                        $('#product-price').val(content.price);
+                        productPriceEl.val(content.price);
                         return false;
                     }
                 });
             }
+        });
+
+        productQtyActionEl.delegate('span', 'click', function () {
+            var trim = $.trim;
+            return function (e) {
+                var $this = $(this), action = trim($this.attr('data-action')), qty = parseInt(productQtyEl.val() || 0);
+                switch (action) {
+                    case 'add':
+                        productQtyEl.val(++qty);
+                        break;
+                    case 'minus' :
+                        productQtyEl.val(qty <= 0 ? 0 : --qty);
+                        break;
+                }
+            };
+        }());
+
+        $('#add-to-order').click(function (e) {
+            e.preventDefault();
+            var template, $this = $(this) , html;
+            template = $this.data('template');
+            if (!template) {
+                template = $.trim($('#product-detail-template').html());
+                $this.data('template', template);
+            }
+            var data = {
+                category_id: categoryEl.val(),
+                category_name: categoryEl.find('option:selected').text(),
+                product_id: productEl.val(),
+                product_name: productEl.find('option:selected').text(),
+                product_price: parseFloat(productPriceEl.val()),
+                product_qty: parseFloat(productQtyEl.val())
+            };
+            html = utils.template(template, data);
+            $('#order-detail-holder').find('tbody').append(html);
+        });
+
+        $('#clear-order').click(function(e){
+            e.preventDefault();
+            $('#order-detail-holder').find('tbody').empty();
         });
     });
 });
