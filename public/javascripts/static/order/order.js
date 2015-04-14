@@ -19,6 +19,7 @@ define(function (require, exports, module) {
     Detail.guid = 0;
 
     Detail.prototype = {
+        constructor: Detail,
         setData: function (container) {
             var that = this;
             if ($.isPlainObject(container)) {
@@ -30,6 +31,16 @@ define(function (require, exports, module) {
                 });
             }
             return this;
+        },
+        getData: function () {
+            return {
+                category_id: this.category_id,
+                category_name: this.category_name,
+                product_id: this.product_id,
+                product_name: this.product_name,
+                product_price: this.product_price,
+                product_qty: this.product_qty
+            };
         }
     };
 
@@ -51,6 +62,16 @@ define(function (require, exports, module) {
             }
             return this;
         },
+        getData: function () {
+            var customer = this.customer || {};
+            return {
+                customer_id: customer.customer_id,
+                customer_name: customer.customer_name,
+                customer_tel: customer.customer_tel,
+                customer_address: customer.customer_address,
+                details: this.details
+            };
+        },
         getTotal: function () {
             var total = 0;
             $.each(this.details, function (index, detail) {
@@ -59,8 +80,14 @@ define(function (require, exports, module) {
             return total;
         },
         addDetail: function (detailOrder) {
-            var detail = new Detail(detailOrder);
-            (this.details || (this.details = [])).push(new Detail(detail));
+            var detail;
+            if (detailOrder instanceof Detail) {
+                detail = detailOrder;
+                (this.details || (this.details = [])).push(detail);
+            } else {
+                detail = new Detail(detailOrder);
+                (this.details || (this.details = [])).push(new Detail(detail));
+            }
             return detail.gid;
         },
         removeDetail: function (gid) {

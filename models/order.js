@@ -10,8 +10,11 @@ var OrderSchema = new Schema({
     customer_id: {type: String},
     customer_name: {type: String},
     customer_tel: {type: String},
-    customer_address: {type: String},
-    details : [],
+    customer_address: {
+        street: String,
+        city: String,
+        country: String},
+    details: [],
     memo: {type: String},
     create_at: {type: Date, default: Date.now}
 });

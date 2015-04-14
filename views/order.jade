@@ -13,7 +13,7 @@ block content
                     div.box-head
                         h3='Choose Customer'
                     div.box-content
-                        form.validate.form-horizontal(action='#', id='customer-container')
+                        form.validate.form-horizontal(action='#', id='customer-form')
                             div.control-group
                                 label.control-label(for='customer-id') Customer
                                 div.controls
@@ -48,29 +48,29 @@ block content
                     div.box-head
                         h3='Choose Product'
                     div.box-content
-                        form.form(action='#')
+                        form.form.validate(action='#', id='product-form')
                             div.row-fluid.force-margin
                                 div.span3
                                     div.control-group
                                         label.control-label(for='select2') Category
                                         div.controls
-                                            select(name='category-id', id='category-id')
-                                                option Choose One
+                                            select.required(name='category-id', id='category-id')
+                                                option(value='') Choose One
                                                 each categoryItem, categoryIndex in category
                                                     option(value='#{categoryItem.id}') #{categoryItem.name}
                                 div.span3
                                     div.control-group
                                         label.control-label(for='product-id') Product
                                         div.controls
-                                            select(name='product-id', id='product-id')
-                                                option Choose One
+                                            select.required(name='product-id', id='product-id')
+                                                option(value='') Choose One
                                 div.span3
                                     div.control-group
                                         label.control-label(for='product-price') Price
                                         div.controls
                                             div.input-prepend
                                                 span.add-on $
-                                                input.required(type='text',name='product-price',id='product-price')
+                                                input.required.number.gtZero(type='text',name='product-price',id='product-price')
                                 div.span3
                                     div.control-group
                                         label.control-label(for='product-qty') Qty
@@ -78,7 +78,7 @@ block content
                                             div.input-append.input-prepend(id='product-qty-actions')
                                                 span.add-on(data-action='minus')
                                                     a(href='javascript:void(0);') -
-                                                input.span6.required(type='text',name='product-qty',id='product-qty', value='0')
+                                                input.span6.required.number.gtZero(type='text',name='product-qty',id='product-qty', value='0')
                                                 span.add-on(data-action='add')
                                                     a(href='javascript:void(0);') +
                             div.row-fluid
@@ -101,12 +101,20 @@ block content
                                             th Product
                                             th Price
                                             th Qty
+                                            th Total
                                             th Action
                                     tbody
+                                        tr(data-total='total')
+                                            td
+                                            td
+                                            td
+                                            td(style='text-align:right;') Total:
+                                            td 0
+                                            td
                         div.row-fluid
                             div.span12
                                 div.form-actions
-                                    button.btn.btn-primary Save Order
+                                    button.btn.btn-primary(id='save-order') Save Order
                                     input.btn.btn-danger(type='reset',id='clear-order', value='Clear Order', style='margin-left:3px;')
 block scriptContent
     script(type='x/template', id='product-detail-template').
@@ -115,6 +123,7 @@ block scriptContent
             <td data-key="id,name" data-product-id="{product_id}" data-product-name="{product_name}">{product_name}</td>
             <td data-key="price" data-product-price="{product_price}">{product_price}</td>
             <td data-key="qty" data-prouct-qty="{product_qty}">{product_qty}</td>
+            <td>{total}</td>
             <td class="actions">
                 <div class="btn-group">
                     <a href="javascript:void(0);" class="btn btn-mini tip deleteRow" title="Remove">
