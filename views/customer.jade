@@ -17,7 +17,7 @@ block content
                             div.control-group
                                 label.control-label(for='customer-tel') Tel
                                 div.controls
-                                    input.required.number(type='text',name='customer-tel',id='customer-tel')
+                                    input.required.tel(type='text',name='customer-tel',id='customer-tel')
                             div.control-group
                                 label.control-label(for='customer-addr-street') Address-Street
                                 div.controls
@@ -64,7 +64,7 @@ block content
                                             td(data-customer-address="#{customerItem.address}") #{customerItem.fixAddress}
                                             td.actions
                                                 div.btn-group
-                                                    a.btn.btn-mini.tip(href='#', data-original-title='Change Info', title='Change Info')
+                                                    a.btn.btn-mini.tip(href='#info-modal',data-toggle='modal', data-original-title='Change Info', title='Change Info')
                                                         img(src='/images/icons/fugue/gear.png', alt='')
                                                     a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
                                                         img(src='/images/icons/fugue/cross.png', alt='')
@@ -83,7 +83,35 @@ block content
                                         a(href='#') 4
                                     li.next
                                         a(href='#') Next&gt;
-
+                            div.modal.hide(id='info-modal')
+                                div.modal-header
+                                    button.close(data-dismiss='modal', type='button') ×
+                                    h3='Change Customer Info'
+                                div.modal-body
+                                    form.validate.form-horizontal(action='#', id='customer-change-form')
+                                        div.control-group
+                                            label.control-label(for='customer-name') Name
+                                            div.controls
+                                                input.required(type='text',name='customer-name',id='customer-name')
+                                        div.control-group
+                                            label.control-label(for='customer-tel') Tel
+                                            div.controls
+                                                input.required.tel(type='text',name='customer-tel',id='customer-tel')
+                                        div.control-group
+                                            label.control-label(for='customer-addr-street') Address-Street
+                                            div.controls
+                                                input.required.span6(type='text',name='customer-addr-street',id='customer-addr-street')
+                                        div.control-group
+                                            label.control-label(for='customer-addr-city') Address-City
+                                            div.controls
+                                                input.required(type='text',name='customer-addr-city',id='customer-addr-city')
+                                        div.control-group
+                                            label.control-label(for='customer-addr-country') Address-Country
+                                            div.controls
+                                                input(type='text',name='customer-addr-country',id='customer-addr-country')
+                                div.modal-footer
+                                    a.btn(data-dismiss='modal', href='#') Close
+                                    a.btn.btn-primary(data-dismiss='modal', href='#') Confirm
 block scriptContent
     script(type='x/template', id='customer-row-template').
         <tr data-customer-id="{id}">
@@ -102,12 +130,16 @@ block scriptContent
             </td>
         </tr>
     script.
+
+    script.
         (function(){
             seajs.config({
                 base: '/javascripts/sea-modules/',
                 alias: {
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
                     'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                    'validate.extend': 'jquery/validate/1.13.1/validate.extend.js',
+                    'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js',
                     'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
                     'utils': '/javascripts/static/utils/index.js'
                 }

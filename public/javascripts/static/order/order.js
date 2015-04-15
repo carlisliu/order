@@ -20,18 +20,6 @@ define(function (require, exports, module) {
 
     Detail.prototype = {
         constructor: Detail,
-        setData: function (container) {
-            var that = this;
-            if ($.isPlainObject(container)) {
-                $.extend(this, container);
-            } else {
-                container = typeof container === 'string' ? $(container) : container;
-                $(container).find('td').each(function (index, content) {
-                    // that[]
-                });
-            }
-            return this;
-        },
         getData: function () {
             return {
                 category_id: this.category_id,

@@ -25,14 +25,10 @@ define(function (require) {
 
     require('jgrowl');
     require('validate');
-
+    require('validate.extend');
     $.validator.setDefaults({
         onsubmit: false
     });
-    $.validator.addMethod("gtZero", function (value, element) {
-        value = parseInt(value);
-        return this.optional(element) || value > 0;
-    }, "The input value must be greater than 0");
 
     $(function () {
         var categoryEl, productEl, productQtyActionEl, productPriceEl, productQtyEl, orderDetailEl;

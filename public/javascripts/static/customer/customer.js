@@ -66,6 +66,7 @@ define(function (require, exports, module) {
             container.find('#customer-addr-street').val((this.address.street = customer.address.city));
             container.find('#customer-addr-city').val((this.address.city = customer.address.city));
             container.find('#customer-addr-country').val((this.address.country = customer.address.country));
+            container.find('input[type="text"]').trigger('blur');
             return this;
         }
     };

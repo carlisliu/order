@@ -4,6 +4,7 @@
 define(function (require) {
     var $ = require('jquery'), msg = window.msg, Product = require('./product');
     require('validate');
+    require('validate.extend')
     require('jgrowl');
 
     if (msg && 'null' !== msg) {

@@ -6,11 +6,14 @@ define(function (require) {
     var $ = require('jquery');
 
     $(function () {
-        var Customer, Display, customerDisplay;
+        var Customer, Display, customerDisplay, Modal;
         require('validate');
+        require('validate.extend');
         require('jgrowl');
+        require('bootstrap.modal');
         Customer = require('./customer');
         Display = Customer.Display;
+        Modal = require('../common/modal');
         $.validator.setDefaults({
             onsubmit: false
         });
@@ -18,16 +21,18 @@ define(function (require) {
         customerDisplay = new Display('#customers-holder');
         customerDisplay.container.delegate('tbody tr a', 'click', function (e) {
             e.preventDefault();
+            var modal = new Modal('#info-modal');
             var $this = $(this);
             if ($this.hasClass('deleteRow')) {
-                customerDisplay.remove($this.parents('tr').attr('data-customer-id'), function (err, data) {
-                    $.jGrowl(err ? err.toString() : data.msg);
+                modal.bindFooter('danger', function(){
+                    customerDisplay.remove($this.parents('tr').attr('data-customer-id'), function (err, data) {
+                        $.jGrowl(err ? err.toString() : data.msg);
+                    });
                 });
             } else {
-                $.jGrowl('not implemented yet.')
-                /*customerDisplay.render(function () {
-                    //TODO
-                });*/
+                modal.bindFooter('confirm', function(){
+                    $.jGrowl('closed.');
+                });
             }
         });
 

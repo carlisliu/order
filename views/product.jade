@@ -24,7 +24,7 @@ block content
                             div.control-group
                                 label.control-label(for='product-price') Price
                                 div.controls
-                                    input.required(type='text',name='product-price',id='product-price')
+                                    input.required.price(type='text',name='product-price',id='product-price')
                             div.control-group
                                 label.control-label(for='product-memo') Memo
                                 div.controls
@@ -49,9 +49,9 @@ block content
                                             th Action
                                     each productItem, productIndex in product
                                         tr(data-product-id="#{productItem.id}")
-                                            td(data-product-name="") #{productItem.name}
-                                            td(data-product-price="") #{productItem.price}
-                                            td(data-product-memo="") #{productItem.memo}
+                                            td(data-product-name="#{productItem.name}") #{productItem.name}
+                                            td(data-product-price="#{productItem.price}") #{productItem.price}
+                                            td(data-product-memo="#{productItem.memo}") #{productItem.memo}
                                             td.actions
                                                 div.btn-group
                                                     a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
@@ -95,6 +95,7 @@ block scriptContent
                 alias: {
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
                     'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                    'validate.extend': 'jquery/validate/1.13.1/validate.extend.js',
                     'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
                     'utils': '/javascripts/static/utils/index.js'
                 }

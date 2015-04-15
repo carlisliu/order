@@ -40,6 +40,7 @@ if (app.get('env') === 'development') {
             message: err.message,
             error: err
         });
+       // res.redirect('/');
     });
 }
 
@@ -51,6 +52,7 @@ app.use(function (err, req, res, next) {
         message: err.message,
         error: {}
     });
+   // res.redirect('/');
 });
 
 
