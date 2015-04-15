@@ -33,7 +33,7 @@ var utils = {
         }
     },
     getOrderNo: function () {
-        moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '') + String(Math.random() * 16 | 0).substring(0, 1);
+        return moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '') + String(Math.random() * 16 | 0).substring(0, 1);
     },
     genId: function (prefix) {
         return (prefix || '' ) + moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '');

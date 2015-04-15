@@ -19,7 +19,7 @@ mongoose.connect(config.db, {
 require('./category');
 require('./customer');
 require('./order');
-require('./order_detail');
+//require('./order_detail');
 require('./product');
 
 exports.Category = mongoose.model('Category');

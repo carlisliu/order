@@ -7,7 +7,13 @@ var Category = require('../proxy').Category;
 var utils = require('../utils/utils');
 
 router.get('/index.html', function (req, res) {
-    res.render('category', {title: 'Category'})
+    Category.getAllCategory(function (err, categories) {
+        if (err) {
+            categories = [];
+        }
+        res.render('category', {title: 'Category', category: categories})
+    })
+
 });
 
 router.post('/add.html', function (req, res) {

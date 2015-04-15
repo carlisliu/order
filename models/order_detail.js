@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var OrderDetailSchema = new Schema({
-    order_no: {type: String},
     category_id: {type: String},
     category_name: {type: String},
     product_id: {type: String},

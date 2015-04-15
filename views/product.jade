@@ -47,10 +47,11 @@ block content
                                             th Price
                                             th Memo
                                             th Action
-                                        tr(data-product-id="")
-                                            td(data-product-name="") Name
-                                            td(data-product-price="") Price
-                                            td(data-product-memo="") Memo
+                                    each productItem, productIndex in product
+                                        tr(data-product-id="#{productItem.id}")
+                                            td(data-product-name="") #{productItem.name}
+                                            td(data-product-price="") #{productItem.price}
+                                            td(data-product-memo="") #{productItem.memo}
                                             td.actions
                                                 div.btn-group
                                                     a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')

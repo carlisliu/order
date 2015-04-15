@@ -7,15 +7,25 @@ var Order = require('../models').Order,
     utils = require('../utils/utils');
 
 exports.createOrder = function (order, callback) {
-    if (order) {
-        var order2Save = new Order();
+    var order2Save;
+    if (order && order.details && order.details.length) {
+        order2Save = new Order();
         order2Save.no = utils.getOrderNo();
-        utils.extend(order2Save, order, []);
+        utils.copyProperties(order2Save, order, ['customer_id', 'customer_name', 'customer_tel', 'customer_address']);
+        order2Save.details = [];
+        order.details.forEach(function (content, index) {
+            var orderDetail = new OrderDetail();
+            utils.copyProperties(orderDetail, content, ['category_id', 'category_name', 'product_id', 'product_name', 'product_price', 'product_qty']);
+            order2Save.details.push(orderDetail);
+        });
+        console
+            .log(order2Save);
         order2Save.save(function (err) {
             if (err) {
                 return callback(err);
             }
-            callback(null, order2Save);
+            order.no = order2Save.no;
+            callback(null, order);
         });
     } else {
         callback(new Error('Order info is empty.'));

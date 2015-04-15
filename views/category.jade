@@ -35,9 +35,10 @@ block content
                                             th Name
                                             th Memo
                                             th Action
-                                        tr(data-category-id="")
-                                            td.span5(data-category-name="") Name
-                                            td.span6(data-categoryr-memo="") Memo
+                                    each categoryItem, categoryIndex in category
+                                        tr(data-category-id="#{categoryItem.id}")
+                                            td.span5(data-category-name="") #{categoryItem.name}
+                                            td.span6(data-categoryr-memo="") #{categoryItem.memo}
                                             td.actions.span1
                                                 div.btn-group
                                                     a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')

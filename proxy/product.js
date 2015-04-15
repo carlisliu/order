@@ -65,3 +65,7 @@ exports.updateProduct = function (updProduct, callback) {
 exports.getProductsByCategoryId = function (categoryId, callback) {
     Product.find({category_id: categoryId}, callback);
 };
+
+exports.findAllProducts = function (callback) {
+    Product.find(callback);
+}
