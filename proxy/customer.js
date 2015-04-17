@@ -2,7 +2,8 @@
  * Created by Carlis on 4/11/15.
  */
 var Customer = require('../models').Customer,
-    utils = require('../utils/utils');
+    utils = require('../utils/utils'),
+    eventProxy = require('eventproxy');
 
 exports.removeCustomerById = function (id, callback) {
     Customer.remove({id: id}, callback);
@@ -40,9 +41,28 @@ exports.addCustomer = function (customer, callback) {
     });
 };
 
-exports.findAllCustomers = function (callback) {
-    Customer.find().sort({create_at: -1}).exec(callback);
+exports.updateCustomerById = function (customer, callback) {
+    Customer.update({id: customer.id}, {$set: {
+        name: customer.name,
+        tel: customer.tel,
+        address: customer.address
+    }}, callback);
 };
+
+function findAllCustomers(callback) {
+    Customer.find().sort({create_at: -1}).exec(callback);
+}
+
+exports.findAllCustomers = findAllCustomers;
+
+exports.findCustomerByPagination = function(currentPage, pageSize, callback){
+    var proxy = new eventProxy();
+    proxy.assign('customer', 'total', function(customers, total){
+        callback(null, customers, total);
+    });
+    Customer.find().sort({'create_at': -1}).skip((currentPage - 1) * pageSize).limit(pageSize).exec(proxy.done('customer'));
+    Customer.count(proxy.done('total'));
+}
 
 exports.findCustomerById = function (id, callback) {
     Customer.findOne({id: id }, callback);

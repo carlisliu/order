@@ -5,9 +5,11 @@ define(function (require, exports, module) {
     var $ = require('jquery');
 
     function Category(container) {
-        container = typeof container === 'string' ? $(container) : container;
-        this.name = container.find('#category-name').val();
-        this.memo = container.find('#category-memo').val();
+        if (container) {
+            this.container = container = typeof container === 'string' ? $(container) : container;
+            this.name = container.find('#category-name').val();
+            this.memo = container.find('#category-memo').val();
+        }
     }
 
     Category.prototype = {
@@ -21,6 +23,30 @@ define(function (require, exports, module) {
             }).fail(function (e) {
                     callback(e);
                 });
+            return this;
+        },
+        remove: function (id, callback) {
+            if (id) {
+                $.post('/category/remove.html', {id: id}).done(function (data) {
+                    callback(null, data);
+                }).fail(function (e) {
+                        callback(e);
+                    });
+            } else {
+                callback(new Error("Category's id is empty."));
+            }
+            return this;
+        },
+        clear: function () {
+            if (this.container) {
+                this.container.find('input[type="text"]').val('');
+                this.id = this.name = this.memo = null;
+                this.clearStyle();
+            }
+            return this;
+        },
+        clearStyle: function () {
+            this.container && this.container.find('.control-group').removeClass('error success');
             return this;
         }
     };

@@ -48,6 +48,10 @@ exports.removeProductById = function (id, callback) {
     Product.remove({id: id}, callback);
 };
 
+exports.removeProductsByCategoryId = function (categoryId, callback) {
+    Product.remove({category_id: categoryId}, callback);
+};
+
 exports.getProductById = getProductById;
 
 exports.updateProduct = function (updProduct, callback) {

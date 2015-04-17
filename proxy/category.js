@@ -45,8 +45,8 @@ exports.removeCategoryById = function (id, callback) {
 };
 
 exports.updateCategory = function (category, callback) {
-    if (name) {
-        Category.update({id: category.id}, {$set: {name: category.name, memo: category.momo}}, function (err) {
+    if (category) {
+        Category.update({id: category.id}, {$set: {name: category.name, memo: category.memo}}, function (err) {
             callback(err, category);
         });
     } else {

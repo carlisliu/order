@@ -68,21 +68,15 @@ block content
                                                         img(src='/images/icons/fugue/gear.png', alt='')
                                                     a.btn.btn-mini.tip.deleteRow(href='#info-modal',data-toggle='modal', data-original-title='Remove', title='Remove')
                                                         img(src='/images/icons/fugue/cross.png', alt='')
-                            div.dataTables_info Showing 1 to 10 of 58 entries
-                            div.dataTables_paginate.paging_bootstrap.pagination
+                            div.dataTables_info Showing #{startIndex} to #{endIndex} of #{total} entries
+                            div.dataTables_paginate.paging_bootstrap.pagination(style='display:none;')
                                 ul
                                     li.prev.disabled
-                                        a(href='#') &lt;Previous
+                                        a(href='javascript:void(0);') &lt;Previous
                                     li.active
-                                        a(href='#') 1
-                                    li
-                                        a(href='#') 2
-                                    li
-                                        a(href='#') 3
-                                    li
-                                        a(href='#') 4
-                                    li.next
-                                        a(href='#') Next&gt;
+                                        a(href='javascript:void(0);') 1
+                                    li.next.disabled
+                                        a(href='javascript:void(0);') Next&gt;
                             div.modal.hide(id='info-modal')
                                 div.modal-header
                                     button.close(data-dismiss='modal', type='button') ×

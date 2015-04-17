@@ -37,11 +37,13 @@ block content
                                             th Action
                                     each categoryItem, categoryIndex in category
                                         tr(data-category-id="#{categoryItem.id}")
-                                            td.span5(data-category-name="") #{categoryItem.name}
-                                            td.span6(data-categoryr-memo="") #{categoryItem.memo}
+                                            td.span5(data-category-name="#{categoryItem.name}") #{categoryItem.name}
+                                            td.span6(data-category-memo="#{categoryItem.memo}") #{categoryItem.memo}
                                             td.actions.span1
                                                 div.btn-group
-                                                    a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
+                                                    a.btn.btn-mini.tip(href='#info-modal',data-toggle='modal', data-original-title='Change Info', title='Change Info')
+                                                        img(src='/images/icons/fugue/gear.png', alt='')
+                                                    a.btn.btn-mini.tip.deleteRow(href='#info-modal',data-toggle='modal', data-original-title='Remove', title='Remove')
                                                         img(src='/images/icons/fugue/cross.png', alt='')
                             div.dataTables_info Showing 1 to 10 of 58 entries
                             div.dataTables_paginate.paging_bootstrap.pagination
@@ -52,12 +54,16 @@ block content
                                         a(href='#') 1
                                     li
                                         a(href='#') 2
-                                    li
-                                        a(href='#') 3
-                                    li
-                                        a(href='#') 4
                                     li.next
                                         a(href='#') Next&gt;
+                            div.modal.hide(id='info-modal')
+                                div.modal-header
+                                    button.close(data-dismiss='modal', type='button') ×
+                                    h3='Change Customer Info'
+                                div.modal-body
+                                div.modal-footer
+                                    a.btn(data-dismiss='modal', href='#') Close
+                                    a.btn.btn-primary(data-dismiss='modal', href='#') Confirm
 block scriptContent
     script(type='x/template', id='customer-row-template').
         <tr data-category-id="{id}">
@@ -74,6 +80,23 @@ block scriptContent
                 </div>
             </td>
         </tr>
+    script(type='x/template', id='category-form-template').
+        <div class="modal-body">
+            <form class="validate form-horizontal" action="#" id="category-change-form">
+                <div class="control-group">
+                    <label class="control-label" for="category-name">Name</label>
+                    <div class="controls">
+                        <input class="required" type="text" name="category-name" id="category-name" value="{name}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="category-memo">Memo</label>
+                    <div class="controls">
+                        <input type="text" name="category-memo" id="category-memo" value="{memo}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
     script.
         (function(){
             seajs.config({
@@ -81,6 +104,7 @@ block scriptContent
                 alias: {
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
                     'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                    'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js',
                     'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
                     'utils': '/javascripts/static/utils/index.js'
                 }
