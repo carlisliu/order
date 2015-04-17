@@ -24,14 +24,23 @@ define(function (require, exports, module) {
             return this;
         },
         bindFooter: function (mode, callback) {
-            var actionEl = this.container.find('.modal-footer a'), targetEl;
+            var actionEl = this.container.find('.modal-footer a'), targetEl, that = this;
             targetEl = $(actionEl[1]);
             if (mode === 'confirm') {
                 targetEl.removeClass('btn-danger').addClass('btn-primary');
             } else {
                 targetEl.removeClass('btn-primary').addClass('btn-danger');
             }
-            targetEl.one('click', callback || function () {
+            targetEl.off('click');
+            targetEl.on('click', function () {
+                var _this = this;
+                var result = $.proxy(callback || function () {
+                }, this, that.container)();
+                if (result === false){
+                    targetEl.attr('data-cancel-close', 'true');
+                } else {
+                    targetEl.attr('data-cancel-close', 'false');
+                }
             });
             return this;
         }

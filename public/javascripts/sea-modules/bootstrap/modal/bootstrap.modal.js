@@ -59,8 +59,9 @@ define(function(require, exports, module){
                 })
             }, hide: function (e) {
                 e && e.preventDefault()
-
-                var that = this
+                var dismiss = this.$element.find('[data-dismiss="modal"]');
+                dismiss = $(dismiss[dismiss.length - 1]);
+                if(dismiss.attr('data-cancel-close') === 'true') return;
 
                 e = $.Event('hide')
 
