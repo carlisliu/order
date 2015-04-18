@@ -30,7 +30,7 @@ block content
                                 div.controls
                                     input.span6(type='text',name='product-memo',id='product-memo')
                             div.form-actions
-                                input.btn.btn-primary(type='submit', value='Save', id='save-category')
+                                input.btn.btn-primary(type='submit', value='Save', id='save-product')
                                 input.btn.btn-danger(type='reset',style='margin-left:3px;')
         div.row-fluid
             div.span12
@@ -40,21 +40,25 @@ block content
                     div.box-content.box-nomargin
                         div.tab-content
                             div.tab-pane.active
-                                table.table.table-striped.dataTable.table-bordered(id='customers-holder')
+                                table.table.table-striped.dataTable.table-bordered(id='products-holder')
                                     thead
                                         tr
                                             th Name
-                                            th Price
+                                            th Category
+                                            th Price(￡)
                                             th Memo
                                             th Action
                                     each productItem, productIndex in product
                                         tr(data-product-id="#{productItem.id}")
                                             td(data-product-name="#{productItem.name}") #{productItem.name}
+                                            td(data-product-category="#{productItem.category_id}") #{productItem.category_name}
                                             td(data-product-price="#{productItem.price}") #{productItem.price}
                                             td(data-product-memo="#{productItem.memo}") #{productItem.memo}
                                             td.actions
                                                 div.btn-group
-                                                    a.btn.btn-mini.tip.deleteRow(href='#', data-original-title='Remove', title='Remove')
+                                                    a.btn.btn-mini.tip(href='#info-modal',data-toggle='modal', data-original-title='Change Info', title='Change Info')
+                                                        img(src='/images/icons/fugue/gear.png', alt='')
+                                                    a.btn.btn-mini.tip.deleteRow(href='#info-modal',data-toggle='modal', data-original-title='Remove', title='Remove')
                                                         img(src='/images/icons/fugue/cross.png', alt='')
                             div.dataTables_info Showing 1 to 10 of 58 entries
                             div.dataTables_paginate.paging_bootstrap.pagination
@@ -65,17 +69,23 @@ block content
                                         a(href='#') 1
                                     li
                                         a(href='#') 2
-                                    li
-                                        a(href='#') 3
-                                    li
-                                        a(href='#') 4
                                     li.next
                                         a(href='#') Next&gt;
+                            div.modal.hide(id='info-modal')
+                                div.modal-header
+                                    button.close(data-dismiss='modal', type='button') ×
+                                    h3='Change Product Info'
+                                div.modal-body
+                                div.modal-footer
+                                    a.btn(data-dismiss='modal', href='#') Close
+                                    a.btn.btn-primary(data-dismiss='modal', href='#') Confirm
 block scriptContent
-    script(type='x/template', id='customer-row-template').
-        <tr data-category-id="{id}">
-            <td data-category-name="{name}">{name}</td>
-            <td data-categoryr-memo="{memo}">{tel}</td>
+    script(type='x/template', id='product-row-template').
+        <tr data-product-id="{id}">
+            <td data-product-name="{name}">{name}</td>
+            <td data-product-category="{category_id}">{category_name}</td>
+            <td data-product-price="{price}">{price}</td>
+            <td data-product-memo="{memo}">{memo}</td>
             <td class="actions">
                 <div class="btn-group">
                     <a href="javascript:void(0);" class="btn btn-mini tip">
@@ -87,6 +97,45 @@ block scriptContent
                 </div>
             </td>
         </tr>
+    script(type='x/template', id='product-form-template').
+        <div class="modal-body">
+            <form class="validate form-horizontal" action="#" id="category-change-form">
+                <div class="control-group">
+                    <label class="control-label" for="product-name">Name</label>
+                    <div class="controls">
+                        <input class="required" type="text" name="product-name" id="product-name" value="{name}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="product-name">Name</label>
+                    <div class="controls">
+                        <input class="required" type="text" name="product-name" id="product-name" value="{name}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="product-category">Category</label>
+                    <div class="controls">
+                        <select class="required" id="product-category" name="product-category">
+                        </select>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="product-price">Name</label>
+                    <div class="controls">
+                        <input class="required" type="text" name="product-price" id="product-price" value="{price}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="product-memo">Memo</label>
+                    <div class="controls">
+                        <input type="text" name="product-memo" id="product-memo" value="{memo}"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    - var categoryHtml = JSON.stringify(categoryData);
+    script(type='x/data-category', id="category-data").
+        !{categoryHtml}
     script.
         (function(){
             window.msg = '#{msg}';
@@ -96,6 +145,7 @@ block scriptContent
                     'jquery': 'jquery/jquery/1.10.1/jquery.js',
                     'validate': 'jquery/validate/1.13.1/jquery.validate.js',
                     'validate.extend': 'jquery/validate/1.13.1/validate.extend.js',
+                    'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js',
                     'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
                     'utils': '/javascripts/static/utils/index.js'
                 }

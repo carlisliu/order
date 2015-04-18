@@ -63,3 +63,7 @@ exports.getCategoryById = function (id, callback) {
         callback(new Error('Category id can not be empty.'));
     }
 };
+
+exports.getTotal = function (callback) {
+    Category.count(callback);
+};

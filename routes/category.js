@@ -9,12 +9,12 @@ var utils = require('../utils/utils');
 var EventProxy = require('eventproxy');
 
 router.get('/index.html', function (req, res) {
-    Category.getAllCategory(function (err, categories) {
-        if (err) {
-            categories = [];
-        }
-        res.render('category', {title: 'Category', category: categories})
+    var proxy = new EventProxy();
+    proxy.assign('category_found', 'total_found', function (categories, total) {
+        res.render('category', {title: 'Category', category: categories, total: total});
     });
+    Category.getAllCategory(proxy.done('category_found'));
+    Category.getTotal(proxy.done('total_found'));
 });
 
 router.post('/add.html', function (req, res) {
@@ -34,7 +34,7 @@ router.post('/update.html', function (req, res) {
         if (err) {
             res.json({msg: err.toString()});
         } else {
-            res.json({status: 'success', msg: 'Removed'});
+            res.json({status: 'success', msg: 'Updated'});
         }
     });
 });

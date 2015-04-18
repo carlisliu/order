@@ -62,6 +62,7 @@ define(function (require, exports, module) {
                 el = trim($('#category-form-template').html());
                 modal.setTitle('Change Category Info').setBody(utils.template(el, data)).bindFooter('confirm', function (modal) {
                     var form = modal.find('.validate'), category;
+                    form.validate(validateOpts);
                     if (form.valid()) {
                         category = {
                             id: data.id,
