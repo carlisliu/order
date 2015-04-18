@@ -16,7 +16,7 @@ block content
                         div.actions
                             ul
                                 li
-                                    a.btn.btn-mini.tip(href='#',title='Print this invoice')
+                                    a.btn.btn-mini.tip(href='javascript:printOrder();',title='Print this invoice')
                                         img(src='images/icons/fugue/printer.png',alt='' )
                     div.box-content
                         div.invoice
@@ -102,3 +102,9 @@ block content
                                     br
                                     abbr(title='Fax') Fax:
                                     |(125) 251656-222
+    script.
+        (function(window){
+            window.printOrder = function(){
+                window.print && window.print();
+            };
+        })(window);

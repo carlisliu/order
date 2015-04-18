@@ -6,10 +6,10 @@ var router = express.Router();
 var Order = require('../proxy').Order;
 var Customer = require('../proxy').Customer;
 var Category = require('../proxy').Category;
+var moment = require('moment');
 
 router.get('/details/:id', function (req, res) {
     var orderId = req.params['id'];
-    console.log(orderId);
     Order.getOrderById(orderId, function (err, order) {
         var msg = err ? err.toString() : '';
         if (!order) {
@@ -17,6 +17,37 @@ router.get('/details/:id', function (req, res) {
         }
         res.render('order_detail', {order: order, msg: msg});
     });
+});
+
+router.get('/list.html', function (req, res) {
+    Order.getAllOrder(function (err, orders) {
+        res.render('order_list', {title: 'Order List', orders: (orders || [])});
+    });
+});
+
+router.get('/get.html', function (req, res) {
+    var params = req.param('params'), key;
+    params = params || {};
+    for (key in params) {
+        break;
+    }
+    if (key) {
+        Order.getOrderByParams(params, function (err, orders) {
+            var status = 'success';
+            if (err) {
+                status = 'error'
+            }
+            res.json({status: status, orders: (orders || [])});
+        })
+    } else {
+        Order.getAllOrder(function (err, orders) {
+            var status = 'success';
+            if (err) {
+                status = 'error'
+            }
+            res.json({status: status, orders: orders || []});
+        });
+    }
 });
 
 router.get('/index.html', function (req, res) {

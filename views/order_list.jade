@@ -1,0 +1,73 @@
+extends layout
+append css
+    link(rel='stylesheet', href='/stylesheets/jquery.jgrowl.css')
+    link(rel='stylesheet', href='/stylesheets/datepicker.css')
+block content
+    div.content
+        div.row-fluid
+            div.span12
+                div.box
+                    div.box-head
+                        h3='Search Condition'
+                    div.box-content
+                        form.validate(action='#', id='customer-form')
+                            div.row-fluid.force-margin
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='order-customer') Customer
+                                        div.controls
+                                            select.required(id='order-customer', name='order-customer')
+                                                option(value='') Choose one
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='order-date') Date
+                                        div.controls
+                                            input.required(type='text',name='order-date',id='order-date')
+                                div.span3
+                                    div.control-group
+                                        label.control-label(for='customer-name') Order No.
+                                        div.controls
+                                            input.required(type='text',name='order-no',id='order-no')
+                                div.span3(style='margin-top:15px;')
+                                    button.btn.btn-large.btn-round(id='order-search') Search
+        div.row-fluid
+            div.span12
+                div.box
+                    div.box-head.tabs
+                        h3='All Products'
+                    div.box-content.box-nomargin
+                        div.tab-content
+                            div.tab-pane.active
+                                table.table.table-striped.dataTable.table-bordered(id='order-detail-holder')
+                                    thead
+                                        tr
+                                            th Order No.
+                                            th Date
+                                            th Customer
+                                            th Customer Tel
+                                            th Total Price
+                                    tbody
+block scriptContent
+    script(type='x/template', id='order-result-template').
+        <tr>
+            <td>
+                <a href="#" data-order-no="{no}">{no}</a>
+            </td>
+            <td>{order_date}</td>
+            <td>{customer_name}</td>
+            <td>{customer_tel}</td>
+            <td>{total}</td>
+        </tr>
+    script.
+        (function(){
+            seajs.config({
+            base: '/javascripts/sea-modules/',
+            alias: {
+                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
+                    'datepicker': 'jquery/datepicker/2.0/bootstrap-datepicker.js',
+                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
+                    'utils': '/javascripts/static/utils/index.js'
+                }
+            });
+            seajs.use(['jquery', '/javascripts/static/order/list']);
+        })();

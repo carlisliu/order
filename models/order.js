@@ -3,7 +3,8 @@
  */
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    moment = require('moment');
 
 
 var OrderDetailSchema = new Schema({
@@ -29,6 +30,22 @@ var OrderSchema = new Schema({
     details: [OrderDetailSchema],
     memo: {type: String},
     create_at: {type: Date, default: Date.now}
+}, {
+    toJSON: {virtuals: true}
+});
+
+OrderSchema.virtual('order_date').get(function () {
+    return moment(this.create_at).format('YYYY-MM-DD');
+});
+
+OrderSchema.virtual('total').get(function () {
+    var sum = 0;
+    if (this.details) {
+        this.details.forEach(function (content) {
+            sum += (content.product_price * content.product_qty);
+        });
+    }
+    return sum.toFixed(2);
 });
 
 mongoose.model('Order', OrderSchema);

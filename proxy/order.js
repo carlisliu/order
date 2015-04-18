@@ -18,8 +18,6 @@ exports.createOrder = function (order, callback) {
             utils.copyProperties(orderDetail, content, ['category_id', 'category_name', 'product_id', 'product_name', 'product_price', 'product_qty']);
             order2Save.details.push(orderDetail);
         });
-        console
-            .log(order2Save);
         order2Save.save(function (err) {
             if (err) {
                 return callback(err);
@@ -59,5 +57,18 @@ exports.getOrderById = function (id, callback) {
 }
 
 exports.getAllOrder = function (callback) {
-    Order.find(callback);
+    Order.find().sort({create_at: -1}).exec(callback);
 }
+
+exports.getOrderByParams = function (params, callback) {
+    var date, instance;
+    if (params.create_at) {
+        date = params.create_at;
+        delete  params.create_at;
+    }
+    instance = Order.find(params);
+    if (date) {
+        instance.where('create_at').gt(new Date(date)).lt(new Date(date + ' 23:59:59'));
+    }
+    instance.exec(callback);
+};

@@ -43,7 +43,7 @@ router.get('/details/:id', function (req, res) {
         }
         res.json(responseData);
     });
-})
+});
 
 router.post('/add.html', function (req, res) {
     var customer = req.param('customer');
@@ -76,6 +76,18 @@ router.post('/remove.html', function (req, res) {
         } else {
             res.json({msg: 'Removed'});
         }
+    });
+});
+
+router.get('/get.html', function (req, res) {
+    Customer.findAllCustomers(function (err, customers) {
+        var resCustomer = {};
+        if (!err && customers) {
+            customers.forEach(function (content) {
+                resCustomer[content.id] = content.name;
+            });
+        }
+        res.json({customer: resCustomer});
     });
 });
 
