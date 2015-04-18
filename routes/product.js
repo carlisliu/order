@@ -25,7 +25,7 @@ router.get('/index.html', function (req, res) {
                 });
             }
         }
-        res.render('product', {title: 'Product', category: categories, product: products, msg: msg, categoryData : categoryName});
+        res.render('product', {title: 'Product', category: categories, product: products, msg: msg, categoryData: categoryName});
     });
     Category.getAllCategory(proxy.done('category_found'));
     Product.findAllProducts(proxy.done('product_found'));
@@ -39,6 +39,38 @@ router.post('/add.html', function (req, res) {
                 res.json({status: 'error', msg: err.toString()});
             } else {
                 res.json({status: 'success', msg: 'Saved'});
+            }
+        });
+    } else {
+        res.json({status: 'error', msg: 'Product can not be empty.'});
+    }
+});
+
+router.post('/update.html', function (req, res) {
+    var product = req.param('product');
+    if (product) {
+        Product.updateProduct(product, function (err) {
+            if (err) {
+                res.json({status: 'error', msg: err.toString()});
+            } else {
+                Category.getAllCategory(function (err, categories) {
+                    var categoryName;
+                    if (err) {
+                        res.json({status: 'error', msg: err.toString()});
+                    } else {
+                        if (categories) {
+                            categories.forEach(function (content) {
+                                if (content.id == product.category_id) {
+                                    categoryName = content.name;
+                                }
+                            });
+                        }
+                        if (categoryName) {
+                            product.category_name = categoryName;
+                        }
+                        res.json({status: 'success', msg: 'Updated', product: product});
+                    }
+                });
             }
         });
     } else {

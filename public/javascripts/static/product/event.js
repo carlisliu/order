@@ -52,7 +52,7 @@ define(function (require) {
             var modal = new Modal('#info-modal'), $this = $(this), el , data = {}, trim = $.trim, trEl;
             data.id = (trEl = $this.parents('tr')).attr('data-product-id');
             if ($this.hasClass('deleteRow')) {
-                modal.setTitle('Warning').setBody('<p>Do you wanna this product?</p>').bindFooter('danger', function () {
+                modal.setTitle('Warning').setBody('<p>Do you wanna remove this product?</p>').bindFooter('danger', function () {
                     new Product().remove(data.id, function (err, data) {
                         if (!err) {
                             trEl.remove();

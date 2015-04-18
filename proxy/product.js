@@ -54,16 +54,12 @@ exports.removeProductsByCategoryId = function (categoryId, callback) {
 
 exports.getProductById = getProductById;
 
-exports.updateProduct = function (updProduct, callback) {
-    getProductById(updProduct.id, function (err, product) {
-        if (err) {
-            return callback(err);
-        }
-        utils.copyProperties(product, updProduct, ['name', 'price', 'memo', 'category_id']);
-        product.update(function (err) {
-            callback(err, product);
-        });
-    });
+exports.updateProduct = function (product, callback) {
+    if (product) {
+        Product.update({id: product.id}, {$set: {name: product.name, memo: product.memo, price: product.price, category_id: product.category_id}}, callback);
+    } else {
+        callback(new Error('Product item can not be empty.'));
+    }
 }
 
 exports.getProductsByCategoryId = function (categoryId, callback) {

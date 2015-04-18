@@ -23,15 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="category.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/category.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="51" selection-start="5472" selection-end="5472" vertical-scroll-proportion="0.0" vertical-offset="1348" max-vertical-offset="2242">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="category.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/static/category/category.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,10 +32,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="category.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proxy/category.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="55" column="0" selection-start="1647" selection-end="1647" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="1406">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="product.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/product.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="112" selection-start="1129" selection-end="1141" vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="1577">
+            <state line="71" column="21" selection-start="2852" selection-end="2852" vertical-scroll-proportion="0.0" vertical-offset="984" max-vertical-offset="2185">
               <folding />
             </state>
           </provider>
@@ -53,7 +53,7 @@
       <file leaf-file-name="product.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proxy/product.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="25" selection-start="1413" selection-end="1430" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="1520">
+            <state line="56" column="21" selection-start="1685" selection-end="1698" vertical-scroll-proportion="0.0" vertical-offset="794" max-vertical-offset="1444">
               <folding />
             </state>
           </provider>
@@ -71,7 +71,7 @@
       <file leaf-file-name="product.jade" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/product.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="91" selection-start="3305" selection-end="3305" vertical-scroll-proportion="-9.84" vertical-offset="799" max-vertical-offset="3021">
+            <state line="123" column="42" selection-start="7344" selection-end="7344" vertical-scroll-proportion="-15.88" vertical-offset="1940" max-vertical-offset="2907">
               <folding />
             </state>
           </provider>
@@ -80,7 +80,7 @@
       <file leaf-file-name="event.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/static/product/event.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="31" selection-start="4676" selection-end="4676" vertical-scroll-proportion="2.2861538" vertical-offset="300" max-vertical-offset="2090">
+            <state line="54" column="73" selection-start="1970" selection-end="1970" vertical-scroll-proportion="0.24" vertical-offset="870" max-vertical-offset="2090">
               <folding />
             </state>
           </provider>
@@ -166,7 +166,6 @@
         <option value="$PROJECT_DIR$/routes/customer.js" />
         <option value="$PROJECT_DIR$/public/javascripts/static/common/pagination.js" />
         <option value="$PROJECT_DIR$/views/customer.jade" />
-        <option value="$PROJECT_DIR$/proxy/product.js" />
         <option value="$PROJECT_DIR$/public/javascripts/static/category/category.js" />
         <option value="$PROJECT_DIR$/public/javascripts/sea-modules/bootstrap/modal/bootstrap.modal.js" />
         <option value="$PROJECT_DIR$/public/javascripts/static/category/event.js" />
@@ -174,8 +173,9 @@
         <option value="$PROJECT_DIR$/routes/category.js" />
         <option value="$PROJECT_DIR$/views/category.jade" />
         <option value="$PROJECT_DIR$/public/javascripts/static/product/product.js" />
-        <option value="$PROJECT_DIR$/routes/product.js" />
+        <option value="$PROJECT_DIR$/proxy/product.js" />
         <option value="$PROJECT_DIR$/views/product.jade" />
+        <option value="$PROJECT_DIR$/routes/product.js" />
         <option value="$PROJECT_DIR$/public/javascripts/static/product/event.js" />
       </list>
     </option>
@@ -702,8 +702,8 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19339934" sideWeight="0.4989518" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25346535" sideWeight="0.5010482" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287858" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.047887325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="0" y="293" width="1536" height="240" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.047887325" sideWeight="0.50033003" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.047887325" sideWeight="0.49966997" order="2" side_tool="false" content_ui="tabs" x="0" y="293" width="1536" height="240" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -922,13 +922,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy/category.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="2" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.0" vertical-offset="797" max-vertical-offset="1406">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/category.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="0" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1273">
@@ -971,20 +964,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proxy/product.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="25" selection-start="1413" selection-end="1430" vertical-scroll-proportion="0.0" vertical-offset="645" max-vertical-offset="1520">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/static/product/product.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="10" selection-start="2054" selection-end="2054" vertical-scroll-proportion="0.0" vertical-offset="627" max-vertical-offset="1349">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/category/event.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="24" selection-start="1147" selection-end="1155" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1786">
@@ -999,23 +978,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/product.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="112" selection-start="1129" selection-end="1141" vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="1577">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/utils/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="20" selection-start="588" selection-end="600" vertical-scroll-proportion="0.18153846" vertical-offset="186" max-vertical-offset="836">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/product.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="91" selection-start="3305" selection-end="3305" vertical-scroll-proportion="-9.84" vertical-offset="799" max-vertical-offset="3021">
           <folding />
         </state>
       </provider>
@@ -1027,9 +992,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/category.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="55" column="0" selection-start="1647" selection-end="1647" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="1406">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/product.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="21" selection-start="1685" selection-end="1698" vertical-scroll-proportion="0.0" vertical-offset="794" max-vertical-offset="1444">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/static/product/product.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="10" selection-start="2054" selection-end="2054" vertical-scroll-proportion="0.0" vertical-offset="627" max-vertical-offset="1349">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/product.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="21" selection-start="2852" selection-end="2852" vertical-scroll-proportion="0.0" vertical-offset="984" max-vertical-offset="2185">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/product.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="42" selection-start="7344" selection-end="7344" vertical-scroll-proportion="-15.88" vertical-offset="1940" max-vertical-offset="2907">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/product/event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="31" selection-start="4676" selection-end="4676" vertical-scroll-proportion="2.2861538" vertical-offset="300" max-vertical-offset="2090">
+        <state line="54" column="73" selection-start="1970" selection-end="1970" vertical-scroll-proportion="0.24" vertical-offset="870" max-vertical-offset="2090">
           <folding />
         </state>
       </provider>
