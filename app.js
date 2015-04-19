@@ -1,4 +1,6 @@
 var express = require('express');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
@@ -18,6 +20,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cookieParser());
+app.use(session({
+    secret: 'carlis',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(function (req, res, next) {
+    next();
+});
 
 //routes
 routes(app);
@@ -40,7 +53,7 @@ if (app.get('env') === 'development') {
             message: err.message,
             error: err
         });
-       // res.redirect('/');
+        // res.redirect('/');
     });
 }
 
@@ -52,7 +65,7 @@ app.use(function (err, req, res, next) {
         message: err.message,
         error: {}
     });
-   // res.redirect('/');
+    // res.redirect('/');
 });
 
 

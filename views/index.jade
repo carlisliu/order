@@ -68,3 +68,13 @@ block content
                                 strong Click the order no. link will take you to order's detail page.
                             div.span12
                                 img(src='/images/static/guide-order-detail.jpg',style='width:900px; height:600px;')
+block scriptContent
+    script.
+        (function(){
+            seajs.config({
+            base: '/javascripts/sea-modules/',
+            alias: {
+                    'jquery': 'jquery/jquery/1.10.1/jquery.js'
+                }
+            });
+        })();
