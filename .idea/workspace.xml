@@ -23,22 +23,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="order_list.jade" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="order_list.jade" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/order_list.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="57" selection-start="2727" selection-end="2727" vertical-scroll-proportion="0.5030769" vertical-offset="680" max-vertical-offset="1482">
+            <state line="44" column="106" selection-start="2211" selection-end="2230" vertical-scroll-proportion="1.6" vertical-offset="876" max-vertical-offset="1558">
               <folding>
-                <marker date="1429360056184" expanded="true" signature="2954:3338" placeholder="{&quot;base&quot;: '/javascripts/sea-modules/'...}" />
-                <marker date="1429360056184" expanded="true" signature="3022:3324" placeholder="{&quot;jquery&quot;: 'jquery/jquery/1.10.1/jquery.js'...}" />
+                <marker date="1429425211661" expanded="true" signature="3037:3421" placeholder="{&quot;base&quot;: '/javascripts/sea-modules/'...}" />
+                <marker date="1429425211661" expanded="true" signature="3105:3407" placeholder="{&quot;jquery&quot;: 'jquery/jquery/1.10.1/jquery.js'...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bootstrap-datepicker.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/sea-modules/jquery/datepicker/2.0/bootstrap-datepicker.js">
+      <file leaf-file-name="order_detail.jade" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/order_detail.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="33" selection-start="889" selection-end="889" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8132">
+            <state line="81" column="42" selection-start="4056" selection-end="4056" vertical-scroll-proportion="0.6048" vertical-offset="1161" max-vertical-offset="1786">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order.jade" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/order.jade">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="15" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2907">
               <folding />
             </state>
           </provider>
@@ -47,10 +56,17 @@
       <file leaf-file-name="list.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/list.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="62" selection-start="639" selection-end="639" vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="1121">
-              <folding>
-                <element signature="e#0#40#0" expanded="false" />
-              </folding>
+            <state line="44" column="50" selection-start="1545" selection-end="1545" vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="1254">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/order.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="91" column="9" selection-start="3013" selection-end="3013" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="1976">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -58,7 +74,7 @@
       <file leaf-file-name="order.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/order.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="3" selection-start="602" selection-end="602" vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="1444">
+            <state line="18" column="7" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1444">
               <folding />
             </state>
           </provider>
@@ -67,7 +83,16 @@
       <file leaf-file-name="order.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/order.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="65" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1064">
+            <state line="52" column="32" selection-start="1329" selection-end="1329" vertical-scroll-proportion="0.0" vertical-offset="737" max-vertical-offset="1387">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="order.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proxy/order.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="60" column="2" selection-start="1986" selection-end="1986" vertical-scroll-proportion="-45.6" vertical-offset="0" max-vertical-offset="1501">
               <folding />
             </state>
           </provider>
@@ -86,24 +111,6 @@
         <entry file="file://$PROJECT_DIR$/proxy/product.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="22" column="0" selection-start="545" selection-end="545" vertical-scroll-proportion="0.0" vertical-offset="185" max-vertical-offset="1444">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="customer.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/customer.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="147" column="76" selection-start="8894" selection-end="8950" vertical-scroll-proportion="0.0" vertical-offset="1858" max-vertical-offset="3021">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="order.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/proxy/order.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="66" selection-start="1835" selection-end="1835" vertical-scroll-proportion="0.0" vertical-offset="110" max-vertical-offset="1501">
               <folding />
             </state>
           </provider>
@@ -137,7 +144,6 @@
         <option value="$PROJECT_DIR$/utils/utils.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/models/index.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/static/order/order.js" />
         <option value="$PROJECT_DIR$/views/order.jade" />
         <option value="$PROJECT_DIR$/public/javascripts/static/customer/customer.js" />
         <option value="$PROJECT_DIR$/public/javascripts/static/order/event.js" />
@@ -162,17 +168,18 @@
         <option value="$PROJECT_DIR$/proxy/product.js" />
         <option value="$PROJECT_DIR$/routes/product.js" />
         <option value="$PROJECT_DIR$/public/javascripts/static/product/event.js" />
-        <option value="$PROJECT_DIR$/views/order_detail.jade" />
         <option value="$PROJECT_DIR$/public/javascripts/sea-modules/jquery/datepicker/bootstrap.timepicker.js" />
         <option value="$PROJECT_DIR$/routes/customer.js" />
         <option value="$PROJECT_DIR$/public/javascripts/sea-modules/jquery/datepicker/2.0/bootstrap.datepicker.js" />
         <option value="$PROJECT_DIR$/public/javascripts/sea-modules/jquery/datepicker/2.0/bootstrap-datepicker.js" />
-        <option value="$PROJECT_DIR$/proxy/order.js" />
-        <option value="$PROJECT_DIR$/public/javascripts/static/order/list.js" />
-        <option value="$PROJECT_DIR$/models/order.js" />
-        <option value="$PROJECT_DIR$/routes/order.js" />
         <option value="$PROJECT_DIR$/views/product.jade" />
         <option value="$PROJECT_DIR$/views/order_list.jade" />
+        <option value="$PROJECT_DIR$/public/javascripts/static/order/order.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/static/order/list.js" />
+        <option value="$PROJECT_DIR$/routes/order.js" />
+        <option value="$PROJECT_DIR$/proxy/order.js" />
+        <option value="$PROJECT_DIR$/models/order.js" />
+        <option value="$PROJECT_DIR$/views/order_detail.jade" />
       </list>
     </option>
   </component>
@@ -276,6 +283,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -432,7 +440,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -458,6 +465,14 @@
     </key>
   </component>
   <component name="RunManager" selected="Node.js.order">
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -468,23 +483,15 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
       <setting name="configLocationType" value="CONFIG_FILE" />
       <setting name="settingsFile" value="" />
       <setting name="serverType" value="INTERNAL" />
       <setting name="preferredDebugBrowser" value="CHROME" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" singleton="true" config-file="">
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
@@ -564,15 +571,15 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25346535" sideWeight="0.5010482" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.047887325" sideWeight="0.50033003" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.047887325" sideWeight="0.49966997" order="2" side_tool="false" content_ui="tabs" x="0" y="293" width="1536" height="240" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.047887325" sideWeight="0.49966997" order="2" side_tool="false" content_ui="tabs" x="0" y="293" width="1536" height="240" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32816902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32816902" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -594,6 +601,20 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/views/customer.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="76" selection-start="8894" selection-end="8950" vertical-scroll-proportion="0.0" vertical-offset="1858" max-vertical-offset="3021">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="66" selection-start="1835" selection-end="1835" vertical-scroll-proportion="0.0" vertical-offset="110" max-vertical-offset="1501">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/users.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="0" selection-start="197" selection-end="197" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285" />
@@ -670,65 +691,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/sea-modules/bootstrap/modal/bootstrap.modal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="0" selection-start="2260" selection-end="2260" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="4142">
-          <folding />
-        </state>
+        <state line="64" column="0" selection-start="2260" selection-end="2260" vertical-scroll-proportion="0.0" vertical-offset="969" max-vertical-offset="4142" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/category.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1273">
-          <folding />
-        </state>
+        <state line="18" column="0" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1273" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/product.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="41" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="437">
-          <folding />
-        </state>
+        <state line="17" column="41" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="437" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/category.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="38" selection-start="218" selection-end="218" vertical-scroll-proportion="0.28078818" vertical-offset="0" max-vertical-offset="609">
-          <folding />
-        </state>
+        <state line="9" column="38" selection-start="218" selection-end="218" vertical-scroll-proportion="0.28078818" vertical-offset="0" max-vertical-offset="609" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/category.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="51" selection-start="5472" selection-end="5472" vertical-scroll-proportion="0.0" vertical-offset="1348" max-vertical-offset="2242">
-          <folding />
-        </state>
+        <state line="94" column="51" selection-start="5472" selection-end="5472" vertical-scroll-proportion="0.0" vertical-offset="1348" max-vertical-offset="2242" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/category/event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="24" selection-start="1147" selection-end="1155" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1786">
-          <folding />
-        </state>
+        <state line="34" column="24" selection-start="1147" selection-end="1155" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1786" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/category/category.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="35" selection-start="484" selection-end="484" vertical-scroll-proportion="0.0" vertical-offset="509" max-vertical-offset="1159">
-          <folding />
-        </state>
+        <state line="15" column="35" selection-start="484" selection-end="484" vertical-scroll-proportion="0.0" vertical-offset="509" max-vertical-offset="1159" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/utils/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="20" selection-start="588" selection-end="600" vertical-scroll-proportion="0.18153846" vertical-offset="186" max-vertical-offset="836">
-          <folding />
-        </state>
+        <state line="16" column="20" selection-start="588" selection-end="600" vertical-scroll-proportion="0.18153846" vertical-offset="186" max-vertical-offset="836" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/common/modal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="13" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0" vertical-offset="224" max-vertical-offset="1045">
-          <folding />
-        </state>
+        <state line="22" column="13" selection-start="565" selection-end="565" vertical-scroll-proportion="0.0" vertical-offset="224" max-vertical-offset="1045" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/product.js">
@@ -740,39 +743,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/product/event.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="47" selection-start="2818" selection-end="2818" vertical-scroll-proportion="0.0" vertical-offset="1440" max-vertical-offset="2090">
-          <folding>
-            <marker date="1429346258851" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
-        </state>
+        <state line="68" column="47" selection-start="2818" selection-end="2818" vertical-scroll-proportion="0.0" vertical-offset="1440" max-vertical-offset="2090" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/product/product.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="33" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" vertical-offset="699" max-vertical-offset="1349">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/order_detail.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="89" selection-start="787" selection-end="787" vertical-scroll-proportion="0.0" vertical-offset="228" max-vertical-offset="2185">
-          <folding />
-        </state>
+        <state line="6" column="33" selection-start="151" selection-end="151" vertical-scroll-proportion="0.0" vertical-offset="699" max-vertical-offset="1349" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="209">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/order.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="43" selection-start="1224" selection-end="1224" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2907">
-          <folding />
-        </state>
+        <state line="5" column="0" selection-start="66" selection-end="66" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="209" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy/category.js">
@@ -784,16 +765,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="23" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="247">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="23" selection-start="1160" selection-end="1160" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1976">
-          <folding />
-        </state>
+        <state line="7" column="23" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="247" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/event.js">
@@ -812,9 +784,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proxy/customer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="24" selection-start="1583" selection-end="1599" vertical-scroll-proportion="0.0" vertical-offset="755" max-vertical-offset="1406">
-          <folding />
-        </state>
+        <state line="55" column="24" selection-start="1583" selection-end="1599" vertical-scroll-proportion="0.0" vertical-offset="755" max-vertical-offset="1406" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/customer.js">
@@ -826,23 +796,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/sea-modules/jquery/validate/1.13.1/jquery.validate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1354" column="11" selection-start="42593" selection-end="42593" vertical-scroll-proportion="0.70172685" vertical-offset="25146" max-vertical-offset="25783">
-          <folding />
-        </state>
+        <state line="1354" column="11" selection-start="42593" selection-end="42593" vertical-scroll-proportion="0.70172685" vertical-offset="25146" max-vertical-offset="25783" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/sea-modules/jquery/jgrowl/1.4.2/jquery.jgrowl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="21" selection-start="6174" selection-end="6174" vertical-scroll-proportion="0.0" vertical-offset="2477" max-vertical-offset="7524">
-          <folding />
-        </state>
+        <state line="148" column="21" selection-start="6174" selection-end="6174" vertical-scroll-proportion="0.0" vertical-offset="2477" max-vertical-offset="7524" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/sea-modules/jquery/validate/1.13.1/validate.extend.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="24" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="494">
-          <folding />
-        </state>
+        <state line="5" column="24" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="494" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/datepicker.css">
@@ -873,36 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/list.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="62" selection-start="639" selection-end="639" vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="1121">
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="3" selection-start="602" selection-end="602" vertical-scroll-proportion="0.0" vertical-offset="186" max-vertical-offset="1444">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proxy/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="66" selection-start="1835" selection-end="1835" vertical-scroll-proportion="0.0" vertical-offset="110" max-vertical-offset="1501">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/order.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="65" selection-start="1164" selection-end="1164" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1064">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/product.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="48" selection-start="4745" selection-end="4745" vertical-scroll-proportion="0.0" vertical-offset="1003" max-vertical-offset="2907">
@@ -910,13 +844,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/order.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="15" selection-start="210" selection-end="210" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2907">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="9" selection-start="3013" selection-end="3013" vertical-scroll-proportion="0.0" vertical-offset="1326" max-vertical-offset="1976">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/order_list.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="57" selection-start="2727" selection-end="2727" vertical-scroll-proportion="0.5030769" vertical-offset="680" max-vertical-offset="1482">
+        <state line="44" column="106" selection-start="2211" selection-end="2230" vertical-scroll-proportion="1.6" vertical-offset="876" max-vertical-offset="1558">
           <folding>
-            <marker date="1429360056184" expanded="true" signature="2954:3338" placeholder="{&quot;base&quot;: '/javascripts/sea-modules/'...}" />
-            <marker date="1429360056184" expanded="true" signature="3022:3324" placeholder="{&quot;jquery&quot;: 'jquery/jquery/1.10.1/jquery.js'...}" />
+            <marker date="1429425211661" expanded="true" signature="3037:3421" placeholder="{&quot;base&quot;: '/javascripts/sea-modules/'...}" />
+            <marker date="1429425211661" expanded="true" signature="3105:3407" placeholder="{&quot;jquery&quot;: 'jquery/jquery/1.10.1/jquery.js'...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/static/order/list.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="44" column="50" selection-start="1545" selection-end="1545" vertical-scroll-proportion="0.0" vertical-offset="91" max-vertical-offset="1254">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="7" selection-start="598" selection-end="598" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1444">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proxy/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="2" selection-start="1986" selection-end="1986" vertical-scroll-proportion="-45.6" vertical-offset="0" max-vertical-offset="1501">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/order.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="32" selection-start="1329" selection-end="1329" vertical-scroll-proportion="0.0" vertical-offset="737" max-vertical-offset="1387">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/order_detail.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="42" selection-start="4056" selection-end="4056" vertical-scroll-proportion="0.6048" vertical-offset="1161" max-vertical-offset="1786">
+          <folding />
         </state>
       </provider>
     </entry>

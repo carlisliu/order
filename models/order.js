@@ -48,4 +48,21 @@ OrderSchema.virtual('total').get(function () {
     return sum.toFixed(2);
 });
 
+OrderSchema.virtual('customer_fixAddress').get(function () {
+    var result = '';
+    if (this.customer_address) {
+        if (this.customer_address.street) {
+            result += this.customer_address.street + ',';
+        }
+        if (this.customer_address.city) {
+            result += this.customer_address.city + ',';
+        }
+        if (this.customer_address.country) {
+            result += this.customer_address.country + ',';
+        }
+        result = result.substring(0, result.length - 1);
+    }
+    return result;
+});
+
 mongoose.model('Order', OrderSchema);

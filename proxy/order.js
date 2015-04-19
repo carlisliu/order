@@ -53,12 +53,12 @@ exports.getOrderById = function (id, callback) {
     if (!id) {
         return callback(new Error("Order's id can not be empty"));
     }
-    Order.findOne({id: id}, callback);
-}
+    Order.findOne({no: id}, callback);
+};
 
 exports.getAllOrder = function (callback) {
     Order.find().sort({create_at: -1}).exec(callback);
-}
+};
 
 exports.getOrderByParams = function (params, callback) {
     var date, instance;

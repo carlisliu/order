@@ -50,6 +50,11 @@ define(function (require) {
             });
         });
 
+        $('#order-detail-holder').find('tbody').delegate('tr a', 'click', function(e){
+            e.preventDefault();
+            window.open('/order/details/' + $(this).attr('data-order-no'));
+        });
+
         searchEl.trigger('click');
     });
 });
