@@ -21,7 +21,7 @@ router.get('/details/:id', function (req, res) {
 
 router.get('/list.html', function (req, res) {
     Order.getAllOrder(function (err, orders) {
-        res.render('order_list', {title: 'Order List', orders: (orders || [])});
+        res.render('order_list', {title: 'Order', orders: (orders || [])});
     });
 });
 
