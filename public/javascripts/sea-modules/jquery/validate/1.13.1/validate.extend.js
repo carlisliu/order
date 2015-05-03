@@ -5,7 +5,7 @@ define(function(require, exports, module){
     var $ = require('jquery');
     require('validate');
     $.validator.addMethod("gtZero", function (value, element) {
-        value = parseInt(value);
+        value = parseFloat(value);
         return this.optional(element) || value > 0;
     }, "The input value must be greater than 0");
 

@@ -63,7 +63,7 @@ define(function (require, exports, module) {
             container.find('#customer-name').val((this.name = customer.name));
             container.find('#customer-tel').val((this.tel = customer.tel));
             this.address = this.address || {};
-            container.find('#customer-addr-street').val((this.address.street = customer.address.city));
+            container.find('#customer-addr-street').val((this.address.street = customer.address.street));
             container.find('#customer-addr-city').val((this.address.city = customer.address.city));
             container.find('#customer-addr-country').val((this.address.country = customer.address.country));
             container.find('input[type="text"]').trigger('blur');
