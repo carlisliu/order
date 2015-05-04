@@ -7,6 +7,7 @@ var Order = require('../proxy').Order;
 var Customer = require('../proxy').Customer;
 var Category = require('../proxy').Category;
 var moment = require('moment');
+var Company = require('../proxy').Company;
 
 router.get('/details/:id', function (req, res) {
     var orderId = req.params['id'];
@@ -15,7 +16,9 @@ router.get('/details/:id', function (req, res) {
         if (!order) {
             msg = 'Order does not exist.';
         }
-        res.render('order_detail', {order: order, msg: msg});
+        Company.getCompany(function (err, company) {
+            res.render('order_detail', {order: order, msg: msg, company: company, title: 'Order Details-No.' + order.no});
+        });
     });
 });
 

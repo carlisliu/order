@@ -8,6 +8,7 @@ var customer = require('./routes/customer');
 var category = require('./routes/category');
 var product = require('./routes/product');
 var order = require('./routes/order');
+var company = require('./routes/company');
 
 module.exports = function (app) {
     app.use('/', index);
@@ -16,4 +17,5 @@ module.exports = function (app) {
     app.use('/category', category);
     app.use('/product', product);
     app.use('/order', order);
+    app.use('/company', company);
 };

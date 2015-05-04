@@ -18,7 +18,7 @@ html(lang='en')
                     input(type='text',value='Order No or date...')
                 ul.mini
                     li
-                        a(href='#')
+                        a(href='#settings-modal', data-toggle='modal', data-original-title='Change Info', title='Change Info', id='company-setting')
                             img(src='/images/icons/fugue/gear.png', alt='')
                             |Settings
                     li
@@ -65,6 +65,27 @@ html(lang='en')
                                 i.icon-tasks.icon-white
                             |Product
             block content
+            div.modal.hide(id='settings-modal')
+                div.modal-header
+                    button.close(data-dismiss='modal', type='button') ×
+                    h3='Settings'
+                div.modal-body
+                    form.validate.form-horizontal(action='#', id='settings-form')
+                        div.control-group
+                            label.control-label(for='company-name') Company Name
+                            div.controls
+                                input.required(type='text', name='company-name', id='company-name')
+                        div.control-group
+                            label.control-label(for='company-address') Company Address
+                            div.controls
+                                input.required(type='text', name='company-address', id='company-address')
+                        div.control-group
+                            label.control-label(for='company-phone') Company Phone
+                            div.controls
+                                input.required.tel(type='text', name='company-phone', id='company-phone')
+                div.modal-footer
+                    a.btn(data-dismiss='modal', href='#') Close
+                    a.btn.btn-primary(data-dismiss='modal', href='#', id='setting-confirm') Confirm
         script(src='/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js')
         block scriptContent
         script.
@@ -139,5 +160,7 @@ html(lang='en')
                         }, 100);
                     });
                 });
+
+                seajs.use(['jquery', 'bootstrap.modal', '/javascripts/static/company/company']);
 
             })();

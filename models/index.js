@@ -20,9 +20,11 @@ require('./category');
 require('./customer');
 require('./order');
 require('./product');
+require('./company');
 
 exports.Category = mongoose.model('Category');
 exports.Customer = mongoose.model('Customer');
 exports.Order = mongoose.model('Order');
 exports.OrderDetail = mongoose.model('OrderDetail');
 exports.Product = mongoose.model('Product');
+exports.Company = mongoose.model('Company');

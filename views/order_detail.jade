@@ -23,20 +23,19 @@ block content
                             - if (company) {
                                 div.invoice-name Order
                                 div.invoice-company
-                                    h2='#{company.name}'
+                                    h2=company.name
                                 div.invoice-from
-                                    strong #{company.name}
-                                    address Street Address
+                                    address
                                         br
                                         |#{company.address}
                                         br
                                         abbr(title='Phone') Phone:
-                                        |#{company.tel}
+                                        |#{company.phone}
                                         br
                             - }
                             div.invoice-to
                                 strong To:
-                                address Street Address
+                                address
                                     br
                                     |#{order.customer_fixAddress}
                                     br
@@ -72,18 +71,33 @@ block content
                                         td.total #{order.total}
                             - if (company) {
                                 div.invoice-footer
-                                    h4='#{company.name}'
-                                    address Street Address
+                                    h4=company.name
+                                    address
                                         br
                                         | #{company.address}
                                         br
                                         abbr(title='Phone') Phone:
-                                        | #{company.tel}
+                                        | #{company.phone}
                                         br
                             - }
+block scriptContent
     script.
         (function(window){
             window.printOrder = function(){
                 window.print && window.print();
             };
         })(window);
+        (function(){
+            seajs.config({
+            base: '/javascripts/sea-modules/',
+            alias: {
+                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
+                    'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                    'validate.extend': 'jquery/validate/1.13.1/validate.extend.js',
+                    'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js',
+                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
+                    'utils': '/javascripts/static/utils/index.js'
+                }
+            });
+            seajs.use(['jquery', '/javascripts/static/order/event']);
+        })();
