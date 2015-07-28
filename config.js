@@ -7,7 +7,7 @@ var config = {
     db: 'mongodb://127.0.0.1/order',
     db_name: 'order',
     username: 'root',
-    password: 'root',
+    password: 'root@order',
     productUploadPath: '/upload/products',
     page: {
         pageSize: 10,
