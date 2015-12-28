@@ -11,6 +11,9 @@ function find(callback) {
 exports.getCompany = find;
 
 exports.saveOrUpdate = function (company, callback) {
+    if (!company || (!company.name && !company.address && ! company.phone)) {
+        return Company.remove(callback);
+    }
     find(function (err, old) {
         var shop;
         if (err) {

@@ -21,16 +21,11 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cookieParser());
 app.use(session({
     secret: 'carlis',
     resave: false,
     saveUninitialized: false
 }));
-
-app.use(function (req, res, next) {
-    next();
-});
 
 //routes
 routes(app);
@@ -53,7 +48,6 @@ if (app.get('env') === 'development') {
             message: err.message,
             error: err
         });
-        // res.redirect('/');
     });
 }
 
@@ -65,8 +59,6 @@ app.use(function (err, req, res, next) {
         message: err.message,
         error: {}
     });
-    // res.redirect('/');
 });
-
 
 module.exports = app;
