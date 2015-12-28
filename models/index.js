@@ -21,6 +21,7 @@ require('./customer');
 require('./order');
 require('./product');
 require('./company');
+require('./user');
 
 exports.Category = mongoose.model('Category');
 exports.Customer = mongoose.model('Customer');
@@ -28,3 +29,4 @@ exports.Order = mongoose.model('Order');
 exports.OrderDetail = mongoose.model('OrderDetail');
 exports.Product = mongoose.model('Product');
 exports.Company = mongoose.model('Company');
+exports.User = mongoose.model('User');
