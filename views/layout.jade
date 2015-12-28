@@ -87,6 +87,15 @@ html(lang='en')
                     a.btn(data-dismiss='modal', href='#') Close
                     a.btn.btn-primary(data-dismiss='modal', href='#', id='setting-confirm') Confirm
         script(src='/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js')
+        script.
+            (function(){
+                seajs.config({
+                    base: '/javascripts/sea-modules/',
+                    alias: {
+                        'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js'
+                    }
+                });
+            })();
         block scriptContent
         script.
             (function(){
