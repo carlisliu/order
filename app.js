@@ -10,6 +10,15 @@ var routes = require('./routes');
 
 var app = express();
 
+var MongoDBStore = require('connect-mongodb-session')(session);
+var store = new MongoDBStore({ 
+    uri: 'mongodb://root:root@localhost:27017/order',
+    collection: 'mySessions'
+});
+store.on('error', function(error) {
+    console.log(error);
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -18,15 +27,20 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cookieParser());
 app.use(session({
     secret: 'carlis',
+    cookie: {
+        maxAge: 1000 * 60 * 60
+    },
+    store: store,
     resave: false,
     saveUninitialized: false
 }));
 
+app.use(require('./middleware/login-filter'));
 //routes
 routes(app);
 
@@ -36,8 +50,6 @@ app.use(function (req, res, next) {
     err.status = 404;
     next(err);
 });
-
-/// error handlers
 
 // development error handler
 // will print stacktrace
