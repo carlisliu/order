@@ -18,7 +18,7 @@ html(lang='en')
                         div.col-sm-8.col-sm-offset-2.text
                             h1
                                 strong Order Delivery
-                                | Login
+                                |  Login
                     div.row
                         div.col-sm-6.col-sm-offset-3.form-box
                             div.form-top
@@ -28,7 +28,7 @@ html(lang='en')
                                 div.form-top-right
                                     i.fa.fa-key
                             div.form-bottom
-                                form.login-form(role='form', method='post')
+                                form.login-form(role='form', method='post', action='/users/login')
                                     div.form-group
                                         label.sr-only(for='form-username') Username
                                         input.form-username.form-control(name='form-username', placeholder='Username...',type='text')    
@@ -36,3 +36,12 @@ html(lang='en')
                                         label.sr-only(for='form-username') Username
                                         input.form-username.form-control(name='form-password', placeholder='Password...',type='password')
                                     button.btn(type='submit') Sign in
+        script(src='/javascripts/sea-modules/jquery/jquery/1.10.1/jquery.js')
+        script(src='/javascripts/sea-modules/backstretch/2.0.4/jquery.backstretch.min.js')
+        script.
+            (function(){
+                var $ = jQuery;
+                $(function(){
+                    $.backstretch("/images/seafood_bg_1.jpg");
+                });
+            })();
