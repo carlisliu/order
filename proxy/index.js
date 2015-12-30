@@ -7,3 +7,4 @@ exports.Category = require('./category');
 exports.Order = require('./order');
 exports.Product=require('./product');
 exports.Company=require('./company');
+exports.User=require('./user');
