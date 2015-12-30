@@ -1,20 +1,26 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define(function (require) {
+define(function(require) {
     var $ = require('jquery');
 
+    function generate(type) {
+        return function(argument) {
+            window.console && console[type].apply(console, arguments);
+        }
+    }
+
     return {
-        template: function (tmpl, data) {
-            return tmpl.replace(/\{(\w+.?\w+)\}/g,function (m, i) {
+        template: function(tmpl, data) {
+            return tmpl.replace(/\{(\w+.?\w+)\}/g, function(m, i) {
                 var result = typeof data[i] === 'object' ? JSON.stringify(data[i]) : data[i];
                 return result || '';
-            }).replace(/\{(\d+)\}/g, function (m, i) {
-                    var result = typeof data[i] === 'object' ? JSON.stringify(data[i]) : data[i];
-                    return result || '';
-                });
+            }).replace(/\{(\d+)\}/g, function(m, i) {
+                var result = typeof data[i] === 'object' ? JSON.stringify(data[i]) : data[i];
+                return result || '';
+            });
         },
-        bindSelector: function (selector, data) {
+        bindSelector: function(selector, data) {
             selector.empty();
             if (data) {
                 var options = '<option value="" selected="selected">Choose One</option>';
@@ -25,14 +31,16 @@ define(function (require) {
             }
             return selector;
         },
-        convert: function (data, key, val) {
+        convert: function(data, key, val) {
             var result = {};
             if ($.isArray(data)) {
-                $.each(data, function (index, content) {
+                $.each(data, function(index, content) {
                     result[content[key]] = content[val];
                 });
             }
             return result;
-        }
+        },
+        log: generate('log'),
+        debug: generate('debug')
     }
 });
