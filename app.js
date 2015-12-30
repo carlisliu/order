@@ -7,12 +7,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes');
-
+var config = require('./config');
 var app = express();
 
 var MongoDBStore = require('connect-mongodb-session')(session);
 var store = new MongoDBStore({ 
-    uri: 'mongodb://root:root@localhost:27017/order',
+    uri: config.dbUri,
     collection: 'mySessions'
 });
 store.on('error', function(error) {
@@ -48,7 +48,12 @@ routes(app);
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
-    next(err);
+    //next(err);
+    res.render('404', {
+        message: err.message,
+        title: 'Page Not Avaliable',
+        error: err
+    });
 });
 
 // development error handler
