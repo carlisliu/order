@@ -8,6 +8,7 @@ var config = {
     db_name: 'order',
     username: 'root',
     password: 'root',
+    dbUri: 'mongodb://root:root@localhost:27017/order',
     productUploadPath: '/upload/products',
     page: {
         pageSize: 10,
