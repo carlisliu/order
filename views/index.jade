@@ -82,7 +82,7 @@ block scriptContent
             seajs.use('jquery', function($){
                 $(function(){
                     $('#remote-trigger').click(function(){
-                        $.getJSON('/remote.html', function(data){
+                        $.getJSON('/remote.html?r=' + (new Date().getTime()), function(data){
                             console.log(data);
                         });
                     });
