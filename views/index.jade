@@ -8,6 +8,7 @@ block content
                     div.box-head
                         h3='Guide'
                     div.box-content
+                        button(id='remote-trigger') Remote Request
                         h3='Step One'
                         div.span12.row-fluid
                             div.span12
@@ -72,10 +73,19 @@ block scriptContent
     script.
         (function(){
             seajs.config({
-            base: '/javascripts/sea-modules/',
-            alias: {
-                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
-                    'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js'
-                }
+                base: '/javascripts/sea-modules/',
+                alias: {
+                        'jquery': 'jquery/jquery/1.10.1/jquery.js',
+                        'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js'
+                    }
+            });
+            seajs.use('jquery', function($){
+                $(function(){
+                    $('#remote-trigger').click(function(){
+                        $.getJSON('/remote.html', function(data){
+                            console.log(data);
+                        });
+                    });
+                });
             });
         })();
