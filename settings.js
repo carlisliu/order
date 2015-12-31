@@ -5,6 +5,7 @@ var staticUrl = nodeEnv === 'development' ? '' : 'dist';
 
 exports = module.exports = function (req, res, next) {
 	res.locals.context = {
+		nodeEnv: nodeEnv,
 		host: host,
 		staticUrl: staticUrl
 	};
