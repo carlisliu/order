@@ -13,6 +13,10 @@ var config = {
     page: {
         pageSize: 10,
         paginationSize: 5
+    },
+    host: {
+        production: 'http://order.5lym.com',
+        development: ''
     }
 };
 module.exports = config;
