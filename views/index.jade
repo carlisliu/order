@@ -81,8 +81,11 @@ block scriptContent
             });
             seajs.use('jquery', function($){
                 $(function(){
+                    $.ajaxSetup({
+                        cache: false                    
+                    });
                     $('#remote-trigger').click(function(){
-                        $.getJSON('/remote.html?r=' + (new Date().getTime()), function(data){
+                        $.getJSON('/remote.html', function(data){
                             console.log(data);
                         });
                     });
