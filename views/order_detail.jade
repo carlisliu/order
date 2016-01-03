@@ -87,6 +87,4 @@ block scriptContent
                 window.print && window.print();
             };
         })(window);
-        (function(){
-            seajs.use(['jquery', 'static/order/event']);
-        })();
+        seajs.use(['jquery', 'static/order/event']);

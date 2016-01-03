@@ -131,7 +131,5 @@ block scriptContent
     script(type='x/data-category', id="category-data").
         !{categoryHtml}
     script.
-        (function(){
-            window.msg = '#{msg}';
-            seajs.use(['jquery', 'static/product/event']);
-        })();
+        window.msg = '#{msg}';
+        seajs.use(['jquery', 'static/product/event']);
