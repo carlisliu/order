@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
+var concat = require('gulp-concat');
+var clean = require('gulp-clean');
 //var pkg = require('./package');
 
 
@@ -12,8 +14,15 @@ gulp.task('default', function () {
 
 });
 
-gulp.task('minify-css', function () {
-    return gulp.src('public/stylesheets/*.css')
+gulp.task('css', function () {
+    return gulp.src(['public/stylesheets/bootstrap.css', 'public/stylesheets/bootstrap-responsive.css',
+            'jquery.fancybox.css', 'public/stylesheets/style.css'])
         .pipe(minifyCss({compatibility: 'ie8'}))
-        .pipe(gulp.dest('public/dist'));
+        .pipe(concat('order.all.css'))
+        .pipe(gulp.dest('public/dist/stylesheets'));
+});
+
+gulp.task('clean', function () {
+    return gulp.src('public/dist/stylesheets/*', {read: false})
+        .pipe(clean());
 });
