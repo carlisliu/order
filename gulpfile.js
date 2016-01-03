@@ -3,26 +3,32 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var clean = require('gulp-clean');
-//var pkg = require('./package');
 
-
-gulp.task('default', function () {
-    /*gulp.src('src/src.js')
-     .pipe(uglify())
-     .pipe(gulp.dest('dist/'));*/
-
-
-});
-
-gulp.task('css', function () {
-    return gulp.src(['public/stylesheets/bootstrap.css', 'public/stylesheets/bootstrap-responsive.css',
+gulp.task('css', ['clean-css'], function () {
+    gulp.src(['public/stylesheets/bootstrap.css', 'public/stylesheets/bootstrap-responsive.css',
             'jquery.fancybox.css', 'public/stylesheets/style.css'])
         .pipe(minifyCss({compatibility: 'ie8'}))
-        .pipe(concat('order.all.css'))
+        .pipe(concat('all.css'))
         .pipe(gulp.dest('public/dist/stylesheets'));
+
+    gulp.src('public/stylesheets/login/*.css')
+        .pipe(minifyCss({compatibility: 'ie8'}))
+        .pipe(concat('login.all.css'))
+        .pipe(gulp.dest('public/dist/stylesheets/login'));
 });
 
-gulp.task('clean', function () {
-    return gulp.src('public/dist/stylesheets/*', {read: false})
+gulp.task('clean-css', function () {
+    gulp.src('public/dist/stylesheets/*', {read: false})
         .pipe(clean());
 });
+
+gulp.task('clean-script', function () {
+    gulp.src('public/dist/javascripts/*', {read: false})
+        .pipe(clean());
+});
+
+gulp.task('script', ['clean-script'], function () {
+    console.log('process scripts');
+});
+
+gulp.task('default', ['script', 'css']);
