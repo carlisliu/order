@@ -29,7 +29,7 @@ block content
                                             input.required(type='text',name='order-date',id='order-date')
                                 div.span3
                                     div.control-group
-                                        label.control-label(for='customer-name') Order No.
+                                        label.control-label(for='order-no') Order No.
                                         div.controls
                                             input.required(type='text',name='order-no',id='order-no')
                                 div.span3(style='margin-top:15px;')
@@ -64,14 +64,5 @@ block scriptContent
         </tr>
     script.
         (function(){
-            seajs.config({
-                base: '/javascripts/sea-modules/',
-                alias: {
-                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
-                    'datepicker': 'jquery/datepicker/2.0/bootstrap-datepicker.js',
-                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
-                    'utils': '/javascripts/static/utils/index.js'
-                }
-            });
-            seajs.use(['jquery', '/javascripts/static/order/list']);
+            seajs.use(['jquery', 'static/order/list']);
         })();

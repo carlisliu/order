@@ -5,7 +5,7 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
         block css
-            link(rel='stylesheet', href='dist/stylesheets/all.css')
+            link(rel='stylesheet', href='/dist/stylesheets/all.css')
             //link(rel='stylesheet', href='/stylesheets/bootstrap.css')
             //link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
             //link(rel='stylesheet', href='/stylesheets/jquery.fancybox.css')
@@ -91,9 +91,15 @@ html(lang='en')
         script.
             (function(){
                 seajs.config({
-                    base: '/javascripts/sea-modules/',
+                    base: '/javascripts/',
                     alias: {
-                        'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js'
+                        'jquery': 'sea-modules/jquery/jquery/1.10.1/jquery.js',
+                        'validate': 'sea-modules/jquery/validate/1.13.1/jquery.validate.js',
+                        'validate.extend': 'sea-modules/jquery/validate/1.13.1/validate.extend.js',
+                        'jgrowl': 'sea-modules/jquery/jgrowl/1.4.2/jquery.jgrowl.js',
+                        'bootstrap.modal': 'sea-modules/bootstrap/modal/bootstrap.modal.js',
+                        'datepicker': 'sea-modules/jquery/datepicker/2.0/bootstrap-datepicker.js',
+                        'utils': 'static/utils/index.js'
                     }
                 });
             })();

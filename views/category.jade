@@ -99,15 +99,5 @@ block scriptContent
         </div>
     script.
         (function(){
-            seajs.config({
-                base: '/javascripts/sea-modules/',
-                alias: {
-                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
-                    'validate': 'jquery/validate/1.13.1/jquery.validate.js',
-                    'bootstrap.modal': 'bootstrap/modal/bootstrap.modal.js',
-                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
-                    'utils': '/javascripts/static/utils/index.js'
-                }
-            });
-            seajs.use(['jquery', '/javascripts/static/category/event']);
+            seajs.use(['jquery', 'static/category/event']);
         })();
