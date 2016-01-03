@@ -52,7 +52,7 @@ block content
                             div.row-fluid.force-margin
                                 div.span3
                                     div.control-group
-                                        label.control-label(for='select2') Category
+                                        label.control-label(for='category-id') Category
                                         div.controls
                                             select.required(name='category-id', id='category-id')
                                                 option(value='') Choose One
@@ -135,14 +135,14 @@ block scriptContent
     script.
         (function(){
             seajs.config({
-            base: '/javascripts/sea-modules/',
-            alias: {
-                    'jquery': 'jquery/jquery/1.10.1/jquery.js',
-                    'validate': 'jquery/validate/1.13.1/jquery.validate.js',
-                    'validate.extend': 'jquery/validate/1.13.1/validate.extend.js',
-                    'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
-                    'utils': '/javascripts/static/utils/index.js'
-                }
+                base: '/javascripts/sea-modules/',
+                alias: {
+                        'jquery': 'jquery/jquery/1.10.1/jquery.js',
+                        'validate': 'jquery/validate/1.13.1/jquery.validate.js',
+                        'validate.extend': 'jquery/validate/1.13.1/validate.extend.js',
+                        'jgrowl': 'jquery/jgrowl/1.4.2/jquery.jgrowl.js',
+                        'utils': '/javascripts/static/utils/index.js'
+                    }
             });
             seajs.use(['jquery', '/javascripts/static/order/event']);
         })();
