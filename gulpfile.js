@@ -23,7 +23,7 @@ gulp.task('clean-css', function () {
 });
 
 gulp.task('clean-script', function () {
-    gulp.src('public/dist/javascripts/*', {read: false})
+    gulp.src('public/dist/javascripts/static/*', {read: false})
         .pipe(clean());
 });
 

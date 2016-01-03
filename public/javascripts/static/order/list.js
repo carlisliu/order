@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/18/15.
  */
-define(function (require) {
+define('static/order/list', function (require) {
     var $ = require('jquery'),
         utils = require('utils');
 

@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define(function (require) {
+define('static/product/event', function (require) {
     var $ = require('jquery'), msg = window.msg, Product = require('./product'), Modal, utils, validateOpts = {
         errorPlacement: function (error, element) {
             element.parents('.controls').append(error);

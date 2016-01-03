@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define(function (require, exports, module) {
+define('static/category/category', function (require, exports, module) {
     var $ = require('jquery');
 
     function Category(container) {

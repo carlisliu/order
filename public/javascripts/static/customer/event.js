@@ -2,7 +2,7 @@
  * Created by Carlis on 4/10/15.
  */
 
-define(function (require) {
+define('static/customer/event', function (require) {
     var $ = require('jquery');
 
     $(function () {

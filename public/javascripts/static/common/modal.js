@@ -2,7 +2,7 @@
  * Created by Carlis on 4/15/15.
  */
 
-define(function (require, exports, module) {
+define('static/common/modal', function (require, exports, module) {
     var $ = require('jquery');
 
     function Modal(container) {

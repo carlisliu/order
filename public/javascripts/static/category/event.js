@@ -2,7 +2,7 @@
  * Created by Carlis on 4/12/15.
  */
 
-define(function (require, exports, module) {
+define((window.jsStatic || '') + 'static/category/event', function (require, exports, module) {
     var $ = require('jquery'), msg = window.msg, Modal, validateOpts = {
         errorPlacement: function (error, element) {
             element.parents('.controls').append(error);

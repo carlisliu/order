@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/13/15.
  */
-define(function (require, exports, module) {
+define('static/order/order', function (require, exports, module) {
     var $ = require('jquery');
 
     function Detail(detail) {
