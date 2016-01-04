@@ -2,7 +2,7 @@
  * Created by Carlis on 5/4/15.
  */
 
-define('static/company/company', function (require, exports, module) {
+define('static/company/company', function(require, exports, module) {
     var $ = require('jquery');
 
     function Company(container) {
@@ -10,19 +10,21 @@ define('static/company/company', function (require, exports, module) {
     }
 
     Company.prototype = {
-        saveOrUpdate: function (company, callback) {
-            $.post('/company/save.html', {company: company }).done(function (data) {
+        saveOrUpdate: function(company, callback) {
+            $.post('/company/save.html', {
+                company: company
+            }).done(function(data) {
                 callback(null, data);
-            }).fail(function (e) {
-                    callback(e);
-                });
+            }).fail(function(e) {
+                callback(e);
+            });
             return this;
         },
-        clear: function () {
+        clear: function() {
             this.container && this.container.find('text').val('');
             return this;
         },
-        setData: function (company) {
+        setData: function(company) {
             var container = this.container;
             if (company) {
                 container.find('#company-name').val(company.name || '');
@@ -34,9 +36,9 @@ define('static/company/company', function (require, exports, module) {
     };
 
     var company = new Company($('#settings-form'));
-    $('#company-setting').click(function (e) {
+    $('#company-setting').click(function(e) {
         e.preventDefault();
-        $.getJSON('/company/get.html', function (data) {
+        $.getJSON('/company/get.html', function(data) {
             if (data && data.company) {
                 company.setData(data.company);
             } else {
@@ -45,7 +47,7 @@ define('static/company/company', function (require, exports, module) {
         });
     });
 
-    $('#setting-confirm').click(function (e) {
+    $('#setting-confirm').click(function(e) {
         e.preventDefault();
         var container = company.container;
         var companyItem = {
@@ -53,8 +55,7 @@ define('static/company/company', function (require, exports, module) {
             address: container.find('#company-address').val(),
             phone: container.find('#company-phone').val()
         };
-        company.saveOrUpdate(companyItem, function () {
-        });
+        company.saveOrUpdate(companyItem, function() {});
     });
-//    module.exports = Company;
+    module.exports = Company;
 });

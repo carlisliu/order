@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define('static/product/event', function (require) {
+define('static/product/event', ['validate', 'validate.extend', 'jgrowl'], function (require) {
     var $ = require('jquery'), msg = window.msg, Product = require('./product'), Modal, utils, validateOpts = {
         errorPlacement: function (error, element) {
             element.parents('.controls').append(error);
@@ -15,10 +15,9 @@ define('static/product/event', function (require) {
     };
     require('validate');
     require('validate.extend');
-    require('bootstrap.modal');
-    Modal = require('../common/modal');
     require('jgrowl');
-    utils = require('utils');
+    Modal = require('../common/modal');
+    utils = require('../utils/index');
 
     if (msg && 'null' !== msg) {
         $.jGrowl(msg);

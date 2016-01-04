@@ -1356,6 +1356,4 @@ $.extend($.fn, {
 	}
 });
 
-module.exports = $;
-
 });

@@ -3,7 +3,7 @@
  */
 define('static/customer/customer', function (require, exports, module) {
     var $ = require('jquery'),
-        utils = require('utils');
+        utils = require('../utils/index');
 
     function Customer(container) {
         var customerId;

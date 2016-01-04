@@ -2,9 +2,8 @@
  * Created by Carlis on 4/10/15.
  */
 
-define('static/customer/event', function (require) {
+define('static/customer/event', ['validate', 'validate.extend', 'jgrowl'], function (require) {
     var $ = require('jquery');
-
     $(function () {
         var Customer, Display, customerDisplay, Modal, utils, validateOpts = {
             errorPlacement: function (error, element) {
@@ -20,8 +19,7 @@ define('static/customer/event', function (require) {
         require('validate');
         require('validate.extend');
         require('jgrowl');
-        require('bootstrap.modal');
-        utils = require('utils');
+        utils = require('../utils/index');
         Customer = require('./customer');
         Display = Customer.Display;
         Modal = require('../common/modal');
@@ -111,6 +109,4 @@ define('static/customer/event', function (require) {
             }
         });
     });
-
-
 });

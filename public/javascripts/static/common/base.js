@@ -1,7 +1,7 @@
 define('static/common/base', function(require, exports, module) {
 
 	var $ = require('jquery');
-	var util = require('util');
+	var util = require('../utils/index');
 
 	function noop() {}
 

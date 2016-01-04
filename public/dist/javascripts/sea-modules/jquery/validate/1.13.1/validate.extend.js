@@ -17,6 +17,4 @@ define(function(require, exports, module){
         return this.optional(element) || /^\d+$/.test(value) || /^(\d+)(\.?[0-9]{1,2})$/.test(value);
     }, "The price format is wrong. use a number, accurate to the second decimal place.");
 
-    module.exports = $;
-
 });

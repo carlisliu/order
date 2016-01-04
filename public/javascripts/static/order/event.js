@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/13/15.
  */
-define('static/order/event', function (require) {
+define('static/order/event', ['validate', 'validate.extend', 'jgrowl'], function (require) {
     var $ = require('jquery'),
         Order = require('./order').Order,
         Detail = require('./order').Detail,
@@ -9,7 +9,7 @@ define('static/order/event', function (require) {
         customer = new Customer('#customer-form'),
         Product = require('../product/product'),
         product = new Product(),
-        utils = require('utils'),
+        utils = require('../utils/index'),
         orderDetails = {},
         validationOpts = {
             errorPlacement: function (error, element) {

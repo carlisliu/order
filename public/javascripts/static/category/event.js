@@ -2,8 +2,9 @@
  * Created by Carlis on 4/12/15.
  */
 
-define((window.jsStatic || '') + 'static/category/event', function (require, exports, module) {
-    var $ = require('jquery'), msg = window.msg, Modal, validateOpts = {
+define('static/category/event', ['validate', 'jgrowl'], function (require, exports, module) {
+    var $ = require('jquery');
+    var validateOpts = {
         errorPlacement: function (error, element) {
             element.parents('.controls').append(error);
         },
@@ -13,12 +14,11 @@ define((window.jsStatic || '') + 'static/category/event', function (require, exp
         success: function (label) {
             label.addClass('valid').closest('.control-group').removeClass('error success').addClass('success');
         }
-    }, utils;
+    };
     require('validate');
     require('jgrowl');
-    require('bootstrap.modal');
-    Modal = require('../common/modal');
-    utils = require('utils');
+    var Modal = require('../common/modal');
+    var utils = require('../utils/index');
 
     $.validator.setDefaults({
         onsubmit: false

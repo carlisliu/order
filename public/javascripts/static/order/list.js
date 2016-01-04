@@ -1,9 +1,9 @@
 /**
  * Created by Carlis on 4/18/15.
  */
-define('static/order/list', function (require) {
+define('static/order/list', ['datepicker'], function (require) {
     var $ = require('jquery'),
-        utils = require('utils');
+        utils = require('../utils/index');
 
     require('datepicker');
 

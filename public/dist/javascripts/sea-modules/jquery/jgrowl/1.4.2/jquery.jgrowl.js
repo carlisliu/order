@@ -145,9 +145,6 @@
  * - Removed dependency on metadata plugin in favor of .data()
  * - Namespaced all events
  */
-
-define(function (require, exports, module) {
-var jQuery = require('jquery');
 (function($) {
 	/** jGrowl Wrapper - Establish a base jGrowl Container for compatibility with older releases. **/
 	$.jGrowl = function( m , o ) {
@@ -391,5 +388,3 @@ var jQuery = require('jquery');
 	$.jGrowl.defaults = $.fn.jGrowl.prototype.defaults;
 
 })(jQuery);
-module.exports = jQuery;
-});
