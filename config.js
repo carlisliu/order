@@ -14,7 +14,7 @@ db.url = 'mongodb://' + db.ip + ':' + (db.port || 27017) + '/' + db.schema;
 var dbUri = 'mongodb://' + ((db.username && db.password) ? (db.username + ':' + db.password + '@') : '') + db.ip + ':' + (db.port || 27017) + '/' + db.schema;
 var config = {
     db: db,
-    dbUri: 'mongodb://root:root@localhost:27017/order',
+    dbUri: dbUri,
     productUploadPath: '/upload/products',
     staticServer: '',
     page: {
