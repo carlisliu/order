@@ -4,15 +4,17 @@
 var mongoose = require('mongoose');
 var config = require('../config');
 
-mongoose.connect(config.db, {
-    db: { native_parser: true },
-    user: config.username,
-    pass: config.password
-}, function (err) {
-    if (err) {
-        console.error('connect to %s error: ', config.db, err.message);
-        process.exit(1);
-    }
+mongoose.connect(config.db.url, {
+	db: {
+		native_parser: true
+	},
+	user: config.db.username,
+	pass: config.db.password
+}, function(err) {
+	if (err) {
+		console.error('connect to %s error: ', config.db.url, err.message);
+		process.exit(1);
+	}
 });
 
 // models
