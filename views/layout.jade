@@ -5,7 +5,7 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
         block css
-            link(rel='stylesheet', href='/dist/stylesheets/all.css')
+            link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/all.css')
             //link(rel='stylesheet', href='/stylesheets/bootstrap.css')
             //link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
             //link(rel='stylesheet', href='/stylesheets/jquery.fancybox.css')
@@ -87,11 +87,11 @@ html(lang='en')
                 div.modal-footer
                     a.btn(data-dismiss='modal', href='#') Close
                     a.btn.btn-primary(data-dismiss='modal', href='#', id='setting-confirm') Confirm
-        script(src='/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js')
+        script(src='#{context.staticUrl}/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js')
         script.
             (function(){
                 seajs.config({
-                    base: '/javascripts/',
+                    base: '#{context.staticUrl}/javascripts/',
                     alias: {
                         'jquery': 'sea-modules/jquery/jquery/1.10.1/jquery.js',
                         'validate': 'sea-modules/jquery/validate/1.13.1/jquery.validate.js',
