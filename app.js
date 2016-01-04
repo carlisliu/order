@@ -24,6 +24,7 @@ store.on('error', function(error) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(require('./settings'));
 app.use(favicon());
 app.use(compression());
 app.use(logger('dev'));
