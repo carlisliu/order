@@ -28,7 +28,10 @@ gulp.task('clean-script', function () {
 });
 
 gulp.task('script', ['clean-script'], function () {
-    console.log('process scripts');
+    gulp.src('public/javascripts/static/**/*.js')
+        .pipe(concat('all.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('public/dist/javascripts/static'));
 });
 
 gulp.task('default', ['script', 'css']);
