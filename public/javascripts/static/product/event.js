@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define('static/product/event', ['validate', 'validate.extend', 'jgrowl'], function (require) {
+define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../common/modal', '../utils/index'], function (require) {
     var $ = require('jquery'), msg = window.msg, Product = require('./product'), Modal, utils, validateOpts = {
         errorPlacement: function (error, element) {
             element.parents('.controls').append(error);

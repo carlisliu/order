@@ -2,7 +2,7 @@
  * Created by Carlis on 4/12/15.
  */
 
-define('static/category/event', ['validate', 'jgrowl'], function (require, exports, module) {
+define('static/category/event', ['validate', 'jgrowl', '../common/modal', '../utils/index'], function (require, exports, module) {
     var $ = require('jquery');
     var validateOpts = {
         errorPlacement: function (error, element) {

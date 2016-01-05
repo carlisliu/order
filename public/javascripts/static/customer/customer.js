@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/10/15.
  */
-define('static/customer/customer', function (require, exports, module) {
+define('static/customer/customer', ['jquery', '../utils/index'], function (require, exports, module) {
     var $ = require('jquery'),
         utils = require('../utils/index');
 

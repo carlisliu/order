@@ -2,7 +2,7 @@
  * Created by Carlis on 5/4/15.
  */
 
-define('static/company/company', function(require, exports, module) {
+define('static/company/company', ['jquery'], function(require, exports, module) {
     var $ = require('jquery');
 
     function Company(container) {

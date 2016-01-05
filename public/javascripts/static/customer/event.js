@@ -2,7 +2,7 @@
  * Created by Carlis on 4/10/15.
  */
 
-define('static/customer/event', ['validate', 'validate.extend', 'jgrowl'], function (require) {
+define('static/customer/event', ['validate', 'validate.extend', 'jgrowl', './customer', '../utils/index', '../common/modal'], function (require) {
     var $ = require('jquery');
     $(function () {
         var Customer, Display, customerDisplay, Modal, utils, validateOpts = {

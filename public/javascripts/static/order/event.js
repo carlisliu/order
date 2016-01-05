@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/13/15.
  */
-define('static/order/event', ['validate', 'validate.extend', 'jgrowl'], function (require) {
+define('static/order/event', ['jquery', 'validate', 'validate.extend', 'jgrowl', './order', '../customer/customer', '../product/product', '../utils/index'], function (require) {
     var $ = require('jquery'),
         Order = require('./order').Order,
         Detail = require('./order').Detail,

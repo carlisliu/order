@@ -1,4 +1,4 @@
-define('static/common/base', function(require, exports, module) {
+define('static/common/base', ['jquery', '../utils/index'], function(require, exports, module) {
 
 	var $ = require('jquery');
 	var util = require('../utils/index');

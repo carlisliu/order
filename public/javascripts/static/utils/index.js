@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define('static/utils/index', function(require) {
+define('static/utils/index', ['jquery'], function(require) {
     var $ = require('jquery');
 
     function generate(type) {

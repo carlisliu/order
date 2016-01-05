@@ -1,7 +1,7 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define('static/product/product', function (require, exports, module) {
+define('static/product/product', ['jquery'], function (require, exports, module) {
     var $ = require('jquery');
 
     function Product(container) {
