@@ -5,12 +5,15 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
         block css
-            link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap/v3.3.4/bootstrap.min.css')
-            //link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
-            link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/font-awesome/css/font-awesome.min.css')
-            link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/login.all.css')
-            //link(rel='stylesheet', href='/stylesheets/login/form-elements.css')
-            //link(rel='stylesheet', href='/stylesheets/login/style.css')
+            if context.nodeEnv === 'production'
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap/v3.3.4/bootstrap.min.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/font-awesome/css/font-awesome.min.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/login.all.css')
+            else 
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap/v3.3.4/bootstrap.min.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/font-awesome/css/font-awesome.min.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/form-elements.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/style.css')
     body
         div.top-content
             div.inner-bg

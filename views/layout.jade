@@ -5,11 +5,14 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
         block css
-            link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/all.css')
-            //link(rel='stylesheet', href='/stylesheets/bootstrap.css')
-            //link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
-            //link(rel='stylesheet', href='/stylesheets/jquery.fancybox.css')
-            //link(rel='stylesheet', href='/stylesheets/style.css',media='all')
+            if context.nodeEnv === 'production'
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/all.css')
+            else
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap-responsive.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/jquery.fancybox.css')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/style.css',media='all')
+                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/jquery.jgrowl.css',media='all')
 
     body
         div.topbar
@@ -92,7 +95,7 @@ html(lang='en')
             (function(){
                 seajs.config({
                     base: '#{context.staticUrl}/javascripts/',
-                    alias: {
+                    alias: {    
                         'jquery': 'sea-modules/jquery/jquery/1.10.1/jquery.js',
                         'validate': 'sea-modules/jquery/validate/1.13.1/jquery.validate.js',
                         'validate.extend': 'sea-modules/jquery/validate/1.13.1/validate.extend.js',
@@ -102,7 +105,8 @@ html(lang='en')
                     }
                 });
             })();
-        script(src='#{context.staticUrl}/javascripts/static/all.min.js')
+        if context.nodeEnv === 'production'
+            script(src='#{context.staticUrl}/javascripts/static/all.min.js')
         block scriptContent
         script.
             (function(){
