@@ -6,7 +6,7 @@ var moment = require('moment');
 
 var utils = {
     extend: function (first, second) {
-        var key
+        var key;
         if (first && second) {
             for (key in second) {
                 if (second.hasOwnProperty(key)) {
@@ -39,9 +39,8 @@ var utils = {
         return (prefix || '' ) + moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '');
     },
     fixAddress: function (address, separator) {
-        var result = '';
         separator = separator || ', ';
-        result = address.street + separator + address.city;
+        var result = address.street + separator + address.city;
         if (address.country) {
             result += (separator + address.country);
         }
