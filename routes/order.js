@@ -23,7 +23,27 @@ router.get('/details/:id', function (req, res) {
 });
 
 router.get('/list.html', function (req, res) {
-    Order.getAllOrder(function (err, orders) {
+    var no = req.param('no');
+    if (no) {
+        return Order.getOrderById(no, function (err, order) {
+            var msg = err ? err.toString() : '';
+            if (!order) {
+                msg = 'Order does not exist.';
+            }
+            res.render('order_list', {title: 'Order', orders: (order ? [order] : [])});
+        });
+    }
+    var date = req.param('date');
+    if (date) {
+        return Order.getOrderByParams({create_at: date}, function (err, orders) {
+            var status = 'success';
+            if (err) {
+                status = 'error'
+            }
+            res.render('order_list', {title: 'Order', orders: (orders || [])});
+        });
+    }
+    return Order.getAllOrder(function (err, orders) {
         res.render('order_list', {title: 'Order', orders: (orders || [])});
     });
 });
@@ -41,7 +61,7 @@ router.get('/get.html', function (req, res) {
                 status = 'error'
             }
             res.json({status: status, orders: (orders || [])});
-        })
+        });
     } else {
         Order.getAllOrder(function (err, orders) {
             var status = 'success';

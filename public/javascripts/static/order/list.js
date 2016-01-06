@@ -55,6 +55,9 @@ define('static/order/list', ['jquery', '../utils/index', 'datepicker'], function
             window.open('/order/details/' + $(this).attr('data-order-no'));
         });
 
-        searchEl.trigger('click');
+        if (!location.search) {
+            searchEl.trigger('click');
+        }
+        
     });
 });

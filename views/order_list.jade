@@ -50,6 +50,14 @@ block content
                                             th Customer Tel
                                             th Total Price(￡)
                                     tbody
+                                        each item in orders
+                                            tr
+                                                td
+                                                    a(href='#', data-order-no='#{item.no}') #{item.no}
+                                                td #{item.order_date}
+                                                td #{item.customer_name}
+                                                td #{item.customer_tel}
+                                                td #{item.total}
 block scriptContent
     script(type='x/template', id='order-result-template').
         <tr>
