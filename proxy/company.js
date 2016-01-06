@@ -3,6 +3,7 @@
  */
 
 var Company = require('../models').Company;
+var util = require('../utils/utils');
 
 function find(callback) {
     Company.findOne(callback);
@@ -21,9 +22,7 @@ exports.saveOrUpdate = function (company, callback) {
         }
         if (!old) {
             shop = new Company();
-            shop.name = company.name;
-            shop.address = company.address;
-            shop.phone = company.phone;
+            util.extend(shop, company);
             shop.save(function (err) {
                 callback(err, company);
             });
