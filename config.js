@@ -11,7 +11,7 @@ var config = {
         },
         productUploadPath: '/upload/products',
         staticServer: 'http://localhost:3000',
-        staticResourcePath: '/',
+        staticResourcePath: '',
         page: {
             pageSize: 10,
             paginationSize: 5
