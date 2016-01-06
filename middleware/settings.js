@@ -3,7 +3,7 @@ var url = require('url');
 
 var host = config.host;
 var staticServer = config.staticServer;
-var staticResourcePath = config.staticResourcePath || '/';
+var staticResourcePath = config.staticResourcePath;
 var staticUrl = url.resolve(staticServer, staticResourcePath);
 
 exports = module.exports = function (req, res, next) {
