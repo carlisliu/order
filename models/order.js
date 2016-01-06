@@ -20,6 +20,7 @@ mongoose.model('OrderDetail', OrderDetailSchema);
 
 var OrderSchema = new Schema({
     no: {type: String, unique: true},
+    seller_id: {type: String},
     customer_id: {type: String},
     customer_name: {type: String},
     customer_tel: {type: String},
