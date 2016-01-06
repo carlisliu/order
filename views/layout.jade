@@ -5,15 +5,7 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
         block css
-            if context.nodeEnv === 'production'
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/all.css')
-            else
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap-responsive.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/jquery.fancybox.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/style.css',media='all')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/jquery.jgrowl.css',media='all')
-
+            !{context.resources.css.layout}
     body
         div.topbar
             div.container-fluid
@@ -90,7 +82,7 @@ html(lang='en')
                 div.modal-footer
                     a.btn(data-dismiss='modal', href='#') Close
                     a.btn.btn-primary(data-dismiss='modal', href='#', id='setting-confirm') Confirm
-        script(src='#{context.staticUrl}/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js')
+        !{context.resources.js._layout.get(0)}
         script.
             (function(){
                 seajs.config({
@@ -105,8 +97,7 @@ html(lang='en')
                     }
                 });
             })();
-        if context.nodeEnv === 'production'
-            script(src='#{context.staticUrl}/javascripts/static/all.min.js')
+        !{context.resources.js._layout.get(1)}
         block scriptContent
         script.
             seajs.use(['jquery', 'bootstrap.modal', 'static/company/company', 'static/menu/index']);
