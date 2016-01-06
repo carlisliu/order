@@ -9,6 +9,8 @@ var UserSchema = new Schema({
     id: {type: String, unique: true},
     name: {type: String},
     password: {type: String},
+    admin: {type: Boolean},
+    company_id: {type: Schema.ObjectId},
     create_at: {type: Date, default: Date.now}
 });
 
