@@ -61,6 +61,17 @@ html(lang='en')
                             div.ico
                                 i.icon-tasks.icon-white
                             |Product
+                    if (session.user && session.user.admin)
+                        li
+                            a.light(href='/user/index.html')
+                                div.ico
+                                    i.icon-resize-full.icon-white
+                                |User
+                        li
+                            a.light(href='/control/index.html')
+                                div.ico
+                                    i.icon-resize-full.icon-white
+                                |Control Panel
             block content
             div.modal.hide(id='settings-modal')
                 div.modal-header
