@@ -3,6 +3,7 @@ html(lang='en')
     head
         title= title
         meta(charset='utf-8')
+        meta(name='description', content='Order Delivery')
         meta(name='name', content='width=device-width')
         block css
             !{context.resources.css.layout}
@@ -82,6 +83,8 @@ html(lang='en')
                 div.modal-footer
                     a.btn(data-dismiss='modal', href='#') Close
                     a.btn.btn-primary(data-dismiss='modal', href='#', id='setting-confirm') Confirm
+        if (!session.user || !session.user.company)
+            input(type='hidden', id='_company_missing_flag', value='1')
         !{context.resources.js._layout.get(0)}
         script.
             (function(){

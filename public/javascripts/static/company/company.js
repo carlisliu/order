@@ -35,27 +35,35 @@ define('static/company/company', ['jquery'], function(require, exports, module) 
         }
     };
 
-    var company = new Company($('#settings-form'));
-    $('#company-setting').click(function(e) {
-        e.preventDefault();
-        $.getJSON('/company/get.html', function(data) {
-            if (data && data.company) {
-                company.setData(data.company);
-            } else {
-                company.clear();
-            }
-        });
-    });
+    
 
-    $('#setting-confirm').click(function(e) {
-        e.preventDefault();
-        var container = company.container;
-        var companyItem = {
-            name: container.find('#company-name').val(),
-            address: container.find('#company-address').val(),
-            phone: container.find('#company-phone').val()
-        };
-        company.saveOrUpdate(companyItem, function() {});
-    });
+    $(function () {
+        var company = new Company($('#settings-form'));
+        $('#company-setting').click(function(e) {
+            e.preventDefault();
+            $.getJSON('/company/get.html', function(data) {
+                if (data && data.company) {
+                    company.setData(data.company);
+                } else {
+                    company.clear();
+                }
+            });
+        });
+
+        $('#setting-confirm').click(function(e) {
+            e.preventDefault();
+            var container = company.container;
+            var companyItem = {
+                name: container.find('#company-name').val(),
+                address: container.find('#company-address').val(),
+                phone: container.find('#company-phone').val()
+            };
+            company.saveOrUpdate(companyItem, function() {});
+        });
+
+        if ($('#_company_missing_flag').val() === '1') {
+            $('#company-setting').click();
+        }
+    })
     module.exports = Company;
 });
