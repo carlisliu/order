@@ -11,13 +11,19 @@ var order = require('./routes/order');
 var company = require('./routes/company');
 var api = require('./routes/api');
 
-module.exports = function (app) {
-    app.use('/', index);
-    app.use('/users', users);
-    app.use('/customer', customer);
-    app.use('/category', category);
-    app.use('/product', product);
-    app.use('/order', order);
-    app.use('/company', company);
-    app.use('/api', api);
+module.exports = function(app) {
+	app.use('/', index);
+	app.use(function(req, res, next) {
+		if (req.session.user && !req.session.user.company) {
+			return res.redirect('/');
+		}
+		next();
+	});
+	app.use('/users', users);
+	app.use('/customer', customer);
+	app.use('/category', category);
+	app.use('/product', product);
+	app.use('/order', order);
+	app.use('/company', company);
+	app.use('/api', api);
 };
