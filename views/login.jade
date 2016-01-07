@@ -5,15 +5,7 @@ html(lang='en')
         meta(charset='utf-8')
         meta(name='name', content='width=device-width')
         block css
-            if context.nodeEnv === 'production'
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap/v3.3.4/bootstrap.min.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/font-awesome/css/font-awesome.min.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/login.all.css')
-            else 
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/bootstrap/v3.3.4/bootstrap.min.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/font-awesome/css/font-awesome.min.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/form-elements.css')
-                link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/login/style.css')
+            !{context.resources.css.login}
     body
         div.top-content
             div.inner-bg
@@ -40,8 +32,7 @@ html(lang='en')
                                         label.sr-only(for='form-password') Password
                                         input.form-username.form-control(id='form-password', name='form-password', placeholder='Password...',type='password')
                                     button.btn(type='submit') Sign in
-        script(src='#{context.staticUrl}/javascripts/sea-modules/jquery/jquery/1.10.1/jquery.js')
-        script(src='#{context.staticUrl}/javascripts/sea-modules/backstretch/2.0.4/jquery.backstretch.min.js')
+        !{context.resources.js.login}
         script.
             (function(){
                 var $ = jQuery;
