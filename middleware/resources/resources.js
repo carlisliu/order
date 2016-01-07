@@ -25,7 +25,10 @@ var css = {
 			'/stylesheets/login/form-elements.css', '/stylesheets/login/style.css'
 		],
 		'layout': ['/stylesheets/bootstrap.css', '/stylesheets/bootstrap-responsive.css',
-			'/stylesheets/jquery.fancybox.css', '/stylesheets/style.css', '/stylesheets/jquery.jgrowl.css'
+			'/stylesheets/jquery.fancybox.css', {
+				url: '/stylesheets/style.css',
+				media: 'all'
+			}, '/stylesheets/jquery.jgrowl.css'
 		],
 		'order_list': ['/stylesheets/datepicker.css']
 	},
@@ -41,8 +44,14 @@ var css = {
 function parseResource(recourses) {
 	for (var page in recourses) {
 		recourses[page] = recourses[page].map(function(path) {
-			var realPath = basePath + path;
-			return realPath.replace(DOUBLE_SLASH_RE, "$1/");
+			var realPath;
+			if (typeof path === 'string') {
+				realPath = basePath + path;
+				return realPath.replace(DOUBLE_SLASH_RE, "$1/");
+			}
+			realPath = basePath + path['url'];
+			path['url'] = realPath.replace(DOUBLE_SLASH_RE, "$1/");
+			return path;
 		});
 	}
 	return recourses;

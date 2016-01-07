@@ -1,46 +1,23 @@
-//var util = require('util');
+var util = require('../../utils/utils');
 var resources = require('./resources');
 var scriptType = {
 	js: 'script type="text/javascript"',
 	css: 'link rel="stylesheet"'
 };
 
-function Item(type, items) {
-	this.type = type;
+function Item(items) {
 	this.items = items || [];
 }
 
 Item.prototype.get = function(index) {
-	var item = this.items[index];
-	var type = this.type;
-	if (!item) {
-		return '';
-	}
-	if (type === 'js') {
-		attr = 'src';
-	} else if (type === 'css') {
-		attr = 'href';
-	}
-	var prop = {};
-	prop[attr] = item;
-	return concatScript(type, prop);
+	return this.items[index] || '';
 };
 
 Item.prototype.toString = function() {
-	var type = this.type;
 	if (!this.items || !this.items.length) {
 		return '';
 	}
-	if (type === 'js') {
-		attr = 'src';
-	} else if (type === 'css') {
-		attr = 'href';
-	}
-	return this.items.map(function (url) {
-		var prop = {};
-		prop[attr] = url;
-		return concatScript(type, prop);
-	}).join('');
+	return this.items.join('');
 };
 
 function Resource(resources) {
@@ -57,12 +34,19 @@ function process(type, obj) {
 		attr = 'href';
 	}
 	iterator(obj, function(resources, page) {
-		obj[page] = resources.map(function(url) {
+		resources = resources.map(function(url) {
 			var attrObj = {};
-			attrObj[attr] = url;
+			if (typeof url === 'string') {
+				attrObj[attr] = url;
+			} else {
+				attrObj[attr] = url.url;
+				delete url.url;
+				util.extend(attrObj, url);
+			}
 			return concatScript(type, attrObj);
-		}).join('');
-		obj['_' + page] = new Item(type, resources);
+		});
+		obj[page] = resources.join('');
+		obj['_' + page] = new Item(resources);
 	});
 	return obj;
 }

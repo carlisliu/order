@@ -9,9 +9,8 @@ var staticUrl = url.resolve(staticServer, staticResourcePath);
 
 
 exports = module.exports = function (req, res, next) {
+	res.locals.session = req.session;
 	res.locals.context = {
-		nodeEnv: process.env.NODE_ENV || 'development',
-		host: host,
 		staticUrl: staticUrl,
 		resources: resources
 	};
