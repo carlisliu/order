@@ -11,7 +11,7 @@ exports.createOrder = function (order, callback) {
     if (order && order.details && order.details.length) {
         order2Save = new Order();
         order2Save.no = utils.getOrderNo();
-        utils.copyProperties(order2Save, order, ['customer_id', 'customer_name', 'customer_tel', 'customer_address']);
+        utils.copyProperties(order2Save, order, ['customer_id', 'company_id', 'customer_name', 'customer_tel', 'customer_address']);
         order2Save.details = [];
         order.details.forEach(function (content, index) {
             var orderDetail = new OrderDetail();
@@ -56,8 +56,8 @@ exports.getOrderById = function (id, callback) {
     Order.findOne({no: id}, callback);
 };
 
-exports.getAllOrder = function (callback) {
-    Order.find().sort({create_at: -1}).exec(callback);
+exports.getAllOrder = function (companyId, callback) {
+    Order.find({company_id: companyId}).sort({create_at: -1}).exec(callback);
 };
 
 exports.getOrderByParams = function (params, callback) {
@@ -71,4 +71,12 @@ exports.getOrderByParams = function (params, callback) {
         instance.where('create_at').gt(new Date(date)).lt(new Date(date + ' 23:59:59'));
     }
     instance.exec(callback);
+};
+
+exports.findOrderById = function (order, callback) {
+    return Order.findOne(order, callback);
+};
+
+exports.findOrders = function (order, callback) {
+    return Order.find(order, callback);
 };

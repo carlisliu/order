@@ -8,86 +8,141 @@ var Customer = require('../proxy').Customer;
 var Category = require('../proxy').Category;
 var moment = require('moment');
 var Company = require('../proxy').Company;
+var EventProxy = require('eventproxy');
 
-router.get('/details/:id', function (req, res) {
+router.get('/details/:id', function(req, res) {
     var orderId = req.params['id'];
-    Order.getOrderById(orderId, function (err, order) {
+    var company = req.session.user.company;
+    Order.findOrderById({
+        no: orderId,
+        company_id: company.id
+    }, function(err, order) {
         var msg = err ? err.toString() : '';
         if (!order) {
             msg = 'Order does not exist.';
         }
-        Company.getCompany(function (err, company) {
-            res.render('order_detail', {order: order, msg: msg, company: company, title: 'Order Details-No.' + order.no});
+        res.render('order_detail', {
+            order: order,
+            msg: msg,
+            company: company,
+            title: 'Order Details-No.' + order.no
         });
     });
 });
 
-router.get('/list.html', function (req, res) {
+router.get('/list.html', function(req, res) {
     var no = req.param('no');
+    var companyId = req.session.user.company.id;
     if (no) {
-        return Order.getOrderById(no, function (err, order) {
+        return Order.findOrderById({
+            no: no,
+            company_id: companyId
+        }, function(err, order) {
             var msg = err ? err.toString() : '';
             if (!order) {
                 msg = 'Order does not exist.';
             }
-            res.render('order_list', {title: 'Order', orders: (order ? [order] : [])});
+            res.render('order_list', {
+                title: 'Order',
+                orders: (order ? [order] : [])
+            });
         });
     }
     var date = req.param('date');
     if (date) {
-        return Order.getOrderByParams({create_at: date}, function (err, orders) {
+        return Order.getOrderByParams({
+            create_at: date,
+            company_id: companyId
+        }, function(err, orders) {
             var status = 'success';
             if (err) {
                 status = 'error'
             }
-            res.render('order_list', {title: 'Order', orders: (orders || [])});
+            res.render('order_list', {
+                title: 'Order',
+                orders: (orders || [])
+            });
         });
     }
-    return Order.getAllOrder(function (err, orders) {
-        res.render('order_list', {title: 'Order', orders: (orders || [])});
+    return Order.getAllOrder(companyId, function(err, orders) {
+        res.render('order_list', {
+            title: 'Order',
+            orders: (orders || [])
+        });
     });
 });
 
-router.get('/get.html', function (req, res) {
-    var params = req.param('params'), key;
+router.get('/get.html', function(req, res) {
+    var params = req.param('params'),
+        key,
+        companyId = req.session.user.company.id;
     params = params || {};
     for (key in params) {
         break;
     }
     if (key) {
-        Order.getOrderByParams(params, function (err, orders) {
+        params.company_id = companyId;
+        Order.getOrderByParams(params, function(err, orders) {
             var status = 'success';
             if (err) {
                 status = 'error'
             }
-            res.json({status: status, orders: (orders || [])});
+            res.json({
+                status: status,
+                orders: (orders || [])
+            });
         });
     } else {
-        Order.getAllOrder(function (err, orders) {
+        Order.getAllOrder(companyId, function(err, orders) {
             var status = 'success';
             if (err) {
                 status = 'error'
             }
-            res.json({status: status, orders: orders || []});
+            res.json({
+                status: status,
+                orders: orders || []
+            });
         });
     }
 });
 
-router.get('/index.html', function (req, res) {
-    Customer.findAllCustomers(function (err, customers) {
-        Category.getAllCategory(function (err, category) {
-            res.render('order', {title: 'Order', customer: customers || [], category: category || []});
+router.get('/index.html', function(req, res) {
+    var companyId = req.session.user.company.id;
+    var ep = new EventProxy();
+    ep.assign('customers', 'categories', function(customers, categories) {
+        res.render('order', {
+            title: 'Order',
+            customer: customers || [],
+            category: categories || []
         });
     });
+    var param = {
+        company_id: companyId
+    };
+    Customer.findCustomers(param, ep.done('customers'));
+    Category.findCategories(param, ep.done('categories'))
 });
 
-router.post('/add.html', function (req, res) {
+router.post('/add.html', function(req, res) {
     var order = req.param('order');
-    Order.createOrder(order, function (err, order) {
+    if (!order) {
+        return res.json({
+            status: 'error',
+            msg: 'Order info is incomplete.'
+        });
+    }
+    order.company_id = req.session.user.company.id;
+    Order.createOrder(order, function(err, order) {
         if (err) {
-            return res.json({status: 'error', msg: err.toString()});
+            return res.json({
+                status: 'error',
+                msg: err.toString()
+            });
         }
-        res.json({status: 'success', order: order});
+        res.json({
+            status: 'success',
+            order: order
+        });
     });
 });
 

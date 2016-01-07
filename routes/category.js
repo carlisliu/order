@@ -7,55 +7,96 @@ var Category = require('../proxy').Category;
 var Product = require('../proxy').Product;
 var utils = require('../utils/utils');
 var EventProxy = require('eventproxy');
+var async = require('async');
 
-router.get('/index.html', function (req, res) {
+router.get('/index.html', function(req, res) {
     var proxy = new EventProxy();
-    proxy.assign('category_found', 'total_found', function (categories, total) {
-        res.render('category', {title: 'Category', category: categories, total: total});
+    proxy.assign('category_found', 'total_found', function(categories, total) {
+        res.render('category', {
+            title: 'Category',
+            category: categories,
+            total: total
+        });
     });
-    Category.getAllCategory(proxy.done('category_found'));
-    Category.getTotal(proxy.done('total_found'));
+    var param = {
+        company_id: req.session.user.company.id
+    }
+    Category.findCategories(param, proxy.done('category_found'));
+    Category.getTotal(param, proxy.done('total_found'));
 });
 
-router.post('/add.html', function (req, res) {
+router.post('/add.html', function(req, res) {
     var category = req.param('category');
-    Category.addCategory(category, function (err, category) {
+    if (category) {
+        category.company_id = req.session.user.company.id;
+    }
+    Category.addCategory(category, function(err, category) {
         if (err) {
-            res.json({msg: err.toString()});
+            res.json({
+                msg: err.toString()
+            });
         } else {
-            res.json({msg: 'success', category: category});
+            res.json({
+                msg: 'success',
+                category: category
+            });
         }
     });
 });
 
-router.post('/update.html', function (req, res) {
+router.post('/update.html', function(req, res) {
     var category = req.param('category');
-    Category.updateCategory(category, function (err, category) {
+    if (category) {
+        category.company_id = req.session.user.company.id;
+    }
+    Category.updateCategory(category, function(err, category) {
         if (err) {
-            res.json({msg: err.toString()});
+            res.json({
+                msg: err.toString()
+            });
         } else {
-            res.json({status: 'success', msg: 'Updated'});
+            res.json({
+                status: 'success',
+                msg: 'Updated'
+            });
         }
     });
 });
 
-router.post('/remove.html', function (req, res) {
+router.post('/remove.html', function(req, res) {
     var id = req.param('id');
-    var proxy = new EventProxy();
-    proxy.assign('category_removed', 'product_removed', function () {
-        res.json({msg: 'Removed', status: 'success'});
-    });
-    Category.removeCategoryById(id, function (err) {
-        if (err) {
-            return res.json({status: 'error', msg: err.toString()});
+    var companyId = req.session.user.company.id;
+    async.series([function(callback) {
+        Category.removeOneCategory({
+            id: id,
+            company_id: companyId
+        }, function(err) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(err, 'Category Removed');
+        });
+    }, function(callback) {
+        Product.removeProducts({
+            category_id: id,
+            company_id: companyId
+        }, function(err) {
+            if (err) {
+                return callback(err);
+            }
+            return callback(err, 'Product Removed');
+        });
+    }], function(error, results) {
+        if (error) {
+            return res.json({
+                msg: error.message || 'Error',
+                status: 'error'
+            });
         }
-        proxy.done('category_removed')();
-    });
-    Product.removeProductsByCategoryId(id, function (err) {
-        if (err) {
-            return res.json({status: 'error', msg: err.toString()});
-        }
-        proxy.done('product_removed')();
+        res.json({
+            msg: 'Removed',
+            status: 'success'
+        });
     });
 });
 

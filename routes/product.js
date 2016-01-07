@@ -8,58 +8,88 @@ var Product = require('../proxy').Product;
 var utils = require('../utils/utils');
 var EventProxy = require('eventproxy');
 
-router.get('/index.html', function (req, res) {
+router.get('/index.html', function(req, res) {
     var proxy = new EventProxy();
-    proxy.assign('category_found', 'product_found', function (categories, products) {
-        var msg = null, categoryName;
+    proxy.assign('categories', 'products', function(categories, products) {
+        var msg = null,
+            categoryName;
         if (!categories || !categories.length) {
             msg = 'No category found. Please click Category link on the left to add some categories first.'
         } else {
             categoryName = {};
-            categories.forEach(function (content, index) {
+            categories.forEach(function(content, index) {
                 categoryName[content.id] = content.name;
             });
             if (products) {
-                products.forEach(function (content, index) {
+                products.forEach(function(content, index) {
                     content.category_name = categoryName[content.category_id];
                 });
             }
         }
-        res.render('product', {title: 'Product', category: categories, product: products, msg: msg, categoryData: categoryName});
+        res.render('product', {
+            title: 'Product',
+            category: categories,
+            product: products,
+            msg: msg,
+            categoryData: categoryName
+        });
     });
-    Category.getAllCategory(proxy.done('category_found'));
-    Product.findAllProducts(proxy.done('product_found'));
+    var param = {
+        company_id: req.session.user.company.id
+    };
+    Category.findCategories(param, proxy.done('categories'));
+    Product.findProducts(param, proxy.done('products'));
 });
 
-router.post('/add.html', function (req, res) {
+router.post('/add.html', function(req, res) {
     var product = req.param('product');
     if (product) {
-        Product.saveProduct(product, function (err, product) {
+        product.company_id = req.session.user.company.id;
+        Product.saveProduct(product, function(err, product) {
             if (err) {
-                res.json({status: 'error', msg: err.toString()});
+                res.json({
+                    status: 'error',
+                    msg: err.toString()
+                });
             } else {
-                res.json({status: 'success', msg: 'Saved'});
+                res.json({
+                    status: 'success',
+                    msg: 'Saved'
+                });
             }
         });
     } else {
-        res.json({status: 'error', msg: 'Product can not be empty.'});
+        res.json({
+            status: 'error',
+            msg: 'Product can not be empty.'
+        });
     }
 });
 
-router.post('/update.html', function (req, res) {
+router.post('/update.html', function(req, res) {
     var product = req.param('product');
     if (product) {
-        Product.updateProduct(product, function (err) {
+        var companyId = req.session.user.company.id;
+        product.company_id = companyId;
+        Product.updateProduct(product, function(err) {
             if (err) {
-                res.json({status: 'error', msg: err.toString()});
+                res.json({
+                    status: 'error',
+                    msg: err.toString()
+                });
             } else {
-                Category.getAllCategory(function (err, categories) {
+                Category.findCategories({
+                    company_id: companyId
+                }, function(err, categories) {
                     var categoryName;
                     if (err) {
-                        res.json({status: 'error', msg: err.toString()});
+                        res.json({
+                            status: 'error',
+                            msg: err.toString()
+                        });
                     } else {
                         if (categories) {
-                            categories.forEach(function (content) {
+                            categories.forEach(function(content) {
                                 if (content.id == product.category_id) {
                                     categoryName = content.name;
                                 }
@@ -68,42 +98,73 @@ router.post('/update.html', function (req, res) {
                         if (categoryName) {
                             product.category_name = categoryName;
                         }
-                        res.json({status: 'success', msg: 'Updated', product: product});
+                        res.json({
+                            status: 'success',
+                            msg: 'Updated',
+                            product: product
+                        });
                     }
                 });
             }
         });
     } else {
-        res.json({status: 'error', msg: 'Product can not be empty.'});
+        res.json({
+            status: 'error',
+            msg: 'Product can not be empty.'
+        });
     }
 });
 
-router.get('/find.html/:id', function (req, res) {
+router.get('/find.html/:id', function(req, res) {
     var categoryId = req.param('id');
     if (categoryId) {
-        Product.getProductsByCategoryId(categoryId, function (err, products) {
+        Product.findProducts({
+            category_id: categoryId,
+            company_id: req.session.user.company.id
+        }, function(err, products) {
             if (err) {
-                return res.json({status: 'error', msg: err.toString()});
+                return res.json({
+                    status: 'error',
+                    msg: err.toString()
+                });
             }
-            res.json({status: 'success', products: products});
+            res.json({
+                status: 'success',
+                products: products
+            });
         });
     } else {
-        res.json({status: 'error', msg: 'Category can not be empty.'});
+        res.json({
+            status: 'error',
+            msg: 'Category can not be empty.'
+        });
     }
 });
 
-router.post('/remove.html', function (req, res) {
+router.post('/remove.html', function(req, res) {
     var id = req.param('id');
     if (id) {
-        Product.removeProductById(id, function (err) {
+        Product.removeProducts({
+            id: id,
+            company_id: req.session.user.company.id
+        }, function(err) {
             if (err) {
-                res.json({status: 'error', msg: err.toString()});
+                res.json({
+                    status: 'error',
+                    msg: err.toString()
+                });
             } else {
-                res.json({status: 'success', msg: 'Removed'});
+                res.json({
+                    status: 'success',
+                    msg: 'Removed'
+                });
             }
         });
     } else {
-        res.json({status: 'error', msg: 'Product can not be empty.'});
+        res.json({
+            status: 'error',
+            msg: 'Product can not be empty.'
+        });
     }
 });
 

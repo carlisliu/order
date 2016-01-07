@@ -5,22 +5,16 @@
 var Category = require('../models').Category,
     utils = require('../utils/utils');
 
-exports.getAllCategory = function (callback) {
+exports.getAllCategory = function(callback) {
     Category.find(callback);
 };
 
-function findCategoryByName(name, callback) {
-    if (!name) {
-        return callback(new Error("Category's name can not be empty."));
-    }
-    Category.findOne({name: name}, function (err, category) {
-        callback(err, category);
-    });
-}
-
-exports.addCategory = function (category, callback) {
+exports.addCategory = function(category, callback) {
     if (category) {
-        findCategoryByName(category.name, function (err, foundCategory) {
+        findOneCategory({
+            name: category.name,
+            company_id: category.company_id
+        }, function(err, foundCategory) {
             if (err) {
                 return callback(err);
             }
@@ -29,8 +23,8 @@ exports.addCategory = function (category, callback) {
             }
             var category2Save = new Category();
             category2Save.id = utils.genId('CA');
-            utils.copyProperties(category2Save, category, ['name', 'memo']);
-            category2Save.save(function (err) {
+            utils.copyProperties(category2Save, category, ['name', 'memo', 'company_id']);
+            category2Save.save(function(err) {
                 category.id = category2Save.id;
                 callback(err, category);
             });
@@ -40,13 +34,17 @@ exports.addCategory = function (category, callback) {
     }
 };
 
-exports.removeCategoryById = function (id, callback) {
-    Category.remove({id: id}, callback);
-};
-
-exports.updateCategory = function (category, callback) {
+exports.updateCategory = function(category, callback) {
     if (category) {
-        Category.update({id: category.id}, {$set: {name: category.name, memo: category.memo}}, function (err) {
+        Category.update({
+            id: category.id,
+            company_id: category.company_id
+        }, {
+            $set: {
+                name: category.name,
+                memo: category.memo
+            }
+        }, function(err) {
             callback(err, category);
         });
     } else {
@@ -54,9 +52,11 @@ exports.updateCategory = function (category, callback) {
     }
 }
 
-exports.getCategoryById = function (id, callback) {
+exports.getCategoryById = function(id, callback) {
     if (id) {
-        Category.findOne({id: id}, function (err, category) {
+        Category.findOne({
+            id: id
+        }, function(err, category) {
             category(err, category);
         });
     } else {
@@ -64,6 +64,24 @@ exports.getCategoryById = function (id, callback) {
     }
 };
 
-exports.getTotal = function (callback) {
-    Category.count(callback);
+exports.getTotal = function(params, callback) {
+    if (!callback) {
+        callback = params;
+        return Category.count(callback);
+    }
+    Category.count(params, callback);
+};
+
+function findOneCategory(params, callback) {
+    Category.findOne(params, callback);
+}
+
+exports.findOneCategory = findOneCategory;
+
+exports.findCategories = function(params, callback) {
+    Category.find(params, callback);
+};
+
+exports.removeOneCategory = function(params, callback) {
+    Category.remove(params, callback);
 };

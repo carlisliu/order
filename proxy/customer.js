@@ -5,23 +5,30 @@ var Customer = require('../models').Customer,
     utils = require('../utils/utils'),
     eventProxy = require('eventproxy');
 
-exports.removeCustomerById = function (id, callback) {
-    Customer.remove({id: id}, callback);
+exports.removeCustomerById = function(id, callback) {
+    Customer.remove({
+        id: id
+    }, callback);
 };
 
 function findCustomerByName(name, callback) {
     if (!name) {
         return callback(new Error("Customer's name can not be empty."));
     }
-    Customer.findOne({name: name}, function (err, customer) {
+    Customer.findOne({
+        name: name
+    }, function(err, customer) {
         callback(err, customer);
     });
 }
 
 exports.findCustomerByName = findCustomerByName;
 
-exports.addCustomer = function (customer, callback) {
-    findCustomerByName(customer.name, function (err, foundCustomer) {
+exports.addCustomer = function(customer, callback) {
+    findOneCustomer({
+        name: customer.name,
+        company_id: customer.company_id
+    }, function(err, foundCustomer) {
         if (err) {
             return callback(err);
         }
@@ -30,8 +37,8 @@ exports.addCustomer = function (customer, callback) {
         }
         var customer2Save = new Customer();
         customer2Save.id = utils.genId('C');
-        utils.copyProperties(customer2Save, customer, ['name', 'tel', 'address']);
-        customer2Save.save(function (err) {
+        utils.copyProperties(customer2Save, customer, ['name', 'company_id', 'tel', 'address']);
+        customer2Save.save(function(err) {
             if (err) {
                 return callback(err);
             }
@@ -41,29 +48,54 @@ exports.addCustomer = function (customer, callback) {
     });
 };
 
-exports.updateCustomerById = function (customer, callback) {
-    Customer.update({id: customer.id}, {$set: {
-        name: customer.name,
-        tel: customer.tel,
-        address: customer.address
-    }}, callback);
+exports.updateCustomerById = function(customer, callback) {
+    Customer.update({
+        id: customer.id,
+        company_id: customer.company_id
+    }, {
+        $set: {
+            name: customer.name,
+            tel: customer.tel,
+            address: customer.address
+        }
+    }, callback);
 };
 
 function findAllCustomers(callback) {
-    Customer.find().sort({create_at: -1}).exec(callback);
+    Customer.find().sort({
+        create_at: -1
+    }).exec(callback);
 }
 
 exports.findAllCustomers = findAllCustomers;
 
-exports.findCustomerByPagination = function(currentPage, pageSize, callback){
+exports.findCustomerByPagination = function(currentPage, pageSize, params, callback) {
     var proxy = new eventProxy();
-    proxy.assign('customer', 'total', function(customers, total){
+    proxy.assign('customer', 'total', function(customers, total) {
         callback(null, customers, total);
     });
-    Customer.find().sort({'create_at': -1}).skip((currentPage - 1) * pageSize).limit(pageSize).exec(proxy.done('customer'));
-    Customer.count(proxy.done('total'));
+    Customer.find(params).sort({
+        'create_at': -1
+    }).skip((currentPage - 1) * pageSize).limit(pageSize).exec(proxy.done('customer'));
+    Customer.count(params, proxy.done('total'));
 }
 
-exports.findCustomerById = function (id, callback) {
-    Customer.findOne({id: id }, callback);
+function findOneCustomer(params, callback) {
+    Customer.findOne(params, callback);
+}
+
+exports.findOneCustomer = findOneCustomer
+
+exports.findCustomerById = function(id, callback) {
+    Customer.findOne({
+        id: id
+    }, callback);
+};
+
+exports.findCustomers = function(params, callback) {
+    Customer.find(params, callback);
+};
+
+exports.removeOneCustomer = function(params, callback) {
+    Customer.remove(params, callback);
 };

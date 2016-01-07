@@ -22,6 +22,10 @@ function failObject(code) {
 	return error;
 }
 
+router.get('/index', function(req, res) {
+	res.render('user');
+});
+
 router.get('/login', function(req, res) {
 	res.render('login');
 });

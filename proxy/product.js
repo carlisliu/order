@@ -2,29 +2,16 @@
  * Created by Carlis on 4/8/15.
  */
 
-var Product = require('../models').Product,
-    utils = require('../utils/utils');
+var Product = require('../models').Product;
+var utils = require('../utils/utils');
 
-function getProductById(id, callback) {
-    if (id) {
-        Product.findOne({id: id}, callback);
-    } else {
-        callback(new Error('id can not be empty'), null);
-    }
-}
-
-function findUniqueProduct(categoryId, name, callback) {
-    if (!categoryId || !name) {
-        return callback(new Error('Search condition is not complete.'));
-    }
-    Product.findOne({category_id: categoryId, name: name}, callback);
-}
-
-exports.findUniqueProduct = findUniqueProduct;
-
-exports.saveProduct = function (product, callback) {
+exports.saveProduct = function(product, callback) {
     if (product) {
-        findUniqueProduct(product.category_id, product.name, function (err, foundProduct) {
+        findOneProduct({
+            category_id: product.category_id,
+            name: product.name,
+            company_id: product.company_id
+        }, function(err, foundProduct) {
             if (err) {
                 return callback(err);
             }
@@ -33,8 +20,8 @@ exports.saveProduct = function (product, callback) {
             }
             var product2Save = new Product();
             product2Save.id = utils.genId('P');
-            utils.copyProperties(product2Save, product, ['category_id', 'name', 'price', 'memo']);
-            product2Save.save(function (err) {
+            utils.copyProperties(product2Save, product, ['category_id', 'company_id', 'name', 'price', 'memo']);
+            product2Save.save(function(err) {
                 product.id = product2Save.id;
                 callback(err, product);
             });
@@ -44,28 +31,34 @@ exports.saveProduct = function (product, callback) {
     }
 };
 
-exports.removeProductById = function (id, callback) {
-    Product.remove({id: id}, callback);
-};
-
-exports.removeProductsByCategoryId = function (categoryId, callback) {
-    Product.remove({category_id: categoryId}, callback);
-};
-
-exports.getProductById = getProductById;
-
-exports.updateProduct = function (product, callback) {
+exports.updateProduct = function(product, callback) {
     if (product) {
-        Product.update({id: product.id}, {$set: {name: product.name, memo: product.memo, price: product.price, category_id: product.category_id}}, callback);
+        Product.update({
+            id: product.id,
+            company_id: product.company_id
+        }, {
+            $set: {
+                name: product.name,
+                memo: product.memo,
+                price: product.price,
+                category_id: product.category_id
+            }
+        }, callback);
     } else {
         callback(new Error('Product item can not be empty.'));
     }
 }
 
-exports.getProductsByCategoryId = function (categoryId, callback) {
-    Product.find({category_id: categoryId}, callback);
-};
+function findOneProduct(params, callback) {
+    Product.findOne(params, callback);
+}
 
-exports.findAllProducts = function (callback) {
-    Product.find(callback);
+exports.findOneProduct = findOneProduct;
+
+exports.findProducts = function(params, callback) {
+    Product.find(params, callback);
+}
+
+exports.removeProducts = function(params, callback) {
+    Product.remove(params, callback);
 }
