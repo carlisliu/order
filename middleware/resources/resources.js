@@ -4,8 +4,11 @@ var url = require('url');
 var staticServer = config.staticServer;
 var staticResourcePath = config.staticResourcePath;
 var basePath = url.resolve(staticServer, staticResourcePath);
+
 var nodeEnv = process.env.NODE_ENV || 'development';
+
 var DOUBLE_SLASH_RE = /([^:/])\/\//g;
+
 var js = {
 	'development': {
 		'login': ['/javascripts/sea-modules/jquery/jquery/1.10.1/jquery.js', '/javascripts/sea-modules/backstretch/2.0.4/jquery.backstretch.min.js'],
@@ -16,7 +19,6 @@ var js = {
 		'layout': ['/javascripts/sea-modules/seajs/seajs/3.0.0/sea.js', '/javascripts/static/all.min.js']
 	}
 };
-
 var css = {
 	'development': {
 		'login': ['/stylesheets/bootstrap/v3.3.4/bootstrap.min.css', '/stylesheets/font-awesome/css/font-awesome.min.css',
