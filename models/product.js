@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 
 var ProductSchema = new Schema({
     id: {type: String, unique: true},
+    company_id: {type: Schema.ObjectId},
     category_id: {type: String},
     name: {type: String},
     price: {type: Number},

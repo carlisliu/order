@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 
 var CustomerSchema = new Schema({
     id: {type: String},
+    company_id: {type: Schema.ObjectId},
     name: {type: String, unique: true},
     tel: {type: String},
     address: {
