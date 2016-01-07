@@ -11,29 +11,41 @@ function find(callback) {
 
 exports.getCompany = find;
 
-exports.saveOrUpdate = function (company, callback) {
-    if (!company || (!company.name && !company.address && ! company.phone)) {
-        return Company.remove(callback);
+function create(company, callback) {
+    delete company._id;
+    var _company = new Company();
+    util.extend(_company, company);
+    return _company.save(function(err) {
+        return callback(err, _company);
+    });
+}
+
+exports.saveOrUpdate = function(company, callback) {
+    if (!company._id) {
+        return create(company, callback);
     }
-    find(function (err, old) {
-        var shop;
-        if (err) {
-            return callback(err);
+    findCompanyById(company._id, function(error, old) {
+        if (error || !old) {
+            return create(company, callback);
         }
-        if (!old) {
-            shop = new Company();
-            util.extend(shop, company);
-            shop.save(function (err) {
-                callback(err, company);
-            });
-        } else {
-            Company.update({_id: old._id}, {'$set': {
+        Company.update({
+            _id: old._id
+        }, {
+            '$set': {
                 name: company.name,
                 address: company.address,
                 phone: company.phone
-            }}, function (err) {
-                callback(err, company);
-            });
-        }
+            }
+        }, function(err) {
+            callback(err, company);
+        });
     });
 }
+
+function findCompanyById(id, callback) {
+    return Company.findOne({
+        _id: id
+    }, callback);
+}
+
+exports.findCompanyById = findCompanyById;

@@ -1,7 +1,10 @@
 var express = require('express');
 var crypto = require('crypto');
+var async = require('async');
 var router = express.Router();
 var User = require('../proxy').User;
+var Company = require('../proxy').Company;
+
 var message = function(code) {
 	var msg = {
 		notExist: 'User does not exist!',
@@ -12,6 +15,12 @@ var message = function(code) {
 		message: msg[code] || 'Error'
 	};
 };
+
+function failObject(code) {
+	var error = new Error(code);
+	error.bizError = true;
+	return error;
+}
 
 router.get('/login', function(req, res) {
 	res.render('login');
@@ -25,20 +34,42 @@ router.post('/login', function(req, res) {
 	if (!user.id || !user.password) {
 		return res.render('login', message('notEmpty'));
 	}
-	User.findUserById(user.id, function(error, found) {
+	async.waterfall([function(callback) {
+		User.findUserById(user.id, function(error, _user) {
+			if (error) {
+				return callback(error, null);
+			}
+			if (!_user) {
+				return callback(failObject('notExist'), _user);
+			}
+			if (_user.password !== md5(user.password)) {
+				return callback(failObject('pswIncorrect'), _user);
+			}
+			req.session.user = {
+				id: _user.id,
+				name: _user.name,
+				password: _user.password,
+				admin: _user.admin
+			};
+			return callback(error, _user.company_id);
+		});
+	}, function(companyId, callback) {
+		Company.findCompanyById(companyId, function(error, company) {
+			return callback(error, company);
+		});
+	}], function(error, company) {
 		if (error) {
+			if (error.bizError) {
+				return res.render('login', message(error.message));
+			}
 			return res.render('login', message('unknown'));
 		}
-		if (!found) {
-			return res.render('login', message('notExist'));
-		}
-		if (found.password !== md5(user.password)) {
-			return res.render('login', message('pswIncorrect'));
-		} else {
-			req.session.user = {
-				id: found.id,
-				name: found.name,
-				password: found.password
+		if (company) {
+			req.session.user.company = {
+				id: company._id,
+				name: company.name,
+				address: company.address,
+				phone: company.phone
 			};
 		}
 		return res.redirect('/');

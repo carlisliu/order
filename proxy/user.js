@@ -5,3 +5,7 @@ exports.findUserById = function(id, callback) {
 		id: id
 	}, callback);
 };
+
+exports.updateUser = function (id, userProps, callback) {
+	return User.update({id: id}, {'$set': userProps}, callback);
+};
