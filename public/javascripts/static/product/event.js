@@ -1,24 +1,17 @@
 /**
  * Created by Carlis on 4/12/15.
  */
-define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../common/modal', '../utils/index', './product'], function (require) {
-    var $ = require('jquery'), msg = window.msg, Product = require('./product'), Modal, utils, validateOpts = {
-        errorPlacement: function (error, element) {
-            element.parents('.controls').append(error);
-        },
-        highlight: function (label) {
-            $(label).closest('.control-group').removeClass('error success').addClass('error');
-        },
-        success: function (label) {
-            label.addClass('valid').closest('.control-group').removeClass('error success').addClass('success');
-        }
-    };
+define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../common/modal', '../utils/index', './product', '../common/options'], function(require) {
+    var $ = require('jquery');
+    var validateOpts = require('../common/options');
     require('validate');
     require('validate.extend');
     require('jgrowl');
-    Modal = require('../common/modal');
-    utils = require('../utils/index');
+    var Product = require('./product');
+    var Modal = require('../common/modal');
+    var utils = require('../utils/index');
 
+    var msg = window.msg;
     if (msg && 'null' !== msg) {
         $.jGrowl(msg);
         msg = null;
@@ -28,14 +21,14 @@ define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../com
         onsubmit: false
     });
 
-    $(function () {
-        $('#save-product').click(function (e) {
+    $(function() {
+        $('#save-product').click(function(e) {
             e.preventDefault();
             var form = $('.validate');
             form.validate(validateOpts);
             if (form.valid()) {
                 var product = new Product('#product-form');
-                product.save(function (err, data) {
+                product.save(function(err, data) {
                     if (data) {
                         product.clear();
                         $.jGrowl(data.msg || 'Saved.');
@@ -46,13 +39,17 @@ define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../com
             }
         });
 
-        $('#products-holder').delegate('tbody a', 'click', function (e) {
+        $('#products-holder').delegate('tbody a', 'click', function(e) {
             e.preventDefault();
-            var modal = new Modal('#info-modal'), $this = $(this), el , data = {}, trim = $.trim, trEl;
+            var modal = new Modal('#info-modal'),
+                $this = $(this),
+                el, data = {},
+                trim = $.trim,
+                trEl;
             data.id = (trEl = $this.parents('tr')).attr('data-product-id');
             if ($this.hasClass('deleteRow')) {
-                modal.setTitle('Warning').setBody('<p>Do you wanna remove this product?</p>').bindFooter('danger', function () {
-                    new Product().remove(data.id, function (err, data) {
+                modal.setTitle('Warning').setBody('<p>Do you wanna remove this product?</p>').bindFooter('danger', function() {
+                    new Product().remove(data.id, function(err, data) {
                         if (!err) {
                             trEl.remove();
                         }
@@ -67,8 +64,9 @@ define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../com
                 el = trim($('#product-form-template').html());
                 el = $(utils.template(el, data));
                 utils.bindSelector(el.find('#product-category'), JSON.parse(trim($('#category-data').html())));
-                modal.setTitle('Change Category Info').setBody(el.html()).bindFooter('confirm', function (modal) {
-                    var form = modal.find('.validate'), product;
+                modal.setTitle('Change Category Info').setBody(el.html()).bindFooter('confirm', function(modal) {
+                    var form = modal.find('.validate'),
+                        product;
                     form.validate(validateOpts);
                     if (form.valid()) {
                         product = {
@@ -78,7 +76,9 @@ define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../com
                             price: parseFloat(trim(form.find('#product-price').val())),
                             memo: trim(form.find('#product-memo').val())
                         };
-                        $.post('/product/update.html', {product: product}).done(function (data) {
+                        $.post('/product/update.html', {
+                            product: product
+                        }).done(function(data) {
                             var product = data.product;
                             trEl.find('td:first-child').attr('data-product-name', product.name);
                             trEl.find('td:first-child').html(product.name);
@@ -89,9 +89,9 @@ define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../com
                             trEl.find('td:nth-child(4)').attr('data-product-memo', product.memo);
                             trEl.find('td:nth-child(4)').html(product.memo);
                             $.jGrowl(data.msg);
-                        }).fail(function (e) {
-                                $.jGrowl(e.toString());
-                            });
+                        }).fail(function(e) {
+                            $.jGrowl(e.toString());
+                        });
                         return true;
                     }
                     return false;
