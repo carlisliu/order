@@ -42,6 +42,10 @@ exports.saveOrUpdate = function(company, callback) {
     });
 }
 
+exports.findCompanies = function(params, callback) {
+    Company.find(params, callback);
+}
+
 function findCompanyById(id, callback) {
     return Company.findOne({
         _id: id
