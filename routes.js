@@ -14,7 +14,7 @@ var api = require('./routes/api');
 module.exports = function(app) {
 	app.use('/', index);
 	app.use(function(req, res, next) {
-		if (req.session.user && !req.session.user.company && req.url.indexOf('logout') < 0) {
+		if (!req.xhr && req.session.user && !req.session.user.company && req.url.indexOf('logout') < 0) {
 			return res.redirect('/');
 		}
 		next();
