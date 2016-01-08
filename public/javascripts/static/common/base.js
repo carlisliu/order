@@ -7,7 +7,7 @@ define('static/common/base', ['jquery', '../utils/index'], function(require, exp
 
 	var defaultOption = {
 		onerror: function(e) {
-			util.error('error occurs, %j', e);
+			util.error('error occurs, %o', e);
 		}
 	};
 
@@ -21,6 +21,9 @@ define('static/common/base', ['jquery', '../utils/index'], function(require, exp
 		}
 		option = $.extend(defaultOption, option);
 		this.container = option.container || $(document.body);
+		if (typeof this.container === 'string') {
+			this.container = $(this.container);
+		}
 		this.onerror = option.onerror;
 		this.data = {};
 	}
@@ -30,11 +33,15 @@ define('static/common/base', ['jquery', '../utils/index'], function(require, exp
 	Base.prototype = {
 		collectData: function() {
 			var that = this;
-			this.container.find('input').each(function() {
+			this.container.find('input[type=text], input[type=password], input[type=checkbox], select, textarea').each(function() {
 				var $this = $(this),
 					prop = $this.attr('data-property');
 				if (prop) {
-					that.data[prop] = $.trim($this.val());
+					if (this.type === 'checkbox') {
+						that.data[prop] = $this.is(':checked');
+					} else {
+						that.data[prop] = $.trim($this.val());
+					}
 				}
 			});
 			return this;
@@ -56,10 +63,10 @@ define('static/common/base', ['jquery', '../utils/index'], function(require, exp
 				data = null;
 			}
 			postData = directPost ? $.extend({}, data || {}) : $.extend({}, this.collectData().getData(), data || {});
-			util.debug('url:%s, post data: %j', url, postData);
-			if (this.fixData) {
+			util.debug('url:%s, post data: %o', url, postData);
+			if (this.fixData && !directPost) {
 				postData = this.fixData(postData);
-				util.debug('url:%s, fixed data: %j', url, postData);
+				util.debug('url:%s, fixed data: %o', url, postData);
 			}
 			$.post(url, postData).done(function(data) {
 				callback(data);
