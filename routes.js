@@ -13,17 +13,17 @@ var api = require('./routes/api');
 
 module.exports = function(app) {
 	app.use('/', index);
+	app.use('/company', company);
+	app.use('/users', users);
+	app.use('/api', api);
 	app.use(function(req, res, next) {
-		if (!req.xhr && req.session.user && !req.session.user.company && req.url.indexOf('logout') < 0) {
+		if (req.session.user && !req.session.user.company && req.url.indexOf('logout') < 0) {
 			return res.redirect('/');
 		}
 		next();
 	});
-	app.use('/users', users);
 	app.use('/customer', customer);
 	app.use('/category', category);
 	app.use('/product', product);
 	app.use('/order', order);
-	app.use('/company', company);
-	app.use('/api', api);
 };
