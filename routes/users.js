@@ -4,26 +4,111 @@ var async = require('async');
 var router = express.Router();
 var User = require('../proxy').User;
 var Company = require('../proxy').Company;
+var EventProxy = require('eventproxy');
+
+var msg = {
+	notExist: 'User does not exist!',
+	pswNotIdentical: 'Passwords are not identical, Please try again.',
+	pswIncorrect: 'Password incorrect!',
+	notEmpty: 'User name or password can not be empty!',
+	alreadyExist: 'User already exists.'
+};
 
 var message = function(code) {
-	var msg = {
-		notExist: 'User does not exist!',
-		pswIncorrect: 'Password incorrect!',
-		notEmpty: 'User name or password can not be empty!'
-	};
 	return {
+		status: 'error',
 		message: msg[code] || 'Error'
 	};
 };
 
 function failObject(code) {
-	var error = new Error(code);
+	var error = new Error(msg[code] || 'Error');
 	error.bizError = true;
 	return error;
 }
 
-router.get('/index', function(req, res) {
-	res.render('user');
+function handler(res, callback) {
+	return function(error, results) {
+		if (error) {
+			return res.json({
+				status: 'error',
+				msg: error.message || 'Error'
+			});
+		}
+		callback(results);
+	};
+}
+
+router.get('/index.html', function(req, res, next) {
+	var ep = new EventProxy();
+	ep.fail(function(error) {
+		next();
+	});
+	ep.assign('companies', 'users', function(companies, users) {
+		var _company = {};
+		companies.forEach(function(item) {
+			_company[item._id] = item.name;
+		});
+		users.forEach(function(user) {
+			user.company_name = _company[user.company_id] || '';
+		});
+		res.render('user', {
+			companies: companies,
+			users: users
+		});
+	});
+	Company.findCompanies({}, ep.done('companies'));
+	User.findUsers({}, ep.done('users'));
+});
+
+router.post('/add.html', function(req, res) {
+	var user = req.param('user');
+	if (user && user.id && user.name && user.password && user.company_id) {
+		if (user.password !== user.retryPassword) {
+			return res.json(message('pswNotIdentical'));
+		}
+		return async.waterfall([function(callback) {
+			User.findOneUser({
+				id: user.id
+			}, function(error, _user) {
+				if (!error && _user) {
+					error = failObject('alreadyExist');
+				}
+				callback(error);
+			});
+		}, function(callback) {
+			user.password = md5(user.password);
+			User.saveUser(user, callback);
+		}], handler(res, function() {
+			res.json({
+				status: 'success',
+				message: 'Saved.'
+			});
+		}));
+	}
+	res.json({
+		status: 'error',
+		message: 'User info is incomplete.'
+	});
+});
+
+router.post('/remove.html', function(req, res) {
+	var id = req.param('id');
+	console.log(id);
+	if (id) {
+		return User.removeUser({
+			id: id
+		}, handler(res, function() {
+			res.json({
+				status: 'success',
+				message: 'User Deleted.'
+			});
+		}));
+	}
+	res.json({
+		status: 'error',
+		message: 'Please specify which user you want to detele.'
+	});
 });
 
 router.get('/login', function(req, res) {
