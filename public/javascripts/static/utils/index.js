@@ -5,7 +5,7 @@ define('static/utils/index', ['jquery'], function(require) {
     var $ = require('jquery');
 
     function generate(type) {
-        return function(argument) {
+        return function() {
             window.console && console[type].apply(console, arguments);
         }
     }
@@ -41,6 +41,26 @@ define('static/utils/index', ['jquery'], function(require) {
             return result;
         },
         log: generate('log'),
-        debug: generate('debug')
+        debug: generate('debug'),
+        error: generate('error'),
+        inherits: function(ctor, superCtor) {
+            if (ctor == null) {
+                throw new TypeError('The constructor to `inherits` must not be null or undefined.');
+            }
+            if (superCtor == null) {
+                throw new TypeError('The super constructor to `inherits` must not be null or undefined.');
+            }
+            if (superCtor.prototype == null) {
+                throw new TypeError('The constructor to `inherits` must have a prototype.');
+            }
+            if (!Object.setPrototypeOf) {
+                Object.setPrototypeOf = function(ctor, superCtor) {
+                    for (var key in superCtor.prototype) {
+                        ctor.prototype[key] = superCtor.prototype[key];
+                    }
+                }
+            }
+            Object.setPrototypeOf(ctor.prototype, superCtor.prototype);
+        }
     }
 });
