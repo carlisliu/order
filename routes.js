@@ -10,6 +10,7 @@ var product = require('./routes/product');
 var order = require('./routes/order');
 var company = require('./routes/company');
 var api = require('./routes/api');
+var control = require('./routes/control');
 
 module.exports = function(app) {
 	app.use('/', index);
@@ -26,4 +27,5 @@ module.exports = function(app) {
 	app.use('/category', category);
 	app.use('/product', product);
 	app.use('/order', order);
+	app.use('/control', control);
 };
