@@ -10,113 +10,16 @@ block content
                         form.validate.form-horizontal(action='#', id='export-form')
                             div.span6
                                 div.control-group
-                                    label.control-label(for='user-id') Login Id
+                                    label.control-label(for='source') Source
                                     div.controls
-                                        input.required(type='text',name='user-id',id='user-id', data-property='id')
+                                        select(id='source')
                             div.span6
                                 div.control-group
-                                    label.control-label(for='user-name') User Name
+                                    label.control-label(for='destination') Destination
                                     div.controls
-                                        input.required(type='text',name='user-name',id='user-name', data-property='name')
+                                        select(id='destination')
                             div.form-actions
                                 input.btn.btn-primary(type='submit', value='Save', id='save-user')
                                 input.btn.btn-danger(type='reset',style='margin-left:3px;')
-        div.row-fluid
-            div.span12
-                div.box
-                    div.box-head.tabs
-                        h3='All Users'
-                    div.box-content.box-nomargin
-                        div.tab-content
-                            div.tab-pane.active
-                                table.table.table-striped.dataTable.table-bordered(id='users-holder')
-                                    thead
-                                        tr
-                                            th(data-key='id') Login Id
-                                            th(data-key='name') Name
-                                            th(data-key='company_id', data-type='select') Company
-                                            th(data-key='admin') Administrator
-                                            th Action
-                                        tr(data-key="id")
-                                            td(data-key="id")
-                                            td(data-key="name")
-                                            td(data-key="company_id", data-type="selection", data-collection="")
-                                            td(data-key="admin", data-value="") Yes
-                                            td.actions
-                                                div.btn-group
-                                                    -var userInfo = JSON.stringify(userItem);
-                                                    a.btn.btn-mini.tip.updateRow(href='#info-modal',data-toggle='modal', data-original-title='Change Info', title='Change Info')
-                                                        img(src='/images/icons/fugue/gear.png', alt='')
-                                                    a.btn.btn-mini.tip.deleteRow(href='#info-modal',data-toggle='modal', data-original-title='Remove', title='Remove', data-user-id="#{userItem.id}")
-                                                        img(src='/images/icons/fugue/cross.png', alt='')
-                            div.dataTables_info 0 entry
-                            div.dataTables_paginate.paging_bootstrap.pagination(style='display:none;')
-                                ul
-                                    li.prev.disabled
-                                        a(href='javascript:void(0);') &lt;Previous
-                                    li.active
-                                        a(href='javascript:void(0);') 1
-                                    li.next.disabled
-                                        a(href='javascript:void(0);') Next&gt;
-                            div.modal.hide(id='info-modal')
-                                div.modal-header
-                                    button.close(data-dismiss='modal', type='button') ×
-                                    h3='Change user Info'
-                                div.modal-body
-                                div.modal-footer
-                                    a.btn(data-dismiss='modal', href='#') Close
-                                    a.btn.btn-primary(data-dismiss='modal', href='#') Confirm
-block scriptContent
-    script(type='x/template', id='user-row-template').
-        <tr data-user-id="{id}">
-        <td data-user-name="{name}">{name}</td>
-        <td data-user-password="{password}">{password}</td>
-        <td data-user-company_id="{company_id}">{company_id}</td>
-        <td class="actions">
-        <div class="btn-group">
-        <a href='#info-modal' data-toggle='modal' class="btn btn-mini tip">
-        <img src="/images/icons/fugue/gear.png" alt=""/>
-        </a>
-        <a href='#info-modal' data-toggle='modal' class="btn btn-mini tip deleteRow">
-        <img src="/images/icons/fugue/cross.png" alt=""/>
-        </a>
-        </div>
-        </td>
-        </tr>
-    script(type='x/template', id='user-form-template').
-        <div class="modal-body">
-        <form class="validate form-horizontal" action="#" id="user-change-form">
-        <div class="control-group">
-        <label class="control-label" for="user-name">Name</label>
-        <div class="controls">
-        <input class="required" type="text" name="user-name" id="user-name" value=""/>
-        </div>
-        </div>
-        <div class="control-group">
-        <label class="control-label" for="user-tel">Tel</label>
-        <div class="controls">
-        <input class="required tel" type="text" name="user-tel" id="user-tel" value=""/>
-        </div>
-        </div>
-        <div class="control-group">
-        <label class="control-label" for="user-addr-street">Address-Street</label>
-        <div class="controls">
-        <input class="required" type="text" name="user-addr-street" id="user-addr-street" value=""/>
-        </div>
-        </div>
-        <div class="control-group">
-        <label class="control-label" for="user-addr-city">Address-City</label>
-        <div class="controls">
-        <input class="required" type="text" name="user-addr-city" id="user-addr-city" value=""/>
-        </div>
-        </div>
-        <div class="control-group">
-        <label class="control-label" for="user-addr-country">Address-Country</label>
-        <div class="controls">
-        <input type="text" name="user-addr-country" id="user-addr-country" value=""/>
-        </div>
-        </div>
-        </form>
-        </div>
     script.
         //seajs.use(['jquery', 'static/users/event']);
