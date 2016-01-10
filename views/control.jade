@@ -18,8 +18,12 @@ block content
                                     label.control-label(for='destination') Destination
                                     div.controls
                                         select(id='destination')
+                        br
+                        form.validate.form-horizontal(action='#', id='export-form')
                             div.form-actions
-                                input.btn.btn-primary(type='submit', value='Save', id='save-user')
+                                input.btn.btn-primary(type='submit', value='Save', id='save-customer')
                                 input.btn.btn-danger(type='reset',style='margin-left:3px;')
+                            
+block scriptContent
     script.
-        //seajs.use(['jquery', 'static/users/event']);
+        seajs.use(['jquery', 'static/control/event']);
