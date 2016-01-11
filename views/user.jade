@@ -27,7 +27,7 @@ block content
                             div.control-group
                                 label.control-label(for='user-company') Company
                                 div.controls
-                                    select.required(id='user-company', name='user-company', data-property='company_id')
+                                    select(id='user-company', name='user-company', data-property='company_id')
                                         option(value='') Choose one
                                         each companyItem, index in companies
                                             option(value='#{companyItem._id}') #{companyItem.name}
@@ -133,7 +133,7 @@ block scriptContent
                 <div class="control-group">
                     <label class="control-label" for="user-company">Company</label>
                     <div class="controls">
-                        <select class="required" data-property="company_id" id="user-company"><select>
+                        <select data-property="company_id" id="user-company"><select>
                     </div>
                 </div>
                 <div class="control-group">

@@ -64,7 +64,7 @@ router.get('/index.html', function(req, res, next) {
 
 router.post('/add.html', function(req, res) {
 	var user = req.param('user');
-	if (user && user.id && user.name && user.password && user.company_id) {
+	if (user && user.id && user.name && user.password) {
 		if (user.password !== user.retryPassword) {
 			return res.json(message('pswNotIdentical'));
 		}
@@ -95,7 +95,7 @@ router.post('/add.html', function(req, res) {
 
 router.post('/update.html', function (req, res) {
 	var user = req.param('user');
-	if (user && user.id && user.name && user.password && user.company_id) {
+	if (user && user.id && user.name && user.password) {
 		return async.waterfall([function(callback) {
 			User.findOneUser({
 				id: user.id
@@ -107,7 +107,11 @@ router.post('/update.html', function (req, res) {
 			});
 		}, function(_user, callback) {
 			user.password = md5(user.password);
+
 			_.assign(_user, user);
+			if (!user.company_id) {
+				_user.company_id = null;
+			}
 			delete _user.id;
 			User.updateUser(_user.id, _user, callback);
 		}], handler(res, function() {
