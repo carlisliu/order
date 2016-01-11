@@ -12,18 +12,48 @@ block content
                                 div.control-group
                                     label.control-label(for='source') Source
                                     div.controls
-                                        select(id='source')
+                                        select.required(id='source', name='source')
+                                            option(value='') Choose one
+                                            each company, index in companies
+                                                option(value='#{company.id}') #{company.name}
                             div.span6
                                 div.control-group
                                     label.control-label(for='destination') Destination
                                     div.controls
-                                        select(id='destination')
-                        br
-                        form.validate.form-horizontal(action='#', id='export-form')
+                                        select.required(id='destination', name='destination')
+                                            option(value='') Choose one
+                                            each company, index in companies
+                                                option(value='#{company.id}') #{company.name}
+                        div.row-fluid
+                            div.span12
+                                div.box
+                                    div.box-content.box-nomargin
+                                        div.tab-content
+                                            div.tab-pane.active
+                                                table.table.table-striped.dataTable.table-bordered(id='tables-holder')
+                                                    thead
+                                                        tr
+                                                            th(style='width:30px;')
+                                                                input(type='checkbox')
+                                                            th Source Tables
+                                                            th To
+                                                            th Destination Tables
+                                                            th Status
+                                                    tbody
+                                                        each exp in exportTarget
+                                                            tr(data-table='#{exp}')
+                                                                td(style='text-align:center;')
+                                                                    input(type='checkbox', data-table='#{exp}')
+                                                                td #{exp}
+                                                                td ->
+                                                                td #{exp}
+                                                                td.actions
+                                                                    //img(src='/images/action_check.png')
+                                                                
+                        div.row-fluid
                             div.form-actions
-                                input.btn.btn-primary(type='submit', value='Save', id='save-customer')
-                                input.btn.btn-danger(type='reset',style='margin-left:3px;')
-                            
+                                button.btn.btn-primary(id='export-table') Import
+                                           
 block scriptContent
     script.
         seajs.use(['jquery', 'static/control/event']);
