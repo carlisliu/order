@@ -99,3 +99,7 @@ exports.findCustomers = function(params, callback) {
 exports.removeOneCustomer = function(params, callback) {
     Customer.remove(params, callback);
 };
+
+exports.updateCompany = function(condition, updateProp, options, callback) {
+    Customer.update(condition, updateProp, options, callback);
+}

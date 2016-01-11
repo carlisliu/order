@@ -10,6 +10,9 @@ exports.findUserById = function(id, callback) {
 exports.saveUser = function(user, callback) {
 	var _user = new User();
 	_.assign(_user, user);
+	if (!user.company_id) {
+		_user.company_id = null;
+	}
 	_user.save(function(error) {
 		callback(error);
 	});
