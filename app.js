@@ -44,6 +44,7 @@ app.use(session({
 
 app.use(require('./middleware/settings'));
 app.use(require('./middleware/login-filter'));
+app.use(require('./middleware/error-handler'));
 //routes
 routes(app);
 
