@@ -102,4 +102,4 @@ exports.removeOneCustomer = function(params, callback) {
 
 exports.updateCompany = function(condition, updateProp, options, callback) {
     Customer.update(condition, updateProp, options, callback);
-}
+};
