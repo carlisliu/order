@@ -14,5 +14,6 @@ exports = module.exports = function (req, res, next) {
 		staticUrl: staticUrl,
 		resources: resources
 	};
+	res.locals.title = 'Order Delivery';
     next();
 };
