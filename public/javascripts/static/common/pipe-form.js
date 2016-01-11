@@ -31,7 +31,7 @@ define('static/common/pipe-form', ['jquery', '../utils/index'], function(require
 				var $this = $(this);
 				var type = $this.attr('data-type');
 				if (type) {
-					var key = $this.attr('data-key');
+					var key = $this.attr('data-property');
 					_set.special = _set.special || {};
 					_set.special[key] = {
 						key: key,
@@ -49,10 +49,10 @@ define('static/common/pipe-form', ['jquery', '../utils/index'], function(require
 			if (special) {
 				for (var key in special) {
 					if (special[key].type === 'select') {
-						var select = form.find('select[data-key=' + key + ']');
+						var select = form.find('select[data-property=' + key + ']');
 						util.bindSelector(select, special[key].collections || {}, this._set.entity[key]);
 					} else if (special[key].type === 'checkbox') {
-						form.find('input[type=checkbox][data-key=' + key + ']').attr('checked', this._set.entity[key]);
+						form.find('input[type=checkbox][data-property=' + key + ']').attr('checked', this._set.entity[key]);
 					}
 				}
 			}
@@ -61,32 +61,8 @@ define('static/common/pipe-form', ['jquery', '../utils/index'], function(require
 		},
 		html: function() {
 			return this.form ? $.trim(this.form.html()) : '';
-		},
-		bind: function(target, done) {
-			if (this.form) {
-				var that = this;
-				this.form.find(target).on('click', function(e) {
-					e.preventDefault();
-					// validation goes here.
-					done && done(formData);
-				});
-			}
-			return this;
 		}
 	};
-
-	function formData(form) {
-		var data = {};
-		form.find('[data-key]').each(function() {
-			var $this = $(this);
-			if (this.type === 'checkbox') {
-				data[prop] = $this.is(':checked');
-			} else {
-				data[prop] = $.trim($this.val());
-			}
-		});
-		return data;
-	}
 
 	module.exports = PipeForm;
 });
