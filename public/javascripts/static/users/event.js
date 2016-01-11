@@ -1,10 +1,11 @@
-define('static/users/event', ['jquery', 'validate', 'jgrowl', './user', '../common/options', '../common/modal'], function(require) {
+define('static/users/event', ['jquery', 'validate', 'jgrowl', './user', '../common/options', '../common/modal', '../common/pipe-form'], function(require) {
 	var $ = require('jquery');
 	var User = require('./user');
 	require('validate');
 	require('jgrowl');
 	var validateOptions = require('../common/options');
 	var Modal = require('../common/modal');
+	var PipeForm = require('../common/pipe-form');
 
 	var DIGIT = /(\d+)/;
 
@@ -56,7 +57,31 @@ define('static/users/event', ['jquery', 'validate', 'jgrowl', './user', '../comm
 				});
 			});
 		}).on('click', 'table#users-holder a.updateRow', function(e) {
+			var $this = $(this);
 			e.preventDefault();
+			var pf = new PipeForm({
+				container: $this.parents('tr'),
+				collections: {
+					company_id: $.parseJSON($.trim($('#company-dataset').val()))
+				}
+			});
+			pf.pull().pipe($('#update-form'));
+			var form = pf.form;
+			var modal = new Modal('#info-modal');
+			modal.setTitle('Change User Info').setBody(pf.html()).bindFooter('confirm', function(updateForm) {
+				updateForm = updateForm.find('.validate');
+				updateForm.validate(validateOptions);
+				if (updateForm.valid()) {
+					var user = new User(updateForm);
+					user.collectData();
+					user.post('/users/update.html', function (data) {
+						console.log(data);
+						$.jGrowl(data.message || 'Saved.');
+					})
+					return true;
+				}
+				return false;
+			});
 		});
 	});
 });
