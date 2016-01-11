@@ -15,11 +15,11 @@ block content
                             div.control-group
                                 label.control-label(for='user-name') User Name
                                 div.controls
-                                    input.required(type='text',name='user-name',id='user-name', data-property='name')
+                                    input.required(type='text',name='user-name',id='user-name', data-property='name', autocomplete='off')
                             div.control-group
                                 label.control-label(for='user-password') Password
                                 div.controls
-                                    input.required(type='password',name='user-password',id='user-password', data-property='password')
+                                    input.required(type='password',name='user-password',id='user-password', data-property='password', autocomplete='off')
                             div.control-group
                                 label.control-label(for='user-password-verification') Repeat Your Password
                                 div.controls
@@ -49,21 +49,17 @@ block content
                                 table.table.table-striped.dataTable.table-bordered(id='users-holder')
                                     thead
                                         tr
-                                            th(data-key='id') Login Id
-                                            th(data-key='name') Name
-                                            -var companyData = {};
-                                            each companyItem, index in companies
-                                                -companyData[companyItem._id] = companyItem.name;
-                                            -companyData = JSON.stringify(companyData);
-                                            th(data-key='company_id', data-type='select', data-collections='#{companyData}') Company
-                                            th(data-key='admin') Administrator
+                                            th Login Id
+                                            th Name
+                                            th Company
+                                            th Administrator
                                             th Action
                                     each userItem, userIndex in users
-                                        tr(data-key="id", data-value="#{userItem.id}")
-                                            td(data-key="id", data-value="#{userItem.id}") #{userItem.id}
-                                            td(data-key="name", data-value="#{userItem.name}") #{userItem.name}
-                                            td(data-key="company_id", data-type="selection", data-collection="") #{userItem.company_name}
-                                            td(data-key="admin", data-value="#{userItem.admin}")
+                                        tr
+                                            td #{userItem.id}
+                                            td #{userItem.name}
+                                            td(data-property="company_id", data-type="select") #{userItem.company_name}
+                                            td(data-property='admin', data-type='checkbox')
                                                 if userItem.admin
                                                     | Yes
                                                 else 
@@ -96,6 +92,11 @@ block content
                                 div.modal-footer
                                     a.btn(data-dismiss='modal', href='#') Close
                                     a.btn.btn-primary(data-dismiss='modal', href='#') Confirm
+        -var companyData = {};
+        each companyItem, index in companies
+            -companyData[companyItem._id] = companyItem.name;
+        -companyData = JSON.stringify(companyData);
+        input(type='hidden', value='#{companyData}', id='company-dataset')
 block scriptContent
     script(type='x/template', id='user-row-template').
         <tr data-user-id="{id}">
@@ -113,37 +114,32 @@ block scriptContent
                 </div>
             </td>
         </tr>
-    script(type='x/template', id='user-form-template').
+    script(type='x/template', id='update-form').
         <div class="modal-body">
             <form class="validate form-horizontal" action="#" id="user-change-form">
+                <input type="hidden" value="{id}" data-property="id">
                 <div class="control-group">
                     <label class="control-label" for="user-name">Name</label>
                     <div class="controls">
-                        <input class="required" type="text" name="user-name" id="user-name" value=""/>
+                        <input class="required" type="text" name="user-name" id="user-name" value="{name}" data-property="name" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="user-tel">Tel</label>
+                    <label class="control-label" for="user-password">Password</label>
                     <div class="controls">
-                        <input class="required tel" type="text" name="user-tel" id="user-tel" value=""/>
+                        <input class="required" type="password" name="user-password" id="user-password" value="" data-property="password" autocomplete="off"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="user-addr-street">Address-Street</label>
+                    <label class="control-label" for="user-company">Company</label>
                     <div class="controls">
-                        <input class="required" type="text" name="user-addr-street" id="user-addr-street" value=""/>
+                        <select class="required" data-property="company_id" id="user-company"><select>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="user-addr-city">Address-City</label>
+                    <label class="control-label" for="user-admin">Set as administrator</label>
                     <div class="controls">
-                        <input class="required" type="text" name="user-addr-city" id="user-addr-city" value=""/>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="user-addr-country">Address-Country</label>
-                    <div class="controls">
-                        <input type="text" name="user-addr-country" id="user-addr-country" value=""/>
+                        <input type="checkbox" name="user-admin" id="user-admin" data-property="admin"/>
                     </div>
                 </div>
             </form>
