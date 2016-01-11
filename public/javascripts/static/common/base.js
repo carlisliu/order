@@ -33,7 +33,7 @@ define('static/common/base', ['jquery', '../utils/index'], function(require, exp
 	Base.prototype = {
 		collectData: function() {
 			var that = this;
-			this.container.find('input[type=text], input[type=password], input[type=checkbox], select, textarea').each(function() {
+			this.container.find('input[type=text], input[type=password], input[type=checkbox], input[type=hidden], select, textarea').each(function() {
 				var $this = $(this),
 					prop = $this.attr('data-property');
 				if (prop) {
