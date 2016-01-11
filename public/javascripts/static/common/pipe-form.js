@@ -7,28 +7,36 @@ define('static/common/pipe-form', ['jquery', '../utils/index'], function(require
 	}
 
 	function unwrap(element) {
-		return typeof element === 'string' ? element : element.html();
+		return typeof element === 'string' ? $.trim(element) : $.trim(element.html());
 	}
 
-	function PipeForm(container) {
-		this.container = wrap(container);
+	var defaultOption = {
+		collections: {}
+	};
+
+	function PipeForm(options) {
+		this.options = $.extend({}, defaultOption, options);
+		this.container = wrap(options.container);
 		this._set = {};
 		this.form = null;
 	}
 
 	PipeForm.prototype = {
 		pull: function(entity) {
-			entity = entity || $.parseJSON($('input[data-entity=entity]').val());
-			var _set = this._set;
+			entity = entity || $.parseJSON(this.container.find('input[data-entity=entity]').val());
+			var _set = this._set,
+				options = this.options;
 			_set.entity = entity || {};
 			this.container.find('[data-type]').each(function() {
 				var $this = $(this);
 				var type = $this.attr('data-type');
 				if (type) {
-					_set.special = {
-						key: $this.attr('data-key'),
+					var key = $this.attr('data-key');
+					_set.special = _set.special || {};
+					_set.special[key] = {
+						key: key,
 						type: type,
-						collections: $.parseJSON($this.attr('data-collections'))
+						collections: options.collections[key] || ($this.attr('data-collections') ? $.parseJSON($this.attr('data-collections')) : null)
 					};
 				}
 			});
@@ -40,17 +48,19 @@ define('static/common/pipe-form', ['jquery', '../utils/index'], function(require
 			var special = this._set.special;
 			if (special) {
 				for (var key in special) {
-					if (special.type === 'select') {
-						var select = form.find('select[data-key=' + special.key + ']');
-						util.bindSelector(select, special.collections);
-						select.val(this._set.entity[key]);
-					} else if (special.type === 'checkbox') {
-						form.find('input[type=checkbox][data-key=' + special.key + ']').attr('checked', this._set.entity[key]);
+					if (special[key].type === 'select') {
+						var select = form.find('select[data-key=' + key + ']');
+						util.bindSelector(select, special[key].collections || {}, this._set.entity[key]);
+					} else if (special[key].type === 'checkbox') {
+						form.find('input[type=checkbox][data-key=' + key + ']').attr('checked', this._set.entity[key]);
 					}
 				}
 			}
 			this.form = form;
 			return this;
+		},
+		html: function() {
+			return this.form ? $.trim(this.form.html()) : '';
 		},
 		bind: function(target, done) {
 			if (this.form) {

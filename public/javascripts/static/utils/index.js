@@ -20,12 +20,22 @@ define('static/utils/index', ['jquery'], function(require) {
                 return result || '';
             });
         },
-        bindSelector: function(selector, data) {
+        bindSelector: function(selector, data, selected) {
             selector.empty();
             if (data) {
-                var options = '<option value="" selected="selected">Choose One</option>';
+                var options;
+                if (selected) {
+                    options = '<option value="">Choose One</option>';
+                } else {
+                    options = '<option value="" selected="selected">Choose One</option>';
+                }
                 for (var key in data) {
-                    options += '<option value="' + key + '">' + data[key] + '</option>';
+                    if (selected === key) {
+                        options += '<option value="' + key + '" selected="selected">' + data[key] + '</option>';
+                    } else {
+                        options += '<option value="' + key + '">' + data[key] + '</option>';
+                    }
+                    
                 }
                 selector.append(options);
             }
