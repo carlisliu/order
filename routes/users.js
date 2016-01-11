@@ -5,6 +5,7 @@ var router = express.Router();
 var User = require('../proxy').User;
 var Company = require('../proxy').Company;
 var EventProxy = require('eventproxy');
+var _ = require('lodash');
 
 var msg = {
 	notExist: 'User does not exist!',
@@ -92,9 +93,38 @@ router.post('/add.html', function(req, res) {
 	});
 });
 
+router.post('/update.html', function (req, res) {
+	var user = req.param('user');
+	if (user && user.id && user.name && user.password && user.company_id) {
+		return async.waterfall([function(callback) {
+			User.findOneUser({
+				id: user.id
+			}, function(error, _user) {
+				if (!error && !_user) {
+					error = failObject('notExist');
+				}
+				callback(error, _user);
+			});
+		}, function(_user, callback) {
+			user.password = md5(user.password);
+			_.assign(_user, user);
+			delete _user.id;
+			User.updateUser(_user.id, _user, callback);
+		}], handler(res, function() {
+			res.json({
+				status: 'success',
+				message: 'Updated.'
+			});
+		}));
+	}
+	res.json({
+		status: 'error',
+		message: 'User info is incomplete.'
+	});
+});
+
 router.post('/remove.html', function(req, res) {
 	var id = req.param('id');
-	console.log(id);
 	if (id) {
 		return User.removeUser({
 			id: id
