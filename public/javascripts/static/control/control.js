@@ -12,10 +12,14 @@ define('static/control/control', ['jquery'], function(require, exports, module) 
 			this.record.find('td:last').html(this.render(this.loading));
 			return this;
 		},
-		finish: function(argument) {
+		finish: function() {
 			this.record.find('td:last').html(this.render(this.finished));
 			return this;
 		},
+		error: function  () {
+			this.record.find('td:last').html('error');
+			return this;
+		}
 		render: function(src) {
 			return '<img src="' + src + '" />';
 		},
@@ -25,6 +29,8 @@ define('static/control/control', ['jquery'], function(require, exports, module) 
 			$.post('/control/table.html', data, function(data) {
 				callback(data);
 				that.finish();
+			}).fail(function (e) {
+				that.error();
 			});
 		}
 	};
