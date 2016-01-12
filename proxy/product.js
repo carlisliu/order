@@ -47,7 +47,11 @@ exports.updateProduct = function(product, callback) {
     } else {
         callback(new Error('Product item can not be empty.'));
     }
-}
+};
+
+exports.upsertProduct = function(condition, updateProp, options, callback) {
+    Product.update(condition, updateProp, options, callback);
+};
 
 function findOneProduct(params, callback) {
     Product.findOne(params, callback);
