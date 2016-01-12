@@ -3,14 +3,32 @@
  */
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+	Schema = mongoose.Schema;
 
 var CategorySchema = new Schema({
-    id: {type: String, unique: true},
-    company_id: {type: Schema.ObjectId},
-    name: {type: String, unique: true},
-    memo: {type: String},
-    create_at: {type: Date, default: Date.now}
+	id: {
+		type: String
+	},
+	company_id: {
+		type: Schema.ObjectId
+	},
+	name: {
+		type: String
+	},
+	memo: {
+		type: String
+	},
+	create_at: {
+		type: Date,
+		default: Date.now
+	}
+});
+
+CategorySchema.index({
+	company_id: 1,
+	name: 1
+}, {
+	unique: true
 });
 
 mongoose.model('Category', CategorySchema);
