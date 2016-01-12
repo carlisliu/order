@@ -52,6 +52,10 @@ exports.updateCategory = function(category, callback) {
     }
 }
 
+exports.upsertCategory = function(condition, updateProp, options, callback) {
+    return Category.update(condition, updateProp, options, callback);
+};
+
 exports.getCategoryById = function(id, callback) {
     if (id) {
         Category.findOne({
