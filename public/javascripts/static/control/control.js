@@ -1,5 +1,6 @@
-define('static/control/control', ['jquery'], function(require, exports, module) {
+define('static/control/control', ['jquery', 'jgrowl'], function(require, exports, module) {
 	var $ = require('jquery');
+	require('jgrowl');
 
 	function Control(record) {
 		this.record = record;
@@ -16,21 +17,26 @@ define('static/control/control', ['jquery'], function(require, exports, module) 
 			this.record.find('td:last').html(this.render(this.finished));
 			return this;
 		},
-		error: function  () {
-			this.record.find('td:last').html('error');
+		error: function  (msg) {
+			this.record.find('td:last').html('');
+			$.jGrowl(msg || 'Error');
 			return this;
-		}
+		},
 		render: function(src) {
 			return '<img src="' + src + '" />';
 		},
-		import: function(table, callback) {
+		import: function(data, callback) {
 			var that = this;
 			this.before();
 			$.post('/control/table.html', data, function(data) {
 				callback(data);
-				that.finish();
+				if (data.status === 'success') {
+					that.finish();
+				} else {
+					that.error(data.message);
+				}
 			}).fail(function (e) {
-				that.error();
+				that.error(e.message);
 			});
 		}
 	};

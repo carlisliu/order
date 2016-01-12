@@ -53,7 +53,7 @@ define('static/control/event', ['jquery', './control', 'jgrowl', '../common/opti
 					source: source,
 					destination: destination
 				}, function(data) {
-					console.log(data);
+					
 				});
 			});
 		});
