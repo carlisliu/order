@@ -34,7 +34,7 @@ router.post('/table.html', function(req, res) {
 				callback(error, companies);
 			});
 		}, function(companies, callback) {
-			action.customer(source, destination, callback);
+			action[table.toLowerCase()](source, destination, callback);
 		}], function(error, result) {
 			if (error) {
 				return res.json({
@@ -57,22 +57,64 @@ router.post('/table.html', function(req, res) {
 var action = {
 	customer: function(source, destination, callback) {
 		var ep = new EventProxy();
-		ep.assign('customer', function(customers) {
+		ep.asap('customer', function (customers) {
 			if (!customers || !customers.length) {
-				return callback(new Error('Source does not contain any customer data'));
+				return ep.emit('error', new Error('Source does not contain any customer data, no need to export/import.'));
 			}
-			ep.after('updated', customers.length, function() {
-				callback();
+			ep.emit('delete', customers);
+		}).asap('delete', function (customers) {
+			var _customers = customers.map(function (customer) {
+				return customer.name;
 			});
-			customers.forEach(function(customer) {
-				Customer.updateCompany({
-					id: customer.id
+			Customer.removeOneCustomer({
+				name : {
+					$in: _customers
+				},
+				company_id: destination
+			}, function (error) {
+				if (error) {
+					return ep.emit('error', error);
+				}
+				ep.emit('insert', customers);
+			});
+		}).asap('insert', function (customers) {
+			ep.after('batch', customers.length, function () {
+				callback(null);
+			});
+			customers.forEach(function (customer) {
+				Customer.addCustomer(customer, function (error) {
+					if (error) {
+						return ep.emit('error', error);
+					}
+					ep.emit('batch');
+				});
+			});
+			
+		}).fail(function(error) {
+			callback(error);
+		});
+
+		return Customer.findCustomers({
+			company_id: source
+		}, ep.done('customer'));
+	},
+	category: function(source, destination, callback) {
+		var ep = new EventProxy();
+		ep.assign('category', function(categories) {
+			if (!categories || !categories.length) {
+				return callback(new Error('Source does not contain any category data'));
+			}
+			ep.after('updated', categories.length, function() {
+				callback(null);
+			});
+			categories.forEach(function(category) {
+				Category.upsertCategory({
+					id: category.id
 				}, {
 					'$set': {
-						name: customer.name,
-						tel: customer.tel,
-						company_id: destination,
-						address: customer.address
+						name: category.name,
+						memo: category.memo,
+						company_id: destination
 					}
 				}, {
 					upsert: true
@@ -82,9 +124,42 @@ var action = {
 		ep.fail(function(error) {
 			callback(error);
 		})
-		return Customer.findCustomers({
+		return Category.findCategories({
 			company_id: source
-		}, ep.done('customer'));
+		}, ep.done('category'));
+	},
+	product: function(source, destination, callback) {
+		var ep = new EventProxy();
+		ep.assign('product', function(products) {
+			if (!products || !products.length) {
+				return callback(new Error('Source does not contain any product data'));
+			}
+			ep.after('updated', products.length, function() {
+				callback(null);
+			});
+			products.forEach(function(product) {
+				Products.upsertProduct({
+					id: product.id
+				}, {
+					'$set': {
+						name: product.name,
+						memo: product.memo,
+						category_id: product.category_id
+						picture_uri: product.picture_uri,
+						price: product.price,
+						company_id: destination
+					}
+				}, {
+					upsert: true
+				}, ep.done('updated'));
+			});
+		});
+		ep.fail(function(error) {
+			callback(error);
+		})
+		return Product.findProducts({
+			company_id: source
+		}, ep.done('product'));
 	}
 };
 
