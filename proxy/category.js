@@ -3,36 +3,10 @@
  */
 
 var Category = require('../models').Category;
-var utils = require('../utils/utils');
 var _ = require('lodash');
 
 exports.getAllCategory = function(callback) {
     Category.find(callback);
-};
-
-exports.addCategory = function(category, callback) {
-    if (category) {
-        findOneCategory({
-            name: category.name,
-            company_id: category.company_id
-        }, function(err, foundCategory) {
-            if (err) {
-                return callback(err);
-            }
-            if (foundCategory) {
-                return callback(new Error('Category already existed.'))
-            }
-            var category2Save = new Category();
-            category2Save.id = utils.genId('CA');
-            utils.copyProperties(category2Save, category, ['name', 'memo', 'company_id']);
-            category2Save.save(function(err) {
-                category.id = category2Save.id;
-                callback(err, category);
-            });
-        });
-    } else {
-        callback(new Error('Category item can not be empty.'));
-    }
 };
 
 exports.saveCategory = function(category, callback) {
@@ -46,8 +20,9 @@ exports.saveCategory = function(category, callback) {
 exports.updateCategory = function(category, callback) {
     if (category) {
         Category.update({
-            id: category.id,
-            company_id: category.company_id
+            _id: category.id
+                /*,
+                            company_id: category.company_id*/
         }, {
             $set: {
                 name: category.name,
@@ -59,8 +34,7 @@ exports.updateCategory = function(category, callback) {
     } else {
         callback(new Error('Category item can not be empty.'));
     }
-}
-
+};
 exports.upsertCategory = function(condition, updateProp, options, callback) {
     return Category.update(condition, updateProp, options, callback);
 };
