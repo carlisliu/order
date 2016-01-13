@@ -34,10 +34,15 @@ router.post('/table.html', function(req, res) {
 				callback(error, companies);
 			});
 		}, function(companies, callback) {
-			action[table.toLowerCase()](source, destination, callback);
+			if (typeof table === 'string') {
+				action[table.toLowerCase()](source, destination, callback);
+			} else {
+				action['product'](source, destination, callback);
+			}
 		}], function(error, result) {
 			if (error) {
 				return res.json({
+
 					status: 'error',
 					message: error.message
 				});
@@ -135,10 +140,11 @@ var action = {
 				category = {
 					name: category.name,
 					memo: category.memo,
+					id: category.id,
 					company_id: destination
 				};
 				console.log('add start');
-				Category.addCategory(category, function(error) {
+				Category.saveCategory(category, function(error, category) {
 					if (error) {
 						return ep.emit('error', error);
 					}
@@ -154,13 +160,53 @@ var action = {
 		}, ep.done('category'));
 	},
 	product: function(source, destination, callback) {
-		var ep = new EventProxy();
-		ep.bind('product', function(products) {
-			if (!products || !products.length) {
-				return ep.emit('error', new Error('Source does not contain any product data, no need to export/import.'));
-			}
-			ep.emit('delete', products);
-		}).bind('delete', function(products) {
+		async.waterfall([function(callback) {
+			Category.findCategories({
+				company_id: source
+			}, function(error, categories) {
+				if (!error && !categories.length) {
+					error = failObject('categorySourceEmpty');
+				}
+				callback(error, categories);
+			});
+		}, function(categories, callback) {
+			var _categories = categories.map(function (category) {
+				return category.name;
+			});
+			Category.removeOneCategory({
+				name: {$in: _categories},
+				company_id: destination
+			}, function (error) {
+				category(error, categories);
+			});
+		}, function (categories, callback) {
+			var ep = new EventProxy();
+			ep.after('batch', categories.length, function () {
+				callback();
+			});
+			ep.on('error', function (error) {
+				callback(error);
+			})
+			categories.forEach(function (category) {
+				category = {
+					id: category.id,
+					name: category.name,
+					memo: category.memo,
+					company_id: destination
+				};
+				Category.saveCategory(category, function(error, category) {
+					if (error) {
+						return ep.emit('error', error);
+					}
+					console.log('added' + category.name + '.....');
+					ep.emit('batch');
+				});
+			});
+		}, function (callback) {
+			Product.findProducts({
+				company_id: source
+			}, callback);
+		}, function (products, callback) {
 			var _products = products.map(function(product) {
 				return product.name;
 			});
@@ -170,18 +216,17 @@ var action = {
 				},
 				company_id: destination
 			}, function(error) {
-				if (error) {
-					return ep.emit('error', error);
-				}
-				console.log('deleted......');
-				ep.emit('insert', products);
+				callback(error, products);
 			});
-		}).bind('insert', function(products) {
-			ep.after('batch', products.length, function() {
-				console.log('done');
-				callback(null);
+		}, function (products, callback) {
+			var ep = new EventProxy();
+			ep.after('batch', products.length, function () {
+				callback();
 			});
-			products.forEach(function(product) {
+			ep.on('error', function (error) {
+				callback(error);
+			})
+			products.forEach(function (product) {
 				product = {
 					name: product.name,
 					memo: product.memo,
@@ -190,7 +235,7 @@ var action = {
 					picture_uri: product.picture_uri,
 					company_id: destination
 				};
-				Product.saveProduct(product, function(error) {
+				Product.saveProductItem(product, function(error, product) {
 					if (error) {
 						return ep.emit('error', error);
 					}
@@ -198,17 +243,15 @@ var action = {
 					ep.emit('batch');
 				});
 			});
-		}).fail(function(error) {
+		}], function(error, result) {
 			callback(error);
 		});
-		return Product.findProducts({
-			company_id: source
-		}, ep.done('product'));
 	}
 };
 
 var msg = {
-	wrongInfo: 'Company info is incorrect!'
+	wrongInfo: 'Company info is incorrect!',
+	categorySourceEmpty: 'Source does not contain any category data, no need to export/import.'
 };
 
 function failObject(code) {
