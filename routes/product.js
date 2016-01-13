@@ -145,8 +145,8 @@ router.post('/remove.html', function(req, res) {
     var id = req.param('id');
     if (id) {
         Product.removeProducts({
-            id: id,
-            company_id: req.session.user.company.id
+            _id: id/*,
+            company_id: req.session.user.company.id*/
         }, function(err) {
             if (err) {
                 res.json({

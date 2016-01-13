@@ -6,10 +6,6 @@ var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
-	id: {
-		type: String,
-		unique: true
-	},
 	company_id: {
 		type: Schema.ObjectId
 	},
@@ -30,6 +26,20 @@ var ProductSchema = new Schema({
 		type: Date,
 		default: Date.now
 	}
+});
+
+ProductSchema.index({
+	company_id: 1,
+	name: 1
+}, {
+	unique: true
+});
+
+ProductSchema.index({
+	category_id: 1,
+	company_id: 1
+}, {
+	index: true
 });
 
 mongoose.model('Product', ProductSchema);

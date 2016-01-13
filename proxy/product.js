@@ -3,7 +3,7 @@
  */
 
 var Product = require('../models').Product;
-var utils = require('../utils/utils');
+var _ = require('lodash');
 
 exports.saveProduct = function(product, callback) {
     if (product) {
@@ -19,8 +19,7 @@ exports.saveProduct = function(product, callback) {
                 return callback(new Error('Product already exited at the same category.'));
             }
             var product2Save = new Product();
-            product2Save.id = utils.genId('P');
-            utils.copyProperties(product2Save, product, ['category_id', 'company_id', 'name', 'price', 'memo']);
+            _.assign(product2Save, product);
             product2Save.save(function(err) {
                 product.id = product2Save.id;
                 callback(err, product);
@@ -31,11 +30,20 @@ exports.saveProduct = function(product, callback) {
     }
 };
 
+exports.saveProductItem = function(product, callback) {
+    var _product = new Product();
+    _.assign(_product, product);
+    _product.save(function(error) {
+        callback(error, _product);
+    });
+};
+
 exports.updateProduct = function(product, callback) {
     if (product) {
         Product.update({
-            id: product.id,
-            company_id: product.company_id
+            _id: product.id
+                /*,
+                            company_id: product.company_id*/
         }, {
             $set: {
                 name: product.name,

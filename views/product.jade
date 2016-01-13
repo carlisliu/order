@@ -47,7 +47,7 @@ block content
                                             th Memo
                                             th Action
                                     each productItem, productIndex in product
-                                        tr(data-product-id="#{productItem.id}")
+                                        tr(data-product-id="#{productItem._id}")
                                             td(data-product-name="#{productItem.name}") #{productItem.name}
                                             td(data-product-category="#{productItem.category_id}") #{productItem.category_name}
                                             td(data-product-price="#{productItem.price}") #{productItem.price}
