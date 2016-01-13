@@ -9,7 +9,7 @@ var EventProxy = require('eventproxy');
 
 router.get('/index.html', function(req, res) {
 	var exportTargets = ['Category', 'Product', 'Customer'];
-	Company.findCompanies(null, res.handler(res, function(companies) {
+	Company.findCompanies(null, res.handler(function(companies) {
 		res.render('control', {
 			companies: companies,
 			exportTarget: exportTargets
@@ -37,21 +37,22 @@ router.post('/table.html', function(req, res) {
 			if (typeof table === 'string') {
 				action[table.toLowerCase()](source, destination, callback);
 			} else {
-				action['product'](source, destination, callback);
-			}
-		}], function(error, result) {
-			if (error) {
-				return res.json({
-
-					status: 'error',
-					message: error.message
+				Product.findProducts({
+					company_id: source
+				}, function(error, products) {
+					if (error || !products || !products.length) {
+						action['category'](source, destination, callback);
+					} else {
+						action['product'](source, destination, callback);
+					}
 				});
 			}
+		}], res.handler(function(argument) {
 			return res.json({
 				status: 'success',
-				message: 'done'
+				message: 'Finished'
 			});
-		});
+		}));
 	}
 	return res.json({
 		status: 'error',
@@ -66,41 +67,18 @@ var action = {
 			if (!customers || !customers.length) {
 				return ep.emit('error', new Error('Source does not contain any customer data, no need to export/import.'));
 			}
-			ep.emit('delete', customers);
-		}).bind('delete', function(customers) {
-			var _customers = customers.map(function(customer) {
-				return customer.name;
-			});
-			Customer.removeOneCustomer({
-				name: {
-					$in: _customers
-				},
-				company_id: destination
-			}, function(error) {
-				if (error) {
-					return ep.emit('error', error);
-				}
-				ep.emit('insert', customers);
-			});
-		}).bind('insert', function(customers) {
+			ep.emit('upsert', customers);
+		}).bind('upsert', function(customers) {
 			ep.after('batch', customers.length, function() {
 				callback(null);
 			});
 			customers.forEach(function(customer) {
-				customer = {
+				Customer.upsertCustomer({
 					name: customer.name,
-					tel: customer.tel,
-					address: customer.address,
 					company_id: destination
-				};
-				Customer.addCustomer(customer, function(error) {
-					if (error) {
-						return ep.emit('error', error);
-					}
-					ep.emit('batch');
-				});
+				}, customer, ep.done('batch'));
 			});
-		}).fail(function(error) {
+		}).on('error', function(error) {
 			callback(error);
 		});
 		return Customer.findCustomers({
@@ -114,43 +92,17 @@ var action = {
 				return ep.emit('error', new Error('Source does not contain any category data, no need to export/import.'));
 			}
 			console.log(categories);
-			ep.emit('delete', categories);
-		}).bind('delete', function(categories) {
-			var _categories = categories.map(function(customer) {
-				return customer.name;
-			});
-			Category.removeOneCategory({
-				name: {
-					$in: _categories
-				},
-				company_id: destination
-			}, function(error) {
-				if (error) {
-					return ep.emit('error', error);
-				}
-				console.log('deleted......');
-				ep.emit('insert', categories);
-			});
-		}).bind('insert', function(categories) {
+			ep.emit('upsert', categories);
+		}).bind('upsert', function(categories) {
 			ep.after('batch', categories.length, function() {
 				console.log('done');
 				callback(null);
 			});
 			categories.forEach(function(category) {
-				category = {
+				Category.upsertCategory({
 					name: category.name,
-					memo: category.memo,
-					id: category.id,
 					company_id: destination
-				};
-				console.log('add start');
-				Category.saveCategory(category, function(error, category) {
-					if (error) {
-						return ep.emit('error', error);
-					}
-					console.log('added' + category.name + '.....');
-					ep.emit('batch');
-				});
+				}, category, ep.done('batch'));
 			});
 		}).fail(function(error) {
 			callback(error);
@@ -161,88 +113,71 @@ var action = {
 	},
 	product: function(source, destination, callback) {
 		async.waterfall([function(callback) {
+			async.parallel([
+					function(_callback) {
+						Category.findCategories({
+							company_id: source
+						}, _callback);
+					},
+					function(_callback) {
+						Product.findProducts({
+							company_id: source
+						}, _callback);
+					}
+				],
+				function(error, results) {
+					var categories = results[0];
+					var products = results[1];
+					var categoryName = {};
+					categories && categories.forEach(function(category) {
+						categoryName[category._id] = category.name;
+					});
+					products && products.forEach(function(product) {
+						product.category_name = categoryName[product.category_id] || null;
+					});
+					callback(error, categories, products);
+				});
+		}, function(categories, products, callback) {
+			var ep = new EventProxy();
+			if (categories && categories.length) {
+				ep.after('batch', categories.length, function(error) {
+					callback(error, products);
+				}).on('error', callback);
+				categories.forEach(function(category) {
+					Category.upsertCategory({
+						name: category.name,
+						company_id: destination
+					}, category, ep.done('batch'));
+				});
+			} else {
+				callback(null, products);
+			}
+		}, function(products, callback) {
 			Category.findCategories({
 				company_id: source
 			}, function(error, categories) {
-				if (!error && !categories.length) {
-					error = failObject('categorySourceEmpty');
-				}
-				callback(error, categories);
-			});
-		}, function(categories, callback) {
-			var _categories = categories.map(function (category) {
-				return category.name;
-			});
-			Category.removeOneCategory({
-				name: {$in: _categories},
-				company_id: destination
-			}, function (error) {
-				category(error, categories);
-			});
-		}, function (categories, callback) {
-			var ep = new EventProxy();
-			ep.after('batch', categories.length, function () {
-				callback();
-			});
-			ep.on('error', function (error) {
-				callback(error);
-			})
-			categories.forEach(function (category) {
-				category = {
-					id: category.id,
-					name: category.name,
-					memo: category.memo,
-					company_id: destination
-				};
-				Category.saveCategory(category, function(error, category) {
-					if (error) {
-						return ep.emit('error', error);
-					}
-					console.log('added' + category.name + '.....');
-					ep.emit('batch');
+				var categoryName = {};
+				categories && categories.forEach(function(category) {
+					categoryName[category.name] = category._id;
 				});
+				callback(error, categoryName, products);
 			});
-		}, function (callback) {
-			Product.findProducts({
-				company_id: source
-			}, callback);
-		}, function (products, callback) {
-			var _products = products.map(function(product) {
-				return product.name;
-			});
-			Product.removeProducts({
-				name: {
-					$in: _products
-				},
-				company_id: destination
-			}, function(error) {
-				callback(error, products);
-			});
-		}, function (products, callback) {
-			var ep = new EventProxy();
-			ep.after('batch', products.length, function () {
-				callback();
-			});
-			ep.on('error', function (error) {
-				callback(error);
-			})
-			products.forEach(function (product) {
-				product = {
-					name: product.name,
-					memo: product.memo,
-					category_id: product.category_id,
-					price: product.price,
-					picture_uri: product.picture_uri,
-					company_id: destination
-				};
-				Product.saveProductItem(product, function(error, product) {
-					if (error) {
-						return ep.emit('error', error);
-					}
-					console.log('added' + product.name + '.....');
-					ep.emit('batch');
+		}, function(categoryName, products, callback) {
+			if (products && products.length) {
+				var ep = new EventProxy();
+				ep.after('batch', products.length, function() {
+					callback();
+				}).on('error', callback);
+				products.forEach(function(product) {
+					product.category_id = categoryName[product.category_name];
+					Product.upsertProduct({
+						name: product.name,
+						company_id: destination
+					}, product, ep.done('batch'));
 				});
-			});
+			} else {
+				callback();
+			}
 		}], function(error, result) {
 			callback(error);
 		});

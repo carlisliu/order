@@ -34,7 +34,7 @@ block content
                                             th Memo
                                             th Action
                                     each categoryItem, categoryIndex in category
-                                        tr(data-category-id="#{categoryItem.id}")
+                                        tr(data-category-id="#{categoryItem._id}")
                                             td.span5(data-category-name="#{categoryItem.name}") #{categoryItem.name}
                                             td.span6(data-category-memo="#{categoryItem.memo}") #{categoryItem.memo}
                                             td.actions.span1
