@@ -13,7 +13,8 @@ var CategorySchema = new Schema({
 		type: Schema.ObjectId
 	},
 	name: {
-		type: String
+		type: String,
+		index: true
 	},
 	memo: {
 		type: String
