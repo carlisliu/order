@@ -2,8 +2,9 @@
  * Created by Carlis on 4/8/15.
  */
 
-var Category = require('../models').Category,
-    utils = require('../utils/utils');
+var Category = require('../models').Category;
+var utils = require('../utils/utils');
+var _ = require('lodash');
 
 exports.getAllCategory = function(callback) {
     Category.find(callback);
@@ -32,6 +33,14 @@ exports.addCategory = function(category, callback) {
     } else {
         callback(new Error('Category item can not be empty.'));
     }
+};
+
+exports.saveCategory = function(category, callback) {
+    var _category = new Category();
+    _.assign(_category, category);
+    _category.save(function(error) {
+        callback(error, _category);
+    });
 };
 
 exports.updateCategory = function(category, callback) {
