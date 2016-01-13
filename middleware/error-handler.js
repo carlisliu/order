@@ -3,14 +3,22 @@ module.exports = function(req, res, next) {
 	next();
 };
 
-function handler(res, callback) {
+function handler(callback) {
+	var self = this;
+	if (callback instanceof Error) {
+		return handle(self, callback);
+	}
 	return function(error, results) {
 		if (error) {
-			return res.json({
-				status: 'error',
-				msg: error.message || 'Error'
-			});
+			return handle(self, error);
 		}
 		callback(results);
 	};
+}
+
+function handle(res, error) {
+	return res.json({
+		status: 'error',
+		msg: error.message || 'Error'
+	});
 }
