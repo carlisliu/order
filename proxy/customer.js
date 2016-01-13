@@ -72,3 +72,14 @@ exports.findCustomers = function(params, callback) {
 exports.removeOneCustomer = function(params, callback) {
     Customer.remove(params, callback);
 };
+
+exports.upsertCustomer = function(condition, customer, callback) {
+    Customer.update(condition, {
+        $set: {
+            tel: customer.tel,
+            address: customer.address
+        }
+    }, {
+        upsert: true
+    }, callback);
+};

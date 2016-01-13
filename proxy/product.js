@@ -42,8 +42,6 @@ exports.updateProduct = function(product, callback) {
     if (product) {
         Product.update({
             _id: product.id
-                /*,
-                            company_id: product.company_id*/
         }, {
             $set: {
                 name: product.name,
@@ -51,14 +49,23 @@ exports.updateProduct = function(product, callback) {
                 price: product.price,
                 category_id: product.category_id
             }
-        }, callback);
+        }, function (error, product) {
+            callback(error, product);
+        });
     } else {
         callback(new Error('Product item can not be empty.'));
     }
 };
 
-exports.upsertProduct = function(condition, updateProp, options, callback) {
-    Product.update(condition, updateProp, options, callback);
+exports.upsertProduct = function(condition, updateProp, callback) {
+    Product.update(condition, {
+        memo: product.memo,
+        price: product.price,
+        category_id: product.category_id,
+        picture_uri: product.picture_uri
+    }, {
+        upsert: true
+    }, callback);
 };
 
 function findOneProduct(params, callback) {

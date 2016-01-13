@@ -20,9 +20,7 @@ exports.saveCategory = function(category, callback) {
 exports.updateCategory = function(category, callback) {
     if (category) {
         Category.update({
-            _id: category.id
-                /*,
-                            company_id: category.company_id*/
+            _id: category._id
         }, {
             $set: {
                 name: category.name,
@@ -35,8 +33,15 @@ exports.updateCategory = function(category, callback) {
         callback(new Error('Category item can not be empty.'));
     }
 };
-exports.upsertCategory = function(condition, updateProp, options, callback) {
-    return Category.update(condition, updateProp, options, callback);
+
+exports.upsertCategory = function(condition, category, callback) {
+    return Category.update(condition, {
+        $set: {
+            memo: category.memo
+        }
+    }, {
+        upsert: true
+    }, callback);
 };
 
 exports.getCategoryById = function(id, callback) {
