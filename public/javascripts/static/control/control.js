@@ -10,15 +10,15 @@ define('static/control/control', ['jquery', 'jgrowl'], function(require, exports
 
 	Control.prototype = {
 		before: function() {
-			this.record.find('td:last').html(this.render(this.loading));
+			this.record && this.record.find('td:last').html(this.render(this.loading));
 			return this;
 		},
 		finish: function() {
-			this.record.find('td:last').html(this.render(this.finished));
+			this.record && this.record.find('td:last').html(this.render(this.finished));
 			return this;
 		},
 		error: function  (msg) {
-			this.record.find('td:last').html('');
+			this.record && this.record.find('td:last').html('');
 			$.jGrowl(msg || 'Error');
 			return this;
 		},
@@ -29,12 +29,12 @@ define('static/control/control', ['jquery', 'jgrowl'], function(require, exports
 			var that = this;
 			this.before();
 			$.post('/control/table.html', data, function(data) {
-				callback(data);
 				if (data.status === 'success') {
 					that.finish();
 				} else {
 					that.error(data.message);
 				}
+				callback(data);
 			}).fail(function (e) {
 				that.error(e.message);
 			});

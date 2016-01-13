@@ -2,19 +2,9 @@
  * Created by Carlis on 4/12/15.
  */
 
-define('static/category/event', ['validate', 'jgrowl', '../common/modal', '../utils/index', './category'], function (require, exports, module) {
+define('static/category/event', ['validate', 'jgrowl', '../common/modal', '../utils/index', './category', '../common/options'], function (require, exports, module) {
     var $ = require('jquery');
-    var validateOpts = {
-        errorPlacement: function (error, element) {
-            element.parents('.controls').append(error);
-        },
-        highlight: function (label) {
-            $(label).closest('.control-group').removeClass('error success').addClass('error');
-        },
-        success: function (label) {
-            label.addClass('valid').closest('.control-group').removeClass('error success').addClass('success');
-        }
-    };
+    var validateOpts = require('../common/options');
     require('validate');
     require('jgrowl');
     var Modal = require('../common/modal');
@@ -65,15 +55,17 @@ define('static/category/event', ['validate', 'jgrowl', '../common/modal', '../ut
                     form.validate(validateOpts);
                     if (form.valid()) {
                         category = {
-                            id: data.id,
+                            _id: data.id,
                             name: trim(form.find('#category-name').val()),
                             memo: trim(form.find('#category-memo').val())
                         };
                         $.post('/category/update.html', {category: category}).done(function (data) {
-                            trEl.find('td:first-child').attr('data-category-name', category.name);
-                            trEl.find('td:first-child').html(category.name);
-                            trEl.find('td:nth-child(2)').attr('data-category-memo', category.memo);
-                            trEl.find('td:nth-child(2)').html(category.memo);
+                            if (data.status === 'success') {
+                                trEl.find('td:first-child').attr('data-category-name', category.name);
+                                trEl.find('td:first-child').html(category.name);
+                                trEl.find('td:nth-child(2)').attr('data-category-memo', category.memo);
+                                trEl.find('td:nth-child(2)').html(category.memo);
+                            }
                             $.jGrowl(data.msg);
                         }).fail(function (e) {
                                 $.jGrowl(e.toString());

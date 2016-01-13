@@ -79,15 +79,17 @@ define('static/product/event', ['validate', 'validate.extend', 'jgrowl', '../com
                         $.post('/product/update.html', {
                             product: product
                         }).done(function(data) {
-                            var product = data.product;
-                            trEl.find('td:first-child').attr('data-product-name', product.name);
-                            trEl.find('td:first-child').html(product.name);
-                            trEl.find('td:nth-child(2)').attr('data-product-category', product.category_id);
-                            trEl.find('td:nth-child(2)').html(product.category_name);
-                            trEl.find('td:nth-child(3)').attr('data-product-price', product.price);
-                            trEl.find('td:nth-child(3)').html(product.price);
-                            trEl.find('td:nth-child(4)').attr('data-product-memo', product.memo);
-                            trEl.find('td:nth-child(4)').html(product.memo);
+                            if (data.status === 'success') {
+                                var product = data.product;
+                                trEl.find('td:first-child').attr('data-product-name', product.name);
+                                trEl.find('td:first-child').html(product.name);
+                                trEl.find('td:nth-child(2)').attr('data-product-category', product.category_id);
+                                trEl.find('td:nth-child(2)').html(product.category_name);
+                                trEl.find('td:nth-child(3)').attr('data-product-price', product.price);
+                                trEl.find('td:nth-child(3)').html(product.price);
+                                trEl.find('td:nth-child(4)').attr('data-product-memo', product.memo);
+                                trEl.find('td:nth-child(4)').html(product.memo);
+                            }
                             $.jGrowl(data.msg);
                         }).fail(function(e) {
                             $.jGrowl(e.toString());

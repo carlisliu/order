@@ -73,7 +73,7 @@ define('static/order/event', ['jquery', 'validate', 'validate.extend', 'jgrowl',
             if (productId) {
                 products = productEl.data('productsData');
                 $.each(products, function (index, content) {
-                    if (productId === content.id) {
+                    if (productId === content._id) {
                         productPriceEl.val(content.price);
                         return false;
                     }

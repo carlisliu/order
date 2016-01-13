@@ -43,19 +43,46 @@ define('static/control/event', ['jquery', './control', 'jgrowl', '../common/opti
 			if (source === destination) {
 				return $.jGrowl('Source and destination can not be identical.');
 			}
+			var tables = {};
 			$('#tables-holder').find('tbody tr').filter(function() {
 				return $(this).find('input[type=checkbox]').is(':checked');
 			}).each(function() {
 				var $this = $(this);
-				var ctrl = new Control($this);
+				var table = $this.attr('data-table');
+				tables[table] = {
+					table: table,
+					target: $this;
+				};
+			});
+
+			if (tables['Category'] && tables['Product']) {
+				var ctrl = new Control();
+				var cr = tables['Category'].target;
+				var pr = tables['Product'].target;
+				cr.find('td:last').html('');
 				ctrl.import({
-					table: $this.attr('data-table'),
+					table: ['Category', 'Product'],
 					source: source,
 					destination: destination
 				}, function(data) {
-					
+					if (data.status === 'success') {
+						cr.find('td:last').html(ctrl.render(ctrl.finished));
+						pr.find('td:last').html(ctrl.render(ctrl.finished));
+					}
 				});
-			});
+				delete table['Category'];
+				delete table['Product'];
+			}
+
+			for(var key in tables) {
+				var ctrl = new Control(tables[key].target);
+				ctrl.import({
+					table: tables[key].table,
+					source: source,
+					destination: destination
+				}, function(data) {
+				});
+			}
 		});
 	});
 });
