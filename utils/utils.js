@@ -4,6 +4,10 @@
 
 var moment = require('moment');
 
+function random () {
+    return Math.random().toString().slice(2, 6);
+}
+
 var utils = {
     extend: function (first, second) {
         var key;
@@ -36,7 +40,7 @@ var utils = {
         return moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '') + String(Math.random() * 16 | 0).substring(0, 1);
     },
     genId: function (prefix) {
-        return (prefix || '' ) + moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '');
+        return (prefix || '' ) + moment().format('YYYYMMDDHHmmss').replace(/\s+/g, '') + random() + '';
     },
     fixAddress: function (address, separator) {
         separator = separator || ', ';
