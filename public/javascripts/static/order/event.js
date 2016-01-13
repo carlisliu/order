@@ -60,7 +60,7 @@ define('static/order/event', ['jquery', 'validate', 'validate.extend', 'jgrowl',
                     msg && $.jGrowl(msg);
                     if ((products = data.products)) {
                         productEl.data('productsData', products);
-                        utils.bindSelector(productEl, utils.convert(products, 'id', 'name'));
+                        utils.bindSelector(productEl, utils.convert(products, '_id', 'name'));
                         productEl.trigger('change');
                     }
                 });
