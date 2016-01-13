@@ -1,28 +1,9 @@
 /**
  * Created by Carlis on 4/11/15.
  */
-var Customer = require('../models').Customer,
-    utils = require('../utils/utils'),
-    eventProxy = require('eventproxy');
-
-exports.removeCustomerById = function(id, callback) {
-    Customer.remove({
-        id: id
-    }, callback);
-};
-
-function findCustomerByName(name, callback) {
-    if (!name) {
-        return callback(new Error("Customer's name can not be empty."));
-    }
-    Customer.findOne({
-        name: name
-    }, function(err, customer) {
-        callback(err, customer);
-    });
-}
-
-exports.findCustomerByName = findCustomerByName;
+var Customer = require('../models').Customer;
+var eventProxy = require('eventproxy');
+var _ = require('lodash');
 
 exports.addCustomer = function(customer, callback) {
     findOneCustomer({
@@ -36,13 +17,11 @@ exports.addCustomer = function(customer, callback) {
             return callback(new Error('Customer already exist'));
         }
         var customer2Save = new Customer();
-        customer2Save.id = utils.genId('C');
-        utils.copyProperties(customer2Save, customer, ['name', 'company_id', 'tel', 'address']);
+        _.assign(customer2Save, customer);
         customer2Save.save(function(err) {
             if (err) {
                 return callback(err);
             }
-            customer.id = customer2Save.id;
             callback(null, customer);
         });
     });
@@ -50,7 +29,7 @@ exports.addCustomer = function(customer, callback) {
 
 exports.updateCustomerById = function(customer, callback) {
     Customer.update({
-        id: customer.id,
+        _id: customer.id,
         company_id: customer.company_id
     }, {
         $set: {
@@ -86,20 +65,10 @@ function findOneCustomer(params, callback) {
 
 exports.findOneCustomer = findOneCustomer
 
-exports.findCustomerById = function(id, callback) {
-    Customer.findOne({
-        id: id
-    }, callback);
-};
-
 exports.findCustomers = function(params, callback) {
     Customer.find(params, callback);
 };
 
 exports.removeOneCustomer = function(params, callback) {
     Customer.remove(params, callback);
-};
-
-exports.updateCompany = function(condition, updateProp, options, callback) {
-    Customer.update(condition, updateProp, options, callback);
 };

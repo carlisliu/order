@@ -6,6 +6,18 @@ var router = express.Router();
 var Customer = require('../proxy').Customer;
 var utils = require('../utils/utils');
 var config = require('../config');
+var async = require('async');
+
+var errorMessage = {
+    'incomplete': 'Customer info is incomplete.',
+    'existed': 'Customer already existed'
+};
+
+function failObject(code) {
+    var error = new Error(errorMessage[code] || 'Error');
+    error.bizError = true;
+    return error;
+}
 
 router.get('/index.html', function(req, res) {
     var currentPage = req.query.page || 1,
@@ -39,78 +51,75 @@ router.get('/index.html', function(req, res) {
 
 router.get('/details/:id', function(req, res) {
     var id = req.param('id');
-    Customer.findOneCustomer({
-        id: id,
-        company_id: req.session.user.company.id
-    }, function(err, customer) {
-        var responseData = {};
-        if (err) {
-            responseData.status = 'error';
-            responseData.msg = err.toString();
-        } else {
-            responseData.status = 'success';
-            responseData.customer = customer;
-        }
-        res.json(responseData);
-    });
+    if (id) {
+        return Customer.findOneCustomer({
+            _id: id
+        }, res.handler(function(customer) {
+            res.json({
+                status: 'success',
+                customer: customer
+            });
+        }));
+    }
+    res.handler(failObject('incomplete'));
 });
 
 router.post('/add.html', function(req, res) {
     var customer = req.param('customer');
-    customer.company_id = req.session.user.company.id;
-    Customer.addCustomer(customer, function(err, customer) {
-        if (err) {
-            res.json({
-                msg: err.toString()
-            });
-        } else {
+    if (customer) {
+        customer.company_id = req.session.user.company.id;
+        return Customer.addCustomer(customer, res.handler(function(customer) {
             res.json({
                 msg: 'success',
                 customer: customer
             });
-        }
-    });
+        }));
+    }
+    res.handler(failObject('incomplete'));
 });
 
 router.post('/update.html', function(req, res) {
     var customer = req.param('customer');
     if (!customer) {
-        return res.json({
-            msg: 'Customer info is incomplete.',
-            status: 'error'
-        });
+        return res.handler(failObject('incomplete'));
     }
-    customer.company_id = req.session.user.company.id;
-    Customer.updateCustomerById(customer, function(err) {
-        if (err) {
-            res.json({
-                msg: err.toString()
-            });
-        } else {
-            res.json({
-                msg: 'Updated',
-                status: 'success'
-            });
+    var companyId = req.session.user.company.id;
+    async.waterfall([function(callback) {
+        Customer.findOneCustomer({
+            name: customer.name,
+            company_id: companyId
+        }, function(error, customer) {
+            callback(error, customer);
+        });
+    }, function(_customer, callback) {
+        if (_customer && _customer._id.toString() !== customer.id) {
+            return callback(failObject('existed'));
         }
-    });
+        customer.company_id = companyId;
+        Customer.updateCustomerById(customer, function(error) {
+            callback(error);
+        });
+    }], res.handler(function() {
+        res.json({
+            msg: 'Updated',
+            status: 'success'
+        });
+    }));
 });
 
 router.post('/remove.html', function(req, res) {
     var id = req.param('id');
+    if (!id) {
+        return res.handler(failObject('incomplete'));
+    }
     Customer.removeOneCustomer({
-        id: id,
-        company_id: req.session.user.company.id
-    }, function(err) {
-        if (err) {
-            res.json({
-                msg: err.toString()
-            });
-        } else {
-            res.json({
-                msg: 'Removed'
-            });
-        }
-    });
+        _id: id
+    }, res.handler(function() {
+        res.json({
+            status: 'success',
+            msg: 'Removed'
+        });
+    }));
 });
 
 router.get('/get.html', function(req, res) {
