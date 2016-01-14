@@ -156,7 +156,7 @@ var action = {
 			}
 		}, function(products, callback) {
 			Category.findCategories({
-				company_id: source
+				company_id: destination
 			}, function(error, categories) {
 				console.log( categories);
 				var categoryName = {};
