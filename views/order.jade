@@ -19,7 +19,7 @@ block content
                                     select.required(id='customer-id', name='customer-id')
                                         option(value='') Choose one
                                         each customerItem, customerIndex in customer
-                                            option(value='#{customerItem.id}') #{customerItem.name}
+                                            option(value='#{customerItem._id}') #{customerItem.name}
                             div
                                 div.control-group(style='display:none;')
                                     label.control-label(for='customer-name') Name
@@ -56,7 +56,7 @@ block content
                                             select.required(name='category-id', id='category-id')
                                                 option(value='') Choose One
                                                 each categoryItem, categoryIndex in category
-                                                    option(value='#{categoryItem.id}') #{categoryItem.name}
+                                                    option(value='#{categoryItem._id}') #{categoryItem.name}
                                 div.span3
                                     div.control-group
                                         label.control-label(for='product-id') Product

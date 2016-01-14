@@ -18,7 +18,7 @@ block content
                                     select.required(id='product-category', name='product-category')
                                         option(value='') Choose one
                                         each categoryItem, index in category
-                                            option(value='#{categoryItem.id}') #{categoryItem.name}
+                                            option(value='#{categoryItem._id}') #{categoryItem.name}
                             div.control-group
                                 label.control-label(for='product-price') Price
                                 div.controls

@@ -19,7 +19,7 @@ router.get('/index.html', function(req, res) {
         } else {
             categoryName = {};
             categories.forEach(function(content, index) {
-                categoryName[content.id] = content.name;
+                categoryName[content._id] = content.name;
             });
             if (products) {
                 products.forEach(function(content, index) {

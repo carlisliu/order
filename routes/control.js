@@ -91,11 +91,9 @@ var action = {
 			if (!categories || !categories.length) {
 				return ep.emit('error', new Error('Source does not contain any category data, no need to export/import.'));
 			}
-			console.log(categories);
 			ep.emit('upsert', categories);
 		}).bind('upsert', function(categories) {
 			ep.after('batch', categories.length, function() {
-				console.log('done');
 				callback(null);
 			});
 			categories.forEach(function(category) {
@@ -135,14 +133,12 @@ var action = {
 					products && products.forEach(function(product) {
 						product.category_name = categoryName[product.category_id] || null;
 					});
-					console.log( categories, products);
 					callback(error, categories, products);
 				});
 		}, function(categories, products, callback) {
 			var ep = new EventProxy();
 			if (categories && categories.length) {
 				ep.after('batch', categories.length, function() {
-					console.log( 'batch Finished');
 					callback(null, products);
 				}).on('error', callback);
 				categories.forEach(function(category) {
@@ -158,7 +154,6 @@ var action = {
 			Category.findCategories({
 				company_id: destination
 			}, function(error, categories) {
-				console.log( categories);
 				var categoryName = {};
 				categories && categories.forEach(function(category) {
 					categoryName[category.name] = category._id;
@@ -169,7 +164,6 @@ var action = {
 			if (products && products.length) {
 				var ep = new EventProxy();
 				ep.after('batch', products.length, function() {
-					console.log( 'product batch Finished');
 					callback();
 				}).on('error', callback);
 				products.forEach(function(product) {
@@ -183,7 +177,6 @@ var action = {
 				callback();
 			}
 		}], function(error, result) {
-			console.log(error);
 			callback(error, result);
 		});
 	}
