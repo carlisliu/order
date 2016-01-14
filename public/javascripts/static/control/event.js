@@ -51,12 +51,13 @@ define('static/control/event', ['jquery', './control', 'jgrowl', '../common/opti
 				var table = $this.attr('data-table');
 				tables[table] = {
 					table: table,
-					target: $this;
+					target: $this
 				};
 			});
 
+			var ctrl;
 			if (tables['Category'] && tables['Product']) {
-				var ctrl = new Control([tables['Category'].target, tables['Product'].target]);
+				ctrl = new Control([tables['Category'].target, tables['Product'].target]);
 				ctrl.import({
 					table: ['Category', 'Product'],
 					source: source,
@@ -68,7 +69,7 @@ define('static/control/event', ['jquery', './control', 'jgrowl', '../common/opti
 			}
 
 			for(var key in tables) {
-				var ctrl = new Control(tables[key].target);
+				ctrl = new Control(tables[key].target);
 				ctrl.import({
 					table: tables[key].table,
 					source: source,
