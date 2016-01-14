@@ -16,7 +16,7 @@ define('static/users/user', ['jquery', '../utils/index', '../common/base'], func
 
 	User.prototype.remove = function(id, callback) {
 		this.post(true, '/users/remove.html', {
-			id, id
+			id: id
 		}, callback);
 		return this;
 	};
