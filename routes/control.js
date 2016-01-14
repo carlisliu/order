@@ -47,7 +47,7 @@ router.post('/table.html', function(req, res) {
 					}
 				});
 			}
-		}], res.handler(function(argument) {
+		}], res.handler(function() {
 			return res.json({
 				status: 'success',
 				message: 'Finished'
@@ -135,13 +135,15 @@ var action = {
 					products && products.forEach(function(product) {
 						product.category_name = categoryName[product.category_id] || null;
 					});
+					console.log( categories, products);
 					callback(error, categories, products);
 				});
 		}, function(categories, products, callback) {
 			var ep = new EventProxy();
 			if (categories && categories.length) {
-				ep.after('batch', categories.length, function(error) {
-					callback(error, products);
+				ep.after('batch', categories.length, function() {
+					console.log( 'batch Finished');
+					callback(null, products);
 				}).on('error', callback);
 				categories.forEach(function(category) {
 					Category.upsertCategory({
@@ -156,6 +158,7 @@ var action = {
 			Category.findCategories({
 				company_id: source
 			}, function(error, categories) {
+				console.log( categories);
 				var categoryName = {};
 				categories && categories.forEach(function(category) {
 					categoryName[category.name] = category._id;
@@ -166,6 +169,7 @@ var action = {
 			if (products && products.length) {
 				var ep = new EventProxy();
 				ep.after('batch', products.length, function() {
+					console.log( 'product batch Finished');
 					callback();
 				}).on('error', callback);
 				products.forEach(function(product) {
@@ -179,7 +183,8 @@ var action = {
 				callback();
 			}
 		}], function(error, result) {
-			callback(error);
+			console.log(error);
+			callback(error, result);
 		});
 	}
 };
