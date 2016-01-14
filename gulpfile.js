@@ -3,6 +3,7 @@ var uglify = require('gulp-uglify');
 var minifyCss = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var clean = require('gulp-clean');
+var plumber = require('gulp-plumber');
 
 gulp.task('css', function() {
     gulp.src(['public/stylesheets/bootstrap.css', 'public/stylesheets/bootstrap-responsive.css',
@@ -63,6 +64,7 @@ gulp.task('clean-modules', function() {
 
 gulp.task('script-static', ['clean-static'], function() {
     gulp.src('public/javascripts/static/**/*.js')
+        .pipe(plumber())
         .pipe(concat('all.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/dist/javascripts/static'));
