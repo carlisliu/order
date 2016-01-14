@@ -30,7 +30,8 @@ var ProductSchema = new Schema({
 
 ProductSchema.index({
 	company_id: 1,
-	name: 1
+	name: 1,
+	category_id: 1
 }, {
 	unique: true
 });
