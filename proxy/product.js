@@ -57,7 +57,7 @@ exports.updateProduct = function(product, callback) {
     }
 };
 
-exports.upsertProduct = function(condition, updateProp, callback) {
+exports.upsertProduct = function(condition, product, callback) {
     Product.update(condition, {
         memo: product.memo,
         price: product.price,
