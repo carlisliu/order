@@ -77,7 +77,7 @@ define('static/users/event', ['jquery', 'validate', 'jgrowl', './user', '../comm
 					user.post('/users/update.html', function (data) {
 						console.log(data);
 						$.jGrowl(data.message || 'Saved.');
-					})
+					});
 					return true;
 				}
 				return false;
