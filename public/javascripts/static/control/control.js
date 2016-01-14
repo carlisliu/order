@@ -9,17 +9,36 @@ define('static/control/control', ['jquery', 'jgrowl'], function(require, exports
 	}
 
 	Control.prototype = {
+        constructor: Control,
 		before: function() {
-			this.record && this.record.find('td:last').html(this.render(this.loading));
+			if (this.record) {
+				var record = $.isArray(this.record) ? this.record : [this.record];
+				var that = this;
+				$.each(record, function (record) {
+					record.find('td:last').html(that.render(that.loading));
+				});
+			}
 			return this;
 		},
 		finish: function() {
-			this.record && this.record.find('td:last').html(this.render(this.finished));
+			if (this.record) {
+				var record = $.isArray(this.record) ? this.record : [this.record];
+				var that = this;
+				$.each(record, function (record) {
+					record.find('td:last').html(that.render(that.finished));
+				});
+			}
 			return this;
 		},
 		error: function  (msg) {
-			this.record && this.record.find('td:last').html('');
-			$.jGrowl(msg || 'Error');
+			if (this.record) {
+				var record = $.isArray(this.record) ? this.record : [this.record];
+				var that = this;
+				$.each(record, function (record) {
+					record.find('td:last').html('');
+					$.jGrowl(msg || 'Error');
+				});
+			}
 			return this;
 		},
 		render: function(src) {

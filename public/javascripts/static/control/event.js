@@ -56,22 +56,15 @@ define('static/control/event', ['jquery', './control', 'jgrowl', '../common/opti
 			});
 
 			if (tables['Category'] && tables['Product']) {
-				var ctrl = new Control();
-				var cr = tables['Category'].target;
-				var pr = tables['Product'].target;
-				cr.find('td:last').html('');
+				var ctrl = new Control([tables['Category'].target, tables['Product'].target]);
 				ctrl.import({
 					table: ['Category', 'Product'],
 					source: source,
 					destination: destination
 				}, function(data) {
-					if (data.status === 'success') {
-						cr.find('td:last').html(ctrl.render(ctrl.finished));
-						pr.find('td:last').html(ctrl.render(ctrl.finished));
-					}
 				});
-				delete table['Category'];
-				delete table['Product'];
+				delete tables['Category'];
+				delete tables['Product'];
 			}
 
 			for(var key in tables) {
