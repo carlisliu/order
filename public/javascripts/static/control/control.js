@@ -14,8 +14,8 @@ define('static/control/control', ['jquery', 'jgrowl'], function(require, exports
 			if (this.record) {
 				var record = $.isArray(this.record) ? this.record : [this.record];
 				var that = this;
-				$.each(record, function (record) {
-					record.find('td:last').html(that.render(that.loading));
+				$.each(record, function (index, record) {
+					$(record).find('td:last').html(that.render(that.loading));
 				});
 			}
 			return this;
@@ -24,8 +24,8 @@ define('static/control/control', ['jquery', 'jgrowl'], function(require, exports
 			if (this.record) {
 				var record = $.isArray(this.record) ? this.record : [this.record];
 				var that = this;
-				$.each(record, function (record) {
-					record.find('td:last').html(that.render(that.finished));
+				$.each(record, function (index, record) {
+					$(record).find('td:last').html(that.render(that.finished));
 				});
 			}
 			return this;
@@ -34,8 +34,8 @@ define('static/control/control', ['jquery', 'jgrowl'], function(require, exports
 			if (this.record) {
 				var record = $.isArray(this.record) ? this.record : [this.record];
 				var that = this;
-				$.each(record, function (record) {
-					record.find('td:last').html('');
+				$.each(record, function (index, record) {
+					$(record).find('td:last').html('');
 					$.jGrowl(msg || 'Error');
 				});
 			}
