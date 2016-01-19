@@ -19,5 +19,11 @@
   "bugs": {
     "url": "https://github.com/carlisliu/order/issues"
   },
-  "homepage": "https://github.com/carlisliu/order#readme"
+  "homepage": "https://github.com/carlisliu/order#readme",
+  "dependencies": {
+    "koa": "^1.1.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  }
 }
