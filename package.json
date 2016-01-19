@@ -1,0 +1,23 @@
+{
+  "name": "order-delivery",
+  "version": "1.0.0",
+  "description": "Order Delivery(KOA)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlisliu/order.git"
+  },
+  "keywords": [
+    "order",
+    "koa"
+  ],
+  "author": "Carlis Liu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carlisliu/order/issues"
+  },
+  "homepage": "https://github.com/carlisliu/order#readme"
+}
