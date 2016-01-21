@@ -15,7 +15,7 @@
     "koa"
   ],
   "author": "Carlis Liu",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/carlisliu/order/issues"
   },
