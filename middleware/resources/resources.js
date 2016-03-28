@@ -30,14 +30,22 @@ var css = {
 				media: 'all'
 			}, '/stylesheets/jquery.jgrowl.css'
 		],
-		'order_list': ['/stylesheets/datepicker.css']
+		'order_list': ['/stylesheets/datepicker.css'],
+		'order_detail': [{
+			url: '/stylesheets/print.css',
+			media: 'print'
+		}]
 	},
 	'production': {
 		'login': ['/stylesheets/bootstrap/v3.3.4/bootstrap.min.css', '/stylesheets/font-awesome/css/font-awesome.min.css',
 			'/stylesheets/login/login.all.css'
 		],
 		'layout': ['/stylesheets/all.css'],
-		'order_list': ['/stylesheets/datepicker.css']
+		'order_list': ['/stylesheets/datepicker.css'],
+		'order_detail': [{
+			url: '/stylesheets/print.css',
+			media: 'print'
+		}]
 	}
 };
 
