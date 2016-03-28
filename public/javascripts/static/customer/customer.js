@@ -13,6 +13,7 @@ define('static/customer/customer', ['jquery', '../utils/index'], function (requi
         }
         this.name = container.find('#customer-name').val();
         this.tel = container.find('#customer-tel').val();
+        this.shopName = container.find('#shop-name').val();
         this.address = {
             street: container.find('#customer-addr-street').val(),
             city: container.find('#customer-addr-city').val(),
@@ -25,6 +26,7 @@ define('static/customer/customer', ['jquery', '../utils/index'], function (requi
             var customer = {};
             customer.name = this.name;
             customer.tel = this.tel;
+            customer.shopName = this.shopName;
             customer.address = this.address;
             $.post('/customer/add.html', {customer: customer}).done(function (data) {
                 $.isFunction(callback) && callback(null, data);
@@ -36,7 +38,7 @@ define('static/customer/customer', ['jquery', '../utils/index'], function (requi
         clear: function () {
             if (this.container) {
                 this.container.find('input[type="text"]').val('');
-                this.id = this.name = this.tel = this.address = null;
+                this.id = this.name = this.shopName = this.tel = this.address = null;
                 this.clearStyle();
             }
             return this;
@@ -62,6 +64,7 @@ define('static/customer/customer', ['jquery', '../utils/index'], function (requi
             container.find('#customer-id').val((this.id = customer.id));
             container.find('#customer-name').val((this.name = customer.name));
             container.find('#customer-tel').val((this.tel = customer.tel));
+            container.find('#shop-name').val((this.shopName = customer.shopName));
             this.address = this.address || {};
             container.find('#customer-addr-street').val((this.address.street = customer.address.street));
             container.find('#customer-addr-city').val((this.address.city = customer.address.city));
@@ -114,7 +117,7 @@ define('static/customer/customer', ['jquery', '../utils/index'], function (requi
                 data.id = trim(row.attr(id));
             } else {
                 tds = row.find('td');
-                $.each(['name', 'tel', 'address'], function (index, content) {
+                $.each(['name', 'tel', 'address', 'shop-name'], function (index, content) {
                     var result = $(tds[inex]).attr('data-customer-' + content);
                     if (result) {
                         data[content] = JSON.parse(result);

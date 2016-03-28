@@ -56,6 +56,7 @@ define('static/order/order', ['jquery'], function (require, exports, module) {
                 customer_id: customer.customer_id,
                 customer_name: customer.customer_name,
                 customer_tel: customer.customer_tel,
+                customer_shopName: customer.customer_shopName,
                 customer_address: customer.customer_address,
                 details: this.details
             };

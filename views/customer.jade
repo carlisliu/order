@@ -17,6 +17,10 @@ block content
                                 div.controls
                                     input.required.tel(type='text',name='customer-tel',id='customer-tel')
                             div.control-group
+                                label.control-label(for='shop-name') Shop Name
+                                div.controls
+                                    input.span6(type='text',name='shop-name',id='shop-name')
+                            div.control-group
                                 label.control-label(for='customer-addr-street') Address-Street
                                 div.controls
                                     input.required.span6(type='text',name='customer-addr-street',id='customer-addr-street')
@@ -44,12 +48,14 @@ block content
                                         tr
                                             th Name
                                             th Tel
+                                            th Shop Name
                                             th Address
                                             th Action
                                     each customerItem, customerIndex in customers
                                         tr(data-customer-id="#{customerItem._id}")
                                             td(data-customer-name="#{customerItem.name}") #{customerItem.name}
                                             td(data-customer-tel="#{customerItem.tel}") #{customerItem.tel}
+                                            td(data-customer-shop-name="#{customerItem.shopName}") #{customerItem.shopName}
                                             td(data-customer-address="#{customerItem.address}") #{customerItem.fixAddress}
                                             td.actions
                                                 div.btn-group
@@ -79,6 +85,7 @@ block scriptContent
         <tr data-customer-id="{id}">
             <td data-customer-name="{name}">{name}</td>
             <td data-customer-tel="{tel}">{tel}</td>
+            <td data-customer-shop-name="{shopName}">{shopName}</td>
             <td data-customer-address="{address}">{fix-address}</td>
             <td class="actions">
                 <div class="btn-group">
@@ -104,6 +111,12 @@ block scriptContent
                     <label class="control-label" for="customer-tel">Tel</label>
                     <div class="controls">
                         <input class="required tel" type="text" name="customer-tel" id="customer-tel" value="{tel}"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="shop-name">Shop Name</label>
+                    <div class="controls">
+                        <input type="text" name="shop-name" id="shop-name" value="{shopName}"/>
                     </div>
                 </div>
                 <div class="control-group">

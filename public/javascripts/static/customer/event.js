@@ -41,7 +41,7 @@ define('static/customer/event', ['validate', 'validate.extend', 'jgrowl', './cus
             } else {
                 el = trim($('#customer-form-template').html());
                 parent = $this.parents('tr');
-                address = trim(parent.find('td:nth-child(3)').attr('data-customer-address'));
+                address = trim(parent.find('td:nth-child(4)').attr('data-customer-address'));
                 try {
                     address = JSON.parse(address);
                 } catch (e) {
@@ -52,6 +52,7 @@ define('static/customer/event', ['validate', 'validate.extend', 'jgrowl', './cus
                     id: trim(parent.attr('data-customer-id')),
                     name: trim(parent.find('td:first-child').attr('data-customer-name')),
                     tel: trim(parent.find('td:nth-child(2)').attr('data-customer-tel')),
+                    shopName: trim(parent.find('td:nth-child(3)').attr('data-customer-shop-name')),
                     'address.street': address.street,
                     'address.city': address.city,
                     'address.country': address.country
@@ -64,6 +65,7 @@ define('static/customer/event', ['validate', 'validate.extend', 'jgrowl', './cus
                         customer.id = data.id;
                         customer.name = trim(form.find('#customer-name').val());
                         customer.tel = trim(form.find('#customer-tel').val());
+                        customer.shopName = trim(form.find('#shop-name').val());
                         customer.address = {
                             street: trim(form.find('#customer-addr-street').val()),
                             city: trim(form.find('#customer-addr-city').val()),
@@ -75,9 +77,11 @@ define('static/customer/event', ['validate', 'validate.extend', 'jgrowl', './cus
                                 parent.find('td:nth-child(1)').html(customer.name);
                                 parent.find('td:nth-child(2)').attr('data-customer-tel', customer.tel);
                                 parent.find('td:nth-child(2)').html(customer.tel);
-                                parent.find('td:nth-child(3)').attr('data-customer-address', JSON.stringify(customer.address))
+                                parent.find('td:nth-child(3)').attr('data-shop-name', customer.shopName);
+                                parent.find('td:nth-child(3)').html(customer.shopName);
+                                parent.find('td:nth-child(4)').attr('data-customer-address', JSON.stringify(customer.address))
                                 var address = customer.address;
-                                parent.find('td:nth-child(3)').html(address.street + ',' + address.city + (address.country ? ',' + address.country : ''));
+                                parent.find('td:nth-child(4)').html(address.street + ',' + address.city + (address.country ? ',' + address.country : ''));
                             }
                             $.jGrowl(data.msg);
                         }).fail(function (e) {

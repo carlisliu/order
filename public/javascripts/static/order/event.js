@@ -170,6 +170,7 @@ define('static/order/event', ['jquery', 'validate', 'validate.extend', 'jgrowl',
                         customer_id: customer.id,
                         customer_name: customer.name,
                         customer_tel: customer.tel,
+                        customer_shopName: customer.shopName,
                         customer_address: customer.address
                     }, getDetail(orderDetails));
                     order.save(order.getData(), function (err, data) {

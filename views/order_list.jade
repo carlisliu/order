@@ -1,6 +1,7 @@
 extends layout
 append css
-    link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/datepicker.css')
+    !{context.resources.css.order_list}
+    //link(rel='stylesheet', href='#{context.staticUrl}/stylesheets/datepicker.css')
     style.
         table a, a:hover {
             text-decoration: none;

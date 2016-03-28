@@ -1,4 +1,6 @@
 extends layout
+append css
+    !{context.resources.css.order_detail}
 block content
     div.content
         div.row-fluid.force-margin
@@ -33,6 +35,11 @@ block content
                             - }
                             div.invoice-to
                                 strong To:
+                                address
+                                    br
+                                    strong #{order.customer_name}
+                                    br
+                                    |#{order.customer_shopName}
                                 address
                                     br
                                     |#{order.customer_fixAddress}
