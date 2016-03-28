@@ -16,6 +16,9 @@ var CustomerSchema = new Schema({
     tel: {
         type: String
     },
+    shopName: {
+        type: String
+    },
     address: {
         street: String,
         city: String,
