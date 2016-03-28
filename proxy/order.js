@@ -11,7 +11,7 @@ exports.createOrder = function (order, callback) {
     if (order && order.details && order.details.length) {
         order2Save = new Order();
         order2Save.no = utils.getOrderNo();
-        utils.copyProperties(order2Save, order, ['customer_id', 'company_id', 'customer_name', 'customer_tel', 'customer_address']);
+        utils.copyProperties(order2Save, order, ['customer_id', 'company_id', 'customer_name', 'customer_tel', 'customer_shopName', 'customer_address']);
         order2Save.details = [];
         order.details.forEach(function (content, index) {
             var orderDetail = new OrderDetail();
@@ -38,6 +38,7 @@ exports.updateOrder = function (order, callback) {
             customer_name: order.customer_name,
             customer_address: order.customer_address,
             customer_tel: order.customer_tel,
+            customer_shopName: order.customer_shopName,
             memo: order.memo,
             details: orderDetails
         }}, function (err) {

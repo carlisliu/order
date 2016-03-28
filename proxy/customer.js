@@ -35,6 +35,7 @@ exports.updateCustomerById = function(customer, callback) {
         $set: {
             name: customer.name,
             tel: customer.tel,
+            shopName: customer.shopName,
             address: customer.address
         }
     }, callback);
@@ -77,6 +78,7 @@ exports.upsertCustomer = function(condition, customer, callback) {
     Customer.update(condition, {
         $set: {
             tel: customer.tel,
+            shopName: customer.shopName,
             address: customer.address
         }
     }, {
