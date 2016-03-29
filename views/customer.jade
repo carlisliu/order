@@ -55,7 +55,7 @@ block content
                                         tr(data-customer-id="#{customerItem._id}")
                                             td(data-customer-name="#{customerItem.name}") #{customerItem.name}
                                             td(data-customer-tel="#{customerItem.tel}") #{customerItem.tel}
-                                            td(data-customer-shop-name="#{customerItem.shopName}") #{customerItem.shopName}
+                                            td(data-customer-shop-name="#{customerItem.shopName || ''}") #{customerItem.shopName}
                                             td(data-customer-address="#{customerItem.address}") #{customerItem.fixAddress}
                                             td.actions
                                                 div.btn-group
