@@ -1,37 +1,14 @@
 {
-  "name": "Order-Delivery",
+  "name": "order_delivery",
   "version": "2.0.0",
-  "private": true,
+  "description": "Order Delivery",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www",
     "test": "mocha"
   },
-  "dependencies": {
-    "async": "^1.5.1",
-    "body-parser": "~1.0.0",
-    "compression": "^1.6.0",
-    "connect-mongodb-session": "^1.1.0",
-    "cookie-parser": "^1.0.1",
-    "debug": "~0.7.4",
-    "eventproxy": "^0.3.2",
-    "express": "~4.0.0",
-    "express-session": "^1.11.1",
-    "jade": "~1.3.0",
-    "lodash": "^3.10.1",
-    "moment": "^2.10.0",
-    "mongoose": "^4.0.1",
-    "morgan": "~1.0.0",
-    "static-favicon": "~1.0.0"
-  },
-  "devDependencies": {
-    "gulp": "^3.9.0",
-    "gulp-clean": "^0.3.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-minify-css": "^1.2.3",
-    "gulp-plumber": "^1.0.1",
-    "gulp-uglify": "^1.5.1",
-    "mocha": "^2.3.4",
-    "rewire": "^2.5.1",
-    "should": "^8.0.2"
-  }
+  "keywords": [
+    "order"
+  ],
+  "author": "Carlis Liu",
+  "license": "MIT"
 }
