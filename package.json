@@ -1,5 +1,5 @@
 {
-  "name": "order_delivery",
+  "name": "order-delivery",
   "version": "2.0.0",
   "description": "Order Delivery",
   "main": "index.js",
@@ -9,6 +9,18 @@
   "keywords": [
     "order"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carlisliu/order.git"
+  },
   "author": "Carlis Liu",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^3.1.0",
+    "koa-conditional-get": "^1.0.3",
+    "koa-etag": "^2.1.1",
+    "koa-favicon": "^1.2.1",
+    "koa-router": "^7.0.1"
+  }
 }
