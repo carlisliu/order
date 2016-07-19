@@ -1,8 +1,14 @@
 #!/usr/bin/env node
-var app = require('./app');
 
-app.set('port', process.env.PORT || 3000);
+var app = require('../app');
+var debug = require('debug')('koa2:server');
+var http = require('http');
 
-var server = app.listen(app.get('port'), function(){
-    debug('Koa server listening on port ' + server.address().port);
+var server = http.createServer(app.callback());
+server.listen(process.env.PORT || 3000);
+
+server.on('listening', function() {
+    var addr = server.address();
+    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    debug('Listening on ' + bind);
 });
