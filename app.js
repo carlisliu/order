@@ -1,18 +1,26 @@
-var Koa = require('koa');
-var serve = require('koa-static');
-var favicon = require('koa-favicon');
-var conditional = require('koa-conditional-get');
-var etag = require('koa-etag');
+const Koa = require('koa');
+const serve = require('koa-static');
+const favicon = require('koa-favicon');
+const conditional = require('koa-conditional-get');
+const etag = require('koa-etag');
+const router = require('./router');
+const convert = require('koa-convert');
 
-var app = new Koa();
+const app = new Koa();
 
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(convert(favicon(__dirname + '/public/favicon.ico')));
 
 // etag works together with conditional-get
-app.use(conditional());
-app.use(etag());
+app.use(convert(conditional()));
+app.use(convert(etag()));
 
 // or use absolute paths
-app.use(serve(__dirname + '/public'));
+app.use(convert(serve(__dirname + '/public')));
+
+router(app);
+
+app.on('error', function (error, cxt) {
+    console.error(error);
+});
 
 module.exports = app;
