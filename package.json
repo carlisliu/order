@@ -17,12 +17,15 @@
   "author": "Carlis Liu",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.4.1",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.1.0",
-    "koa-conditional-get": "^1.0.3",
-    "koa-etag": "^2.1.1",
-    "koa-favicon": "^1.2.1",
+    "koa-conditional-get": "^2.0.0",
+    "koa-etag": "^3.0.0",
+    "koa-favicon": "^2.0.0",
+    "koa-logger": "^2.0.0",
     "koa-router": "^7.0.1",
-    "koa-static": "^2.0.0"
+    "koa-static": "^3.0.0",
+    "koa-views": "^5.0.2"
   }
 }
