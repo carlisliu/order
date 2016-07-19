@@ -4,7 +4,8 @@
   "description": "Order Delivery",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node ./bin/www"
   },
   "keywords": [
     "order"
@@ -21,6 +22,7 @@
     "koa-conditional-get": "^1.0.3",
     "koa-etag": "^2.1.1",
     "koa-favicon": "^1.2.1",
-    "koa-router": "^7.0.1"
+    "koa-router": "^7.0.1",
+    "koa-static": "^2.0.0"
   }
 }
