@@ -2,6 +2,8 @@
 global.Promise = require('bluebird');
 
 const Koa = require('koa');
+const session = require('koa-generic-session');
+const redisStore = require('koa-redis');
 const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
 const favicon = require('koa-favicon');
@@ -16,6 +18,13 @@ const app = new Koa();
 app.use(logger());
 app.use(bodyParser());
 app.use(favicon(__dirname + '/public/favicon.ico'));
+
+app.keys = ['order', 'delivery'];
+app.use(convert(session({
+    store: redisStore({
+
+    })
+})));
 
 // etag works together with conditional-get
 app.use(conditional());
