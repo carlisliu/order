@@ -20,8 +20,12 @@ function register(app) {
     });
 
     let router = new Router();
-    router.get('/', function(ctx, next) {
-        ctx.body = 'Hello Koa-next';
+    router.get('/', async function(ctx, next) {
+        ctx.state = {
+            title: 'koa2 title'
+        };
+
+        await ctx.render('index', {});
     });
     app.use(router.routes()).use(router.allowedMethods());
 }
