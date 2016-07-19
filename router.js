@@ -1,9 +1,9 @@
-var fs = require('fs');
-var path = require('path');
-var Router = require('koa-router');
+"use strict";
+const fs = require('fs');
+const Router = require('koa-router');
 
 function register(app) {
-    var routes = fs.readdirSync('./routes');
+    let routes = fs.readdirSync('./routes');
 
     routes.map(function(route) {
         if (route) {
@@ -13,13 +13,13 @@ function register(app) {
     }).filter(function(route) {
         return !!route;
     }).forEach(function(route) {
-        var prefix = '/' + route;
-        var router = require('./routes' + prefix);
+        let prefix = '/' + route;
+        let router = require('./routes' + prefix);
         router.prefix(prefix);
         app.use(router.routes()).use(router.allowedMethods());
     });
 
-    var router = new Router();
+    let router = new Router();
     router.get('/', function(ctx, next) {
         ctx.body = 'Hello Koa-next';
     });

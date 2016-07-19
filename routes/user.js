@@ -1,6 +1,6 @@
-var Router = require('koa-router');
+const Router = require('koa-router');
 
-var router = new Router();
+const router = new Router();
 
 router.get('/', function(ctx, next) {
     ctx.body = 'users';
