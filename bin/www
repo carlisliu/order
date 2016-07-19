@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 
-var app = require('../app');
-var debug = require('debug')('koa2:server');
-var http = require('http');
+require('babel-core/register')({
+  presets: ['es2015-node5', 'stage-3']
+});
 
-var server = http.createServer(app.callback());
+const app = require('../app');
+const debug = require('debug')('koa2:server');
+const http = require('http');
+
+const server = http.createServer(app.callback());
 server.listen(process.env.PORT || 3000);
 
 server.on('listening', function() {
-    var addr = server.address();
-    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
     debug('Listening on ' + bind);
 });
