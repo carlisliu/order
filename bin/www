@@ -8,6 +8,8 @@ const app = require('../app');
 const debug = require('debug')('koa2:server');
 const http = require('http');
 
+debug('booting %s', 'server');
+
 const server = http.createServer(app.callback());
 server.listen(process.env.PORT || 3000);
 
