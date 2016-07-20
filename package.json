@@ -32,6 +32,7 @@
     "koa-redis": "^2.1.1",
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
-    "koa-views": "^5.0.2"
+    "koa-views": "^5.0.2",
+    "require-reload": "^0.2.2"
   }
 }
