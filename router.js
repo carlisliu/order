@@ -1,6 +1,7 @@
 "use strict";
-const fs = require('fs');
-const Router = require('koa-router');
+import fs from 'fs';
+import Router from 'koa-router';
+const STATELESS_MIDDLEWARE = ['api'];
 
 function register(app) {
     let routes = fs.readdirSync('./routes');
@@ -16,6 +17,9 @@ function register(app) {
         let prefix = '/' + route;
         let router = require('./routes' + prefix);
         router.prefix(prefix);
+        if (!intercepted(prefix)) {
+            //router.use(auth());
+        }
         app.use(router.routes()).use(router.allowedMethods());
     });
 
@@ -28,6 +32,10 @@ function register(app) {
         await ctx.render('index', {});
     });
     app.use(router.routes()).use(router.allowedMethods());
+
+    function intercepted (path) {
+        return path && STATELESS_MIDDLEWARE.indexOf(path) > -1;
+    }
 }
 
 module.exports = register;
