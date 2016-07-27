@@ -1,6 +1,3 @@
-// better performance.
-global.Promise = require('bluebird');
-
 const Koa = require('koa');
 const session = require('koa-generic-session');
 const redisStore = require('koa-redis');
