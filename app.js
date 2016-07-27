@@ -1,15 +1,15 @@
-const Koa = require('koa');
-const session = require('koa-generic-session');
-const redisStore = require('koa-redis');
-const bodyParser = require('koa-bodyparser');
-const serve = require('koa-static');
-const favicon = require('koa-favicon');
-const conditional = require('koa-conditional-get');
-const etag = require('koa-etag');
-const router = require('./router');
-const convert = require('koa-convert');
-const views = require('koa-views');
-const logger = require('koa-logger');
+import Koa from 'koa';
+import session from 'koa-generic-session';
+import redisStore from 'koa-redis';
+import bodyParser from 'koa-bodyparser';
+import serve from 'koa-static';
+import favicon from 'koa-favicon';
+import conditional from 'koa-conditional-get';
+import etag from 'koa-etag';
+import router from './router';
+import convert from 'koa-convert';
+import views from 'koa-views';
+import logger from 'koa-logger';
 
 const app = new Koa();
 app.use(logger());
