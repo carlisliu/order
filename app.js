@@ -19,7 +19,6 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.keys = ['order', 'delivery'];
 app.use(convert(session({
     store: redisStore({
-
     })
 })));
 
