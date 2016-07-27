@@ -7,10 +7,10 @@ router.get('/', function(ctx, next) {
 });
 
 router.post('/', async function  (ctx, next) {
-    var user = ctx.user;
+    var user = ctx.body.user;
     if (user) {
         ctx.state = {
-            title: 'koa2 title'
+            title: 'add user'
         };
 
         return await ctx.render('detail', {});
