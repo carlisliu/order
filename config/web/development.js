@@ -1,3 +1,4 @@
 module.exports = {
-    staticPath: '6' 
+    staticPath: '6' ,
+    name: 'm'
 };

@@ -10,6 +10,7 @@ import router from './router';
 import convert from 'koa-convert';
 import views from 'koa-views';
 import logger from 'koa-logger';
+import config from './config';
 
 const app = new Koa();
 app.use(logger());
