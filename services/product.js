@@ -1,8 +1,8 @@
 import CONST from './const';
-import model from '../model';
+import model from '../models/product';
 
 export async function findProductById (id) {
-    
+
     return await model.find({_id: id});
 }
 
