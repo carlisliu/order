@@ -2,8 +2,7 @@ import CONST from './const';
 import model from '../models/product';
 
 export async function findProductById (id) {
-
-    return await model.find({_id: id});
+    return await model.findOne({_id: id});
 }
 
 export async function findProducts (page, size) {
