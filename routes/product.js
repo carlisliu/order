@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import state from './state';
-import productService from '../services/product';
+import * as productService from '../services/product';
 import assert from 'assert';
 
 const router = new Router();
