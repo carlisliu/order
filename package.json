@@ -23,17 +23,22 @@
     "bluebird": "^3.4.1",
     "chokidar": "^1.6.0",
     "ejs": "^2.4.2",
+    "ioredis": "^2.2.0",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.1.0",
     "koa-conditional-get": "^2.0.0",
     "koa-etag": "^3.0.0",
     "koa-favicon": "^2.0.0",
     "koa-generic-session": "^1.11.1",
+    "koa-json": "^2.0.2",
     "koa-logger": "^2.0.0",
     "koa-redis": "^2.1.1",
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
     "koa-views": "^5.0.2",
-    "require-reload": "^0.2.2"
+    "mongoose": "^4.5.7",
+    "mongoose-id-validator": "^0.3.0",
+    "require-reload": "^0.2.2",
+    "uid": "0.0.2"
   }
 }

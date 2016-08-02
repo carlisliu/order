@@ -16,11 +16,13 @@ function register(app) {
     }).forEach(function(route) {
         let prefix = '/' + route;
         let router = require('./routes' + prefix);
-        router.prefix(prefix);
-        if (!intercepted(prefix)) {
-            //router.use(auth());
+        if (router instanceof Router) {
+            router.prefix(prefix);
+            if (!intercepted(prefix)) {
+                //router.use(auth());
+            }
+            app.use(router.routes()).use(router.allowedMethods());
         }
-        app.use(router.routes()).use(router.allowedMethods());
     });
 
     let router = new Router();

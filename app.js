@@ -10,16 +10,20 @@ import router from './router';
 import convert from 'koa-convert';
 import views from 'koa-views';
 import logger from 'koa-logger';
+import json from 'koa-json';
 import config from './config';
+import ioredis from 'ioredis';
 
 const app = new Koa();
 app.use(logger());
 app.use(bodyParser());
+app.use(json());
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.keys = ['order', 'delivery'];
 app.use(convert(session({
     store: redisStore({
+        client: ioredis.createClient()
     })
 })));
 
