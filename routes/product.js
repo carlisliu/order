@@ -31,15 +31,27 @@ router.get('/:productId', async function(ctx, next) {
     }));
 });
 
-router.post('/', async function(ctx, next) {
-    const product = this.body || {};
+router.put('/', async function  (ctx, next) {
+    const product = (this.body || {}).product;
 
     validate(product);
 
-    let saved = await productService.save(product);
+    let savedProduct = await productService.save(product);
 
     ctx.body = state({
-        product: saved
+        product: savedProduct
+    });
+});
+
+router.post('/', async function(ctx, next) {
+    const product = (this.body || {}).product;
+
+    validate(product);
+
+    let updatedProduct = await productService.update(product);
+
+    ctx.body = state({
+        product: updatedProduct
     });
 });
 
