@@ -8,13 +8,13 @@ const debug = _debugger('models/index');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/order', {
+mongoose.connect('mongodb://localhost/order', /*{
     db: {
         native_parser: true
     },
     user: 'root',
     pass: 'root'
-}, function(err) {
+},*/ function(err) {
     if (err) {
         console.log(err);
         debug('connect error: ', err);
