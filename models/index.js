@@ -3,6 +3,7 @@ import _debugger from 'debug';
 import Category from './category';
 import Order from './order';
 import Product from './product';
+import User from './user';
 
 const debug = _debugger('models/index');
 
@@ -22,4 +23,4 @@ mongoose.connect('mongodb://localhost/order', /*{
     }
 });
 
-export {Category, Order, Product}
+export {Category, Order, Product, User}
