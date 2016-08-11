@@ -1,5 +1,5 @@
 import CONST from './const';
-import model from '../models/order';
+import model from '../models';
 
 export async function queryOrderById (id) {
     return await model.findOne({_id: id});

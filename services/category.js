@@ -1,5 +1,5 @@
 import CONST from './const';
-import {Category as model} from '../models/category';
+import {Category as model} from '../models';
 
 export async function findCategoryById (id) {
     return await model.findOne({_id: id});
