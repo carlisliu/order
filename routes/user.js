@@ -6,7 +6,7 @@ router.get('/', function(ctx, next) {
     ctx.body = 'users';
 });
 
-router.post('/', async function  (ctx, next) {
+router.post('/', async function(ctx, next) {
     var user = ctx.body.user;
     if (user) {
         ctx.state = {
@@ -14,11 +14,11 @@ router.post('/', async function  (ctx, next) {
         };
 
         return await ctx.render('detail', {});
-    } 
+    }
     await ctx.render('detail');
 });
 
-router.delete('/:id', async function  (ctx, next) {
+router.delete('/:id', async function(ctx, next) {
     var id = ctx.params.id;
     if (id) {
         ctx.state = {
@@ -26,7 +26,7 @@ router.delete('/:id', async function  (ctx, next) {
         };
 
         return await ctx.render('detail', {});
-    } 
+    }
     await ctx.render('detail');
 });
 

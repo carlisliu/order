@@ -22,7 +22,7 @@ router.get('/', async function(ctx, next) {
     });
 });
 
-router.get('/:orderId', async function (ctx, next) {
+router.get('/:orderId', async function(ctx, next) {
     const orderId = (ctx.req.query || {}).orderId;
 
     if (!orderId) {
@@ -37,7 +37,7 @@ router.get('/:orderId', async function (ctx, next) {
     }));
 });
 
-router.put('/', async function (ctx, next) {
+router.put('/', async function(ctx, next) {
     let order = (ctx.body || {}).order;
 
     validate(order);
@@ -49,7 +49,7 @@ router.put('/', async function (ctx, next) {
     });
 });
 
-router.post('/', async function (ctx, next) {
+router.post('/', async function(ctx, next) {
     let order = (ctx.body || {}).order;
 
     validate(order);
@@ -61,7 +61,7 @@ router.post('/', async function (ctx, next) {
     });
 });
 
-router.delete('/:orderId', async function (ctx, next) {
+router.delete('/:orderId', async function(ctx, next) {
     const orderId = (ctx.req.query || {}).orderId;
 
     await orderService.deleteById(orderId);
@@ -76,7 +76,7 @@ function validate(order) {
     assert(order.user, "order's user is empty.");
     assert(order.address, "order's address is empty.");
     assert(order.details && order.details.length, "order's detail is empty.");
-    order.details.forEach(function (detail) {
+    order.details.forEach(function(detail) {
         assert(detail, 'detail is empty.');
         assert(detail.product, "detail's product is empty.");
     });
