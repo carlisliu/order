@@ -61,4 +61,4 @@ router.delete('/:categoryId', async function  (ctx, next) {
     });
 });
 
-export router;
+module.exports = router;
