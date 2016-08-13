@@ -40,7 +40,7 @@ router.get('/:orderId', async function(ctx, next) {
 router.put('/', async function(ctx, next) {
 
     if (!ctx.req.session) {
-        return next();
+        return next(); 
     }
 
     let order = (ctx.body || {}).order;
