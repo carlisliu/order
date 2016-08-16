@@ -31,7 +31,7 @@ router.get('/:productId', async function(ctx, next) {
     }));
 });
 
-router.put('/', async function  (ctx, next) {
+router.put('/', async function(ctx, next) {
     const product = (this.body || {}).product;
 
     validate(product);
@@ -69,7 +69,7 @@ router.delete('/:productId', async function(ctx, next) {
     });
 });
 
-function validate (product) {
+function validate(product) {
     assert(product, 'product is empty.');
     assert(product.name, "product's name is empty.");
     assert(product.price, "product's name is empty.");

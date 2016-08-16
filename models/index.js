@@ -3,12 +3,13 @@ import _debugger from 'debug';
 import Category from './category';
 import Order from './order';
 import Product from './product';
+import User from './user';
 
 const debug = _debugger('models/index');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost/order', /*{
+mongoose.connect('mongodb://172.17.0.2/order', /*{
     db: {
         native_parser: true
     },
@@ -22,4 +23,4 @@ mongoose.connect('mongodb://localhost/order', /*{
     }
 });
 
-export {Category, Order, Product}
+export {Category, Order, Product, User}

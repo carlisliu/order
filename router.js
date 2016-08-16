@@ -35,7 +35,7 @@ function register(app) {
     });
     app.use(router.routes()).use(router.allowedMethods());
 
-    function intercepted (path) {
+    function intercepted(path) {
         return path && STATELESS_MIDDLEWARE.indexOf(path) > -1;
     }
 }
