@@ -4,6 +4,7 @@ import Category from './category';
 import Order from './order';
 import Product from './product';
 import User from './user';
+import Organization from './organization';
 
 const debug = _debugger('models/index');
 
@@ -23,4 +24,4 @@ mongoose.connect('mongodb://172.17.0.2/order', /*{
     }
 });
 
-export {Category, Order, Product, User}
+export {Category, Order, Product, User, Organization}
