@@ -5,19 +5,24 @@ import uid from 'uid';
 import idValidator from 'mongoose-id-validator';
 
 const organizationSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    unique: true,
-    required: true,
-  },
   id: {
     type: String,
     unique: true,
     required: true,
   },
-  description: {
-    type: String
-  }
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  tel: String,
+  cell: String,
+  address: {
+    street: String,
+    city: String,
+    country: String
+  },
+  description: String
 }, {
   versionKey: false,
   timestamps: {
