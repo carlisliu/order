@@ -36,10 +36,13 @@ router.put('/', async function(ctx, next) {
 
     validate(product);
 
-    let savedProduct = await productService.save(product);
-
-    ctx.body = state({
-        product: savedProduct
+    await productService.save(product).then(function() {
+        ctx.body = state();
+    }).catch(function(e) {
+        ctx.body = state({
+            status: 'error',
+            message: e && e.message || 'Error'
+        });
     });
 });
 
