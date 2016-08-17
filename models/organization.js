@@ -28,7 +28,7 @@ const organizationSchema = new mongoose.Schema({
     transform(doc, ret) {
       delete ret._id;
       delete ret.hashed_secret;
-    },
+    }
   },
 });
 
