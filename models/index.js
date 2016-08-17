@@ -22,6 +22,7 @@ mongoose.connect('mongodb://172.17.0.2/order', /*{
         debug('connect error: ', err);
         process.exit(1);
     }
+    console.log("We're connected.");
 });
 
 export {Category, Order, Product, User, Organization}
