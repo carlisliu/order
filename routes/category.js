@@ -6,7 +6,7 @@ import assert from 'assert';
 const router = new Router();
 
 router.get('/', async function(ctx, next) {
-
+    await 1;
 });
 
 router.get('/:categoryId', async function(ctx, next) {

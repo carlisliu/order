@@ -50,7 +50,9 @@ organizationSchema.plugin(idValidator);
 
 organizationSchema.pre('validate', function preSave(next) {
   if (this.isNew) {
-    if (!this.id) this.id = uid(16);
+    if (!this.id) {
+      this.id = uid(16);
+    }
   }
   next();
 });
@@ -65,7 +67,7 @@ organizationSchema.vritual('address.full').get(function() {
 });
 
 organizationSchema.vritual('address.full').set(function(address) {
-  var addr = address.split('(\s+)?,(\s+)?');
+  var addr = address.split('(\\s+)?,(\\s+)?');
   this.address.street = addr[0] || '';
   this.address.city = addr[1] || '';
   this.address.country = addr[2] || '';
