@@ -40,5 +40,8 @@
     "mongoose-id-validator": "^0.3.0",
     "require-reload": "^0.2.2",
     "uid": "0.0.2"
+  },
+  "devDependencies": {
+    "jshint": "^2.9.3"
   }
 }
