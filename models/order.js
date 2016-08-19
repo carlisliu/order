@@ -41,7 +41,9 @@ orderSchema.plugin(idValidator);
 
 orderSchema.pre('validate', function preSave(next) {
   if (this.isNew) {
-    if (!this.id) this.id = uid(16);
+    if (!this.id) {
+      this.id = uid(16);
+    }
   }
   next();
 });

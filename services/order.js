@@ -20,7 +20,7 @@ export async function queryOrders(page, size) {
 export async function save(order) {
 
     order.details.forEach(function(detail, index) {
-        var orderDetailModel = Object.assign(new OrderDetail, detail);
+        var orderDetailModel = Object.assign(new OrderDetail(), detail);
         this[index] = orderDetailModel;
     }, order.details);
 
