@@ -23,6 +23,10 @@ const productSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
   },
+  hot: {
+    type: Boolean,
+    default: false
+  }
 }, {
   versionKey: false,
   timestamps: {
