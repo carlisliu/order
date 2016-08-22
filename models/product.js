@@ -5,24 +5,25 @@ import uid from 'uid';
 import idValidator from 'mongoose-id-validator';
 
 const productSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    unique: true,
-    required: true,
-  },
   id: {
     type: String,
     unique: true,
     required: true,
   },
-  price: {
-    type: Number,
-    required: true
+  name: {
+    type: String,
+    //unique: true,
+    required: true,
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
   },
+  price: {
+    type: Number,
+    required: true
+  },
+  unit: String,
   hot: {
     type: Boolean,
     default: false
@@ -49,7 +50,19 @@ productSchema.pre('validate', function preSave(next) {
       this.id = uid(16);
     }
   }
-  next();
+  this.count({
+    category: this.category,
+    name: this.name
+  }, function(error, count) {
+    if (error) {
+      return next(error);
+    }
+    if (count > 0) {
+      return next(new Error('Product exists under the same category.'));
+    }
+    next();
+  });
+  //next();
 });
 
 export default mongoose.model('Product', productSchema);

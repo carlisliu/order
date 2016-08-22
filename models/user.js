@@ -19,9 +19,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
-    type: String
-  }
+  email: String,
+  description: String
 }, {
   versionKey: false,
   timestamps: {

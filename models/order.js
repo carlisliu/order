@@ -4,6 +4,27 @@ import mongoose from 'mongoose';
 import uid from 'uid';
 import idValidator from 'mongoose-id-validator';
 
+const orderDetailSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  productId: {
+    type: String,
+    required: true
+  },
+  productName: String,
+  price: {
+    type: Number,
+    required: true
+  },
+  count: {
+    type: Number,
+    required: true
+  }
+});
+
 const orderSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -15,14 +36,8 @@ const orderSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  name: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  description: {
-    type: String
-  }
+  details: [orderDetailSchema],
+  description: String
 }, {
   versionKey: false,
   timestamps: {
