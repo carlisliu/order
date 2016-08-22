@@ -52,6 +52,21 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
+orderSchema.vritual('total').get(function() {
+  var total = 0;
+  var details = this.details;
+
+  if (details) {
+    details.map(item => {
+      return item.price * item.count;
+    }).reduce((pre, cur) => {
+      return pre + cur;
+    }, total);
+  }
+
+  return total;
+});
+
 orderSchema.plugin(idValidator);
 
 orderSchema.pre('validate', function preSave(next) {
