@@ -25,4 +25,10 @@ mongoose.connect('mongodb://172.17.0.2/order', /*{
     console.log("We're connected.");
 });
 
-export {Category, Order, Product, User, Organization};
+export {
+    Category,
+    Order,
+    Product,
+    User,
+    Organization
+};
