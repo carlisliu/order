@@ -19,6 +19,19 @@ class Category {
         });
     }
 
+    remove(id) {
+        if (id) {
+            $.ajax({
+                url: '/category/' + id,
+                method: 'DELETE'
+            }).done(res => {
+
+            }).fail(err => {
+
+            });
+        }
+    }
+
     toJSON() {
         return {
             name: this.name,

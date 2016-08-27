@@ -1,7 +1,8 @@
 import $ from "jquery";
 
 class Product {
-    constructor(category, name = '', price = 0.0, unit = '', hot = false) {
+    constructor(category, id = null, name = '', price = 0.0, unit = '', hot = false) {
+        this.id = id;
         this.category = category;
         this.name = name;
         this.price = price;
@@ -24,6 +25,7 @@ class Product {
 
     toJSON() {
         return {
+            id: this.id,
             category: this.category,
             name: this.name,
             price: this.price,
