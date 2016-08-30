@@ -3,16 +3,23 @@ import fs from 'fs';
 import Router from 'koa-router';
 const STATELESS_MIDDLEWARE = ['api'];
 
-function register(app) {
-    let routes = fs.readdirSync('./routes');
-
+function register(app, option) {
+    option = option || {};
+    let rootRoute = option.root || './routes';
+    let routes = fs.readdirSync(rootRoute);
     routes.map(function(route) {
         if (route) {
             route = route.replace(/^(\.+)/, '').replace(/(\.\w+)$/, '');
         }
         return route;
     }).filter(function(route) {
-        return !!route;
+        if (route) {
+            if (option.exclude) {
+                return option.exclude.test(route)
+            }
+            return true;
+        }
+        return false;
     }).forEach(function(route) {
         let prefix = '/' + route;
         let router = require('./routes' + prefix);
