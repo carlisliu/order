@@ -6,6 +6,13 @@ class Category {
         this.description = description;
     }
 
+    validate() {
+        if (!this.name) {
+            throw new Error("Category's name is required.");
+        }
+        return true;
+    }
+
     save() {
         var category = this.toJSON();
         $.ajax({
@@ -25,9 +32,9 @@ class Category {
                 url: '/category/' + id,
                 method: 'DELETE'
             }).done(res => {
-
-            }).fail(err => {
-
+                console.log(res);
+            }).fail(error => {
+                console.error(error);
             });
         }
     }
