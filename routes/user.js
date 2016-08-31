@@ -1,4 +1,7 @@
 import Router from 'koa-router';
+import state from './state';
+import userService from '../services/user';
+import assert from 'assert';
 
 const router = new Router();
 
@@ -18,16 +21,32 @@ router.post('/', async function(ctx, next) {
     await ctx.render('detail');
 });
 
+router.put('/', async function(ctx, next) {
+    var user = ctx.body.user;
+    validate(user);
+    await userService.addUser(user);
+    ctx.body = state({
+        message: 'user saved!'
+    });
+});
+
 router.delete('/:id', async function(ctx, next) {
     var id = ctx.params.id;
-    if (id) {
-        ctx.state = {
-            title: 'koa2 title'
-        };
-
-        return await ctx.render('detail', {});
+    if (!id) {
+        return next();
     }
-    await ctx.render('detail');
+    await userService.removeById(id);
+    ctx.body = state({
+        message: 'user deleted!'
+    });
 });
+
+function validate(user) {
+    assert(user, 'user can not be empty.');
+    assert(user.id, "user's id can not be empty.");
+    assert(user.name, "user's name can not be empty.");
+    assert(user.password, "user's password can not be empty.");
+    assert(user.email, "user's email can not be empty.");
+}
 
 module.exports = router;

@@ -13,3 +13,13 @@ export async function findUserByUserId(id) {
         id: id
     });
 }
+
+export async function removeById(id) {
+    return await model.remove({
+        id: id
+    });
+}
+
+export async function addUser(user) {
+    return await new model(user).save();
+}
