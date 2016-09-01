@@ -13,12 +13,10 @@ export async function queryOrderById(id) {
 export async function queryOrders(page, size) {
     let currentPage = page || 0;
     let pageSize = size || CONST.DEFAULT_PAGE_SIZE;
-
     return await Order.find().limit(currentPage * size, (page + 1) * pageSize);
 }
 
 export async function save(order) {
-
     order.details.forEach(function(detail, index) {
         var orderDetailModel = Object.assign(new OrderDetail(), detail);
         this[index] = orderDetailModel;
@@ -30,7 +28,6 @@ export async function save(order) {
 }
 
 export async function update(newOrder) {
-
     const order = await queryOrderById(newOrder._id);
 
     const toUpdate = [];
@@ -38,7 +35,6 @@ export async function update(newOrder) {
     order.details.forEach(function(detail) {
 
     });
-
 
     return orderModel._findAndModify('update', function() {});
 }

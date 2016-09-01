@@ -14,7 +14,6 @@ export async function findProductById(id) {
 export async function findProducts(page, size) {
     let currentPage = page || 0;
     let pageSize = size || DEFAULT_PAGE_SIZE;
-
     return await Product.find().limit(currentPage * size, (page + 1) * pageSize);
 }
 
