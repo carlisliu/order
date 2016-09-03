@@ -7,6 +7,8 @@ class User {
     update() {
 
     }
+
+    remove() {}
 }
 
 export User;
