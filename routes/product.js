@@ -16,6 +16,14 @@ router.get('/', async function(ctx, next) {
     }));
 });
 
+router.get('/hot', async function(ctx, next) {
+    let products = await productService.findHotProducts();
+    await ctx.render('product/detail', state({
+        title: 'Order detail',
+        products: products
+    }));
+});
+
 router.get('/:productId', async function(ctx, next) {
     const params = ctx.req.query || {};
     let productId = params.productId;
@@ -27,7 +35,8 @@ router.get('/:productId', async function(ctx, next) {
     let product = await productService.findProductById(productId);
 
     await ctx.render('product/detail', state({
-        title: 'Order detail'
+        title: 'Order detail',
+        product: product
     }));
 });
 
