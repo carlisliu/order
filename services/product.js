@@ -20,3 +20,9 @@ export async function findProducts(page, size) {
 export async function save(product) {
     return await new Product(product).save();
 }
+
+export async function findHotProducts() {
+    return await Product.find({
+        hot: true
+    });
+}
