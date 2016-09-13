@@ -1,3 +1,3 @@
 export async function (ctx, next) {
-    next();
+    await next();
 }
