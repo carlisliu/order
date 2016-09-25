@@ -1,8 +1,7 @@
 define('static/user/user', [], function(require, exports, module) {
     class User {
-        constructor(name = '', email = '') {
-            this.name = name;
-            this.email = email;
+        constructor(data = {}) {
+            this.data = data;
         }
 
         update() {

@@ -3,15 +3,16 @@ define('static/user/event', ['jquery', 'Vue', './user'], function(require, expor
     var Vue = require('Vue');
     var User = require('./user');
 
-    var userData = $.parseJSON($.trim($('#container').val()));
+    var userData = $.trim($('#container').val());
+    userData = $.parseJSON(userData || {});
 
     var vm = new Vue({
         el: '#user'
-        data: userData,
-        compute: {
+        data: new User(userData),
+        computed: {
 
         },
-        method: {}
+        methods: {}
     });
 
     module.exports = vm;
