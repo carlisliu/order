@@ -8,7 +8,7 @@ define('static/user/event', ['jquery', 'Vue', './user'], function(require, expor
 
     var vm = new Vue({
         el: '#user'
-        data: new User(userData),
+        data: userData,
         computed: {
 
         },
