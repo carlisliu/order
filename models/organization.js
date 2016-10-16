@@ -57,7 +57,7 @@ organizationSchema.pre('validate', function preSave(next) {
   next();
 });
 
-organizationSchema.vritual('address.full').get(function() {
+organizationSchema.virtual('address.full').get(function() {
   var address = this.address;
   var full = [address.street, address.city, address.country];
   full = full.filter(function (address) {
@@ -66,7 +66,7 @@ organizationSchema.vritual('address.full').get(function() {
   return full.join(', ');
 });
 
-organizationSchema.vritual('address.full').set(function(address) {
+organizationSchema.virtual('address.full').set(function(address) {
   var addr = address.split('(\\s+)?,(\\s+)?');
   this.address.street = addr[0] || '';
   this.address.city = addr[1] || '';

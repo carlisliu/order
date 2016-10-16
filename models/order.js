@@ -52,7 +52,7 @@ const orderSchema = new mongoose.Schema({
   },
 });
 
-orderSchema.vritual('total').get(function() {
+orderSchema.virtual('total').get(function() {
   var total = 0;
   var details = this.details;
 
