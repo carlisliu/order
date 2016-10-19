@@ -15,7 +15,7 @@ function register(app, option) {
     }).filter(function(route) {
         if (route) {
             if (option.exclude) {
-                return option.exclude.test(route)
+                return option.exclude.test(route);
             }
             return true;
         }
