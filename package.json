@@ -42,6 +42,7 @@
     "uid": "0.0.2"
   },
   "devDependencies": {
-    "jshint": "^2.9.3"
+    "jshint": "^2.9.3",
+    "mocha": "^3.1.2"
   }
 }
