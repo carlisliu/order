@@ -71,7 +71,7 @@ router.delete('/:productId', async function(ctx, next) {
     const productId = (this.body || {}).productId;
 
     if (!productId) {
-        next();
+        this.throw(404);
     }
 
     await productService.remove(productId);
