@@ -1,17 +1,53 @@
-/**
- * Created by Carlis on 12/28/15.
- */
+'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+import uid from 'uid';
+import idValidator from 'mongoose-id-validator';
 
-var UserSchema = new Schema({
-    id: {type: String, unique: true},
-    name: {type: String},
-    password: {type: String},
-    admin: {type: Boolean},
-    company_id: {type: Schema.ObjectId},
-    create_at: {type: Date, default: Date.now}
+const userSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  admin: {
+    type: Boolean,
+    default: false
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  email: String,
+  description: String
+}, {
+  versionKey: false,
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
+  toJSON: {
+    transform(doc, ret) {
+      delete ret._id;
+      delete ret.hashed_secret;
+    },
+  },
 });
 
-mongoose.model('User', UserSchema);
+userSchema.plugin(idValidator);
+
+userSchema.pre('validate', function preSave(next) {
+  if (this.isNew) {
+    if (!this.id) {
+      this.id = uid(16);
+    }
+  }
+  next();
+});
+
+export default mongoose.model('User', userSchema);

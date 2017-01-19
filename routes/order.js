@@ -1,149 +1,90 @@
-/**
- * Created by Carlis on 4/12/15.
- */
-var express = require('express');
-var router = express.Router();
-var Order = require('../proxy').Order;
-var Customer = require('../proxy').Customer;
-var Category = require('../proxy').Category;
-var moment = require('moment');
-var Company = require('../proxy').Company;
-var EventProxy = require('eventproxy');
+import Router from 'koa-router';
+import orderService from '../services/order';
 
-router.get('/details/:id', function(req, res) {
-    var orderId = req.params['id'];
-    var company = req.session.user.company;
-    Order.findOrderById({
-        no: orderId,
-        company_id: company.id
-    }, function(err, order) {
-        var msg = err ? err.toString() : '';
-        if (!order) {
-            msg = 'Order does not exist.';
-        }
-        res.render('order_detail', {
-            order: order,
-            msg: msg,
-            company: company,
-            title: 'Order Details-No.' + order.no
-        });
+const router = new Router();
+
+router.get('/index.html', async function(ctx, next) {
+
+    const orders = await orderService.queryOrders();
+
+    await ctx.render('order/index', state({
+        title: 'Order',
+        orders: orders
+    }));
+});
+
+router.get('/', async function(ctx, next) {
+
+    const orders = await orderService.queryOrders();
+
+    ctx.body = state({
+        orders: orders
     });
 });
 
-router.get('/list.html', function(req, res) {
-    var no = req.param('no');
-    var companyId = req.session.user.company.id;
-    if (no) {
-        return Order.findOrderById({
-            no: no,
-            company_id: companyId
-        }, function(err, order) {
-            var msg = err ? err.toString() : '';
-            if (!order) {
-                msg = 'Order does not exist.';
-            }
-            res.render('order_list', {
-                title: 'Order',
-                orders: (order ? [order] : [])
-            });
-        });
+router.get('/:orderId', async function(ctx, next) {
+    const orderId = (ctx.req.query || {}).orderId;
+
+    if (!orderId) {
+        return next();
     }
-    var date = req.param('date');
-    if (date) {
-        return Order.getOrderByParams({
-            create_at: date,
-            company_id: companyId
-        }, function(err, orders) {
-            var status = 'success';
-            if (err) {
-                status = 'error'
-            }
-            res.render('order_list', {
-                title: 'Order',
-                orders: (orders || [])
-            });
-        });
+
+    const order = await orderService.queryOrderById(orderId);
+
+    await ctx.render('order/detail', state({
+        title: 'Order detail',
+        order: order
+    }));
+});
+
+router.put('/', async function(ctx, next) {
+
+    if (!ctx.req.session) {
+        return next();
     }
-    return Order.getAllOrder(companyId, function(err, orders) {
-        res.render('order_list', {
-            title: 'Order',
-            orders: (orders || [])
-        });
+
+    let order = (ctx.body || {}).order;
+
+    validate(order);
+
+    order = await orderService.save(order);
+
+    this.body = state({
+        order: order
     });
 });
 
-router.get('/get.html', function(req, res) {
-    var params = req.param('params'),
-        key,
-        companyId = req.session.user.company.id;
-    params = params || {};
-    for (key in params) {
-        break;
-    }
-    if (key) {
-        params.company_id = companyId;
-        Order.getOrderByParams(params, function(err, orders) {
-            var status = 'success';
-            if (err) {
-                status = 'error'
-            }
-            res.json({
-                status: status,
-                orders: (orders || [])
-            });
-        });
-    } else {
-        Order.getAllOrder(companyId, function(err, orders) {
-            var status = 'success';
-            if (err) {
-                status = 'error'
-            }
-            res.json({
-                status: status,
-                orders: orders || []
-            });
-        });
-    }
-});
+router.post('/', async function(ctx, next) {
+    let order = (ctx.body || {}).order;
 
-router.get('/index.html', function(req, res) {
-    var companyId = req.session.user.company.id;
-    var ep = new EventProxy();
-    ep.assign('customers', 'categories', function(customers, categories) {
-        res.render('order', {
-            title: 'Order',
-            customer: customers || [],
-            category: categories || []
-        });
-    });
-    var param = {
-        company_id: companyId
-    };
-    Customer.findCustomers(param, ep.done('customers'));
-    Category.findCategories(param, ep.done('categories'))
-});
+    validate(order);
 
-router.post('/add.html', function(req, res) {
-    var order = req.param('order');
-    if (!order) {
-        return res.json({
-            status: 'error',
-            msg: 'Order info is incomplete.'
-        });
-    }
-    order.company_id = req.session.user.company.id;
-    Order.createOrder(order, function(err, order) {
-        if (err) {
-            return res.json({
-                status: 'error',
-                msg: err.toString()
-            });
-        }
-        res.json({
-            status: 'success',
-            order: order
-        });
+    order = await orderService.update(order);
+
+    this.body = state({
+        order: order
     });
 });
+
+router.delete('/:orderId', async function(ctx, next) {
+    const orderId = (ctx.req.query || {}).orderId;
+
+    await orderService.deleteById(orderId);
+
+    this.body = state({
+        message: 'deleted'
+    });
+});
+
+function validate(order) {
+    assert(order, 'order is empty.');
+    assert(order.user, "order's user is empty.");
+    assert(order.address, "order's address is empty.");
+    assert(order.details && order.details.length, "order's detail is empty.");
+    order.details.forEach(function(detail) {
+        assert(detail, 'detail is empty.');
+        assert(detail.product, "detail's product is empty.");
+    });
+}
 
 module.exports = router;

@@ -1,34 +1,34 @@
-/**
- * Created by Carlis on 4/8/15.
- */
-var mongoose = require('mongoose');
-var config = require('../config');
+import mongoose from 'mongoose';
+import _debugger from 'debug';
+import Category from './category';
+import Order from './order';
+import Product from './product';
+import User from './user';
+import Organization from './organization';
 
-mongoose.connect(config.db.url, {
-	db: {
-		native_parser: true
-	},
-	user: config.db.username,
-	pass: config.db.password
-}, function(err) {
-	if (err) {
-		console.error('connect to %s error: ', config.db.url, err.message);
-		process.exit(1);
-	}
+const debug = _debugger('models/index');
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect('mongodb://172.17.0.2/order', /*{
+    db: {
+        native_parser: true
+    },
+    user: 'root',
+    pass: 'root'
+},*/ function(err) {
+    if (err) {
+        console.log(err);
+        debug('connect error: ', err);
+        process.exit(1);
+    }
+    console.log("We're connected.");
 });
 
-// models
-require('./category');
-require('./customer');
-require('./order');
-require('./product');
-require('./company');
-require('./user');
-
-exports.Category = mongoose.model('Category');
-exports.Customer = mongoose.model('Customer');
-exports.Order = mongoose.model('Order');
-exports.OrderDetail = mongoose.model('OrderDetail');
-exports.Product = mongoose.model('Product');
-exports.Company = mongoose.model('Company');
-exports.User = mongoose.model('User');
+export {
+    Category,
+    Order,
+    Product,
+    User,
+    Organization
+};

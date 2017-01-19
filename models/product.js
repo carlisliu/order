@@ -1,45 +1,68 @@
-/**
- * Created by Carlis on 4/8/15.
- */
+'use strict';
 
-var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+import uid from 'uid';
+import idValidator from 'mongoose-id-validator';
 
-var ProductSchema = new Schema({
-	company_id: {
-		type: Schema.ObjectId
-	},
-	category_id: {
-		type: String
-	},
-	name: {
-		type: String
-	},
-	price: {
-		type: Number
-	},
-	picture_uri: [String],
-	memo: {
-		type: String
-	},
-	create_at: {
-		type: Date,
-		default: Date.now
-	}
-});
-
-ProductSchema.index({
-	company_id: 1,
-	name: 1
+const productSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  name: {
+    type: String,
+    //unique: true,
+    required: true,
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  unit: String,
+  hot: {
+    type: Boolean,
+    default: false
+  }
 }, {
-	unique: true
+  versionKey: false,
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  },
+  toJSON: {
+    transform(doc, ret) {
+      //delete ret._id;
+      delete ret.hashed_secret;
+    },
+  },
 });
 
-ProductSchema.index({
-	category_id: 1,
-	company_id: 1
-}, {
-	index: true
+productSchema.plugin(idValidator);
+
+productSchema.pre('validate', function preSave(next) {
+  if (this.isNew) {
+    if (!this.id) {
+      this.id = uid(16);
+    }
+  }
+  this.count({
+    category: this.category,
+    name: this.name
+  }, function(error, count) {
+    if (error) {
+      return next(error);
+    }
+    if (count > 0) {
+      return next(new Error('Product exists under the same category.'));
+    }
+    next();
+  });
+  //next();
 });
 
-mongoose.model('Product', ProductSchema);
+export default mongoose.model('Product', productSchema);

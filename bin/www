@@ -1,9 +1,23 @@
 #!/usr/bin/env node
-var debug = require('debug')('my-application');
-var app = require('../app');
 
-app.set('port', process.env.PORT || 3000);
+require('babel-core/register')({
+  presets: ['es2015-node5', 'stage-3']
+});
 
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
+// better performance.
+global.Promise = require('bluebird');
+
+const app = require('../app');
+const debug = require('debug')('koa2:server');
+const http = require('http');
+
+debug('booting %s', 'server');
+
+const server = http.createServer(app.callback());
+server.listen(process.env.PORT || 3000);
+
+server.on('listening', function() {
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    debug('Listening on ' + bind);
 });
