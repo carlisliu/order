@@ -44,5 +44,8 @@
   "devDependencies": {
     "jshint": "^2.9.3",
     "mocha": "^3.1.2"
+  },
+  "engines": {
+    "node": ">=7.6.0"
   }
 }
