@@ -10,7 +10,7 @@ const debug = _debugger('models/index');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://172.17.0.2/order', /*{
+mongoose.connect('mongodb://127.0.0.1/order', /*{
     db: {
         native_parser: true
     },
